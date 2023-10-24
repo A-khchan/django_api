@@ -1,9 +1,20 @@
 from django.http import JsonResponse
 from .models import Drink
+from .models import Target
+from .models import Flight
 from .serializers import DrinkSerializer
+from .serializers import TargetSerializer
+from .serializers import FlightSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
+from rest_framework import filters
+from django.shortcuts import render
+
+from drinks.ff import multiSearch
+import json
+from datetime import datetime, timedelta, date
 
 @api_view(['GET', 'POST'])
 def drink_list(request, format=None):
@@ -46,4 +57,138 @@ def drink_detail(request, id, format=None):
     
 
 
+@api_view(['GET', 'POST'])
+def target_list(request, format=None):
+    #get all the targets
+    #serialize them
+    #return json
 
+    if request.method == 'GET':
+        targets = Target.objects.all()
+        serializer = TargetSerializer(targets, many=True)
+        #return JsonResponse({"targets":serializer.data}, safe=False)
+        return Response(serializer.data)
+    
+    if request.method == 'POST':
+        print("requesst.data is ")
+        print(request.data)
+        serializer = TargetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print("serializer return invalid")
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def target_detail(request, id, format=None):
+
+    try:
+        target = Target.objects.get(pk=id)
+    except Target.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = TargetSerializer(target)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = TargetSerializer(target, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        target.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TargetListView(generics.ListAPIView):
+    queryset = Target.objects.all()
+    serializer_class = TargetSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
+
+
+
+@api_view(['GET', 'POST'])
+def flight_list(request, format=None):
+    #get all the flights
+    #serialize them
+    #return json
+
+    if request.method == 'GET':
+        flights = Flight.objects.all()
+        #print("flights: ", flights)
+        serializer = FlightSerializer(flights, many=True)
+        #return JsonResponse({"flights":serializer.data}, safe=False)
+        #print("serializer.data: ", serializer.data)
+        return Response(serializer.data)
+    
+    if request.method == 'POST':
+        print("requesst.data is ")
+        print(request.data)
+        serializer = FlightSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print("serializer return invalid")
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def flight_detail(request, id, format=None):
+
+    try:
+        flight = Flight.objects.get(pk=id)
+    except Flight.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = FlightSerializer(flight)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = FlightSerializer(flight, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        flight.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class FlightListView(generics.ListAPIView):
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['fromAirport']
+
+@api_view(['GET', 'POST'])
+def invokeFF(request, format=None):
+    print("request.data is: ", request.data)
+    #return Response(status=status.HTTP_204_NO_CONTENT)
+
+    # data = [
+    #     {"message": "Thank you for your submission", "date": "2023-09-01"},
+    #     {"key": "hello"}
+    # ]
+
+    print("type of request.data is: ", type(request.data))
+
+    dict = request.data
+    print("dict['fromAirportList'] is: ", dict["fromAirportList"])
+
+    print("type of dict['departFrom'] is ", type(dict["departFrom"]))
+
+    #departFromStr = dict["departFrom"]
+
+    departFrom = date(int(dict["departFrom"][0:4]), int(dict["departFrom"][5:7]), int(dict["departFrom"][8:]))
+    departTo = date(int(dict["departTo"][0:4]), int(dict["departTo"][5:7]), int(dict["departTo"][8:]))
+
+    data = multiSearch(dict["fromAirportList"], dict["toAirportList"],
+                       departFrom, departTo)
+
+    print("result data is: ", data)
+
+    return JsonResponse(data, safe=False)
+
+def signup(request):
+    return render(request, 'signup.html')

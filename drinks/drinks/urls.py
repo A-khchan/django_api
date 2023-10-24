@@ -22,7 +22,15 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('drinks/', views.drink_list),
-    path('drinks/<int:id>', views.drink_detail)
+    path('drinks/<int:id>', views.drink_detail),
+    path('target/', views.target_list),
+    path('target/<int:id>', views.target_detail),
+    path('target/list/', views.TargetListView.as_view()),
+    path('flight/', views.flight_list),
+    path('flight/<int:id>', views.flight_detail),
+    path('flight/list/', views.FlightListView.as_view()),
+    path('ff/', views.invokeFF),
+    path('signup/', views.signup),
 ]
 
 # the following line allow url input in browser as http...drink.json which will result in json format response

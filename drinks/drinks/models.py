@@ -25,3 +25,7 @@ class Flight(models.Model):
     arrives = models.CharField(max_length=8)
     arriveDateChg = models.IntegerField()
 
+class User(models.Model):
+    userName = models.CharField(max_length=100)
+    passwordHash = models.BinaryField()
+

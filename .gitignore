@@ -6,9 +6,14 @@ python-venv/
 
 drinks-note.txt
 
+django-notes.txt
+
 settings.py
 *.log
 *.pot
 *.pyc
 __pycache__/
 db.sqlite3
+
+__pycache__/
+

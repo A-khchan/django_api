@@ -65,6 +65,8 @@ def searchFlight(fromAirport, toAirport, departDate, driver):
             if dayNum:
                 if dayNum[0].text == "1":
                     startOfMonth = True
+                    print("i: ", i)
+                    print("Start month = True")
 
                 if startOfMonth and int(dayNum[0].text) == departDate.day:
                     # a.move_to_element(dayNum[0]).perform()

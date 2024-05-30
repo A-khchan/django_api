@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    {% include "heading.html" %}
+
+    <div class="contentVerticallyCenter">
+        <div class="container">
+            <h2>Ride: </h2>
+            {% if userName %}
+                <h2 class="userName">{{ userName }}</h2>
+                <h2 id="results">Result</h2>
+            {% else %}
+                <h2 class="userName">Please login</h2>
+            {% endif %}
+            <h2 id="count">{{ count }}</h2>
+        </div>
+        <button onclick="sendMessage()">This is a button</button>    
+    </div>    
+
+    <script>
+        count = 1
+        document.getElementById("count").innerHTML = count
+
+        // const socket = new WebSocket('ws://192.168.0.42:8000/ws/count/'); 
+        const socket = new WebSocket('ws://' + window.location.href.split("/")[2] + '/ws/count/');
+        
+        // console.log("window.location.hostname: ", window.location.hostname)
+        // console.log("window.location.origin: ", window.location.origin)
+        // console.log("window.location.href.split('/')[2]: ", window.location.href.split("/")[2])
+
+        id = ""
+
+        // console.log("socket.readyState is: ", socket.readyState)
+
+        socket.onmessage = (e) => { 
+            console.log("onmessage, e.data:", e.data)
+            message = JSON.parse(e.data).message; 
+            idPassIn = JSON.parse(e.data).id
+
+            if (message == 'assignId') {
+                if (id == "") {
+                    id = JSON.parse(e.data).id
+                    console.log("id assigned is: ", id)
+                    socket.send(JSON.stringify({
+                                'request': 'boardcast',
+                                'message': 'hi',
+                                'id': id
+                                }));
+                }
+            } else if (message == 'hi') {
+                if (id != idPassIn) {
+                    count++
+                    socket.send(JSON.stringify({
+                                'request': 'boardcast',
+                                'message': 'welcome',
+                                'id': idPassIn
+                                }));
+                }
+            } else if (message == 'welcome') {
+                if (id == idPassIn) {
+                    count++
+                }
+            } else if (message == 'leave') {
+                count--
+            }
+            document.getElementById("count").innerHTML = count
+        } 
+  
+        socket.onclose = (e) => { 
+            // console.log("Socket closed!"); 
+        }  
+
+        function sendMessage(message) {
+            // console.log("sendMessage is called, with message: ", message)
+            
+            // socket.send() takes a str as input
+            // socket.send(JSON.stringify({
+            //     'message': message
+            // }));
+            // socket.send(message);
+        }
+    </script>
+</body>
+</html>
+
+
+
+

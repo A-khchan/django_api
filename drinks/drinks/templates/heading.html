@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="headBar">
+        <div class="contentVerticallyCenter" style="background-color: chartreuse;">
+            <h1 class="companyName" style="background-color: blue;">Ryde</h1>
+        </div>
+        <div class="box"> </div>
+
+        <div class="contentVerticallyCenter">
+            <a href="../ride/">
+                <span class="login">Ride</span>
+            </a>
+        </div>
+        
+        {% if userName %}
+        <h2>hi, {{ userName }} </h2>
+        <div class="contentVerticallyCenter">
+            <a href="../logout/">
+                <span class="login">Logout</span>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if not userName %}
+        <div class="contentVerticallyCenter">
+            <a href="../login/">
+                <span class="login">Login</span>
+            </a>
+        </div>
+        <div class="contentVerticallyCenter">
+            <a href="../registerForm/">
+                <span class="login">Register</span>
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+  
+</body>
+</html>
+
+
+
+
+
+
+

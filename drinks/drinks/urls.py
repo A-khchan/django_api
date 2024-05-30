@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from drinks import views
 from rest_framework.urlpatterns import format_suffix_patterns
+from django.views.generic.base import TemplateView
+from . import consumers 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,7 +32,13 @@ urlpatterns = [
     path('flight/<int:id>', views.flight_detail),
     path('flight/list/', views.FlightListView.as_view()),
     path('ff/', views.invokeFF),
-    path('signup/', views.signup),
+    path('registerForm/', views.registerForm),
+    path('register/', views.register),
+    path('login/', views.login),
+    path('doLogin/', views.doLogin),
+    path('logout/', views.logout),
+    path('ride/', views.ride),
+    # path('ws/count/', consumers.Counter.as_asgi()), 
 ]
 
 # the following line allow url input in browser as http...drink.json which will result in json format response

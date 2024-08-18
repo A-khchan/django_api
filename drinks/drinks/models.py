@@ -33,6 +33,6 @@ class Post(models.Model):
     date = models.CharField(max_length=24)
     author = models.CharField(max_length=50)
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     image = models.CharField(max_length=200)
-    replyID = models.TextField()
+    replyID = models.TextField(blank=True)

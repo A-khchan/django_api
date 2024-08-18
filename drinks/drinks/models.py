@@ -30,7 +30,7 @@ class User(models.Model):
     passwordHash = models.BinaryField()
 
 class Post(models.Model):
-    date = models.CharField(max_length=10)
+    date = models.CharField(max_length=24)
     author = models.CharField(max_length=50)
     title = models.CharField(max_length=200)
     content = models.TextField()

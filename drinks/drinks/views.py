@@ -2,10 +2,12 @@ from django.http import JsonResponse
 from .models import Drink
 from .models import Target
 from .models import Flight
+from .models import Post
 from .models import User
 from .serializers import DrinkSerializer
 from .serializers import TargetSerializer
 from .serializers import FlightSerializer
+from .serializers import PostSerializer
 from .serializers import UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -202,6 +204,61 @@ class FlightListView(generics.ListAPIView):
     serializer_class = FlightSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['fromAirport']
+
+
+@api_view(['GET', 'POST'])
+def post_list(request, format=None):
+    #get all the posts
+    #serialize them
+    #return json
+
+    if request.method == 'GET':
+        posts = Post.objects.all()
+        #print("posts: ", posts)
+        serializer = PostSerializer(posts, many=True)
+        #return JsonResponse({"posts":serializer.data}, safe=False)
+        #print("serializer.data: ", serializer.data)
+        return Response(serializer.data)
+    
+    if request.method == 'POST':
+        print("requesst.data is ")
+        print(request.data)
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print("serializer return invalid")
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def post_detail(request, id, format=None):
+
+    try:
+        post = Post.objects.get(pk=id)
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = PostSerializer(post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PostListView(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['fromAirport']
+
+
 
 @api_view(['GET', 'POST'])
 def invokeFF(request, format=None):

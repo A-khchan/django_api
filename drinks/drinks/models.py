@@ -29,3 +29,10 @@ class User(models.Model):
     userName = models.CharField(max_length=100)
     passwordHash = models.BinaryField()
 
+class Post(models.Model):
+    date = models.CharField(max_length=10)
+    author = models.CharField(max_length=50)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    image = models.CharField(max_length=200)
+    replyID = models.TextField()

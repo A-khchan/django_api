@@ -3,6 +3,7 @@ from .models import Drink
 from .models import Target
 from .models import Flight
 from .models import User
+from .models import Post
 
 class DrinkSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'userName', 'passwordHash']        
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['id', 'date', 'author', 'title', 'content', 'image', 'replyID']
+

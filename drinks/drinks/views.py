@@ -229,6 +229,7 @@ def post_list(request, format=None):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             print("serializer return invalid")
+            print(serializer.errors)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def post_detail(request, id, format=None):

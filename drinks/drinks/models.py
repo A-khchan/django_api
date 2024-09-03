@@ -31,8 +31,8 @@ class User(models.Model):
 
 class Post(models.Model):
     date = models.CharField(max_length=24)
-    author = models.CharField(max_length=50, null=True)
+    author = models.CharField(max_length=50, blank=True, null=True)
     title = models.CharField(max_length=200)
-    content = models.TextField(null=True)
-    image = models.CharField(max_length=200, null=True)
-    replyID = models.TextField(null=True)
+    content = models.TextField()
+    image = models.CharField(max_length=200, blank=True, null=True)
+    replyID = models.TextField(blank=True, null=True)

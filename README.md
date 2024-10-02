@@ -8,7 +8,7 @@ Steps to start django server on GCP VM
 > cd ~
 > source python-venv/bin/activate
 > cd django_api/drinks
-> python3 manage.py runserver 0.0.0.0:8000 &
+> nohup python3 manage.py runserver 0.0.0.0:8000 &
 
 
 Steps to start django server on local MacBook

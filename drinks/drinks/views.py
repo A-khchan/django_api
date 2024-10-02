@@ -368,9 +368,6 @@ def doLogin(request):
                 response = HttpResponse(template.render(context, request))
         else:
             template = loader.get_template('login.html')
-            context = {
-                    'userName': 'N/A'
-            }
             request.session['errMsg'] = 'Login error'
             response = HttpResponse(template.render(context, request))
 

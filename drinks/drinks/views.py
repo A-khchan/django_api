@@ -371,7 +371,7 @@ def doLogin(request):
             context = {
                     'userName': 'N/A'
             }
-            request.sesssion['errMsg'] = 'Login error'
+            request.session['errMsg'] = 'Login error'
             response = HttpResponse(template.render(context, request))
 
     return response

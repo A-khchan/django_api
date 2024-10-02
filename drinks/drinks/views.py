@@ -298,7 +298,20 @@ def registerForm(request):
     # print("user[1].userName is: ", user[1].userName)
     # print("user[1].userName is: ", user[1].passwordHash)
 
-    return render(request, 'registerForm.html')
+    userName = request.session.get('userName')
+    print("userName retrieved is: ", userName)
+    if userName:
+        print("userName found")
+        context = {
+            'userName': userName
+        }
+        template = loader.get_template('landing.html')
+        response = HttpResponse(template.render(context, request))
+    else:
+        print("userName not found")
+        response = render(request, 'registerForm.html')
+
+    return response
 
 def register(request):
 

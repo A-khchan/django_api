@@ -21,8 +21,8 @@
             </a>
         </div>
         
-        {% if userName %}
-        <h2>hi, {{ userName }} </h2>
+        {% if request.session.userName %}
+        <h2>hi, {{ request.session.userName }} </h2>
         <div class="contentVerticallyCenter">
             <a href="../logout/">
                 <span class="login">Logout</span>

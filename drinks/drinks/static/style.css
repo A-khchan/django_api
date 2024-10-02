@@ -41,6 +41,7 @@ body {
 .companyName {
     margin: 3px;
     /* flex: 1; */
+    color: white;
 }
 
 .box {

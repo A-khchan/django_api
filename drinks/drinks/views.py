@@ -309,7 +309,11 @@ def registerForm(request):
         response = HttpResponse(template.render(context, request))
     else:
         print("userName not found")
-        response = render(request, 'registerForm.html')
+        context = {
+            'page': 'registerForm'
+        }
+        template = loader.get_template('registerForm.html')
+        response = HttpResponse(template.render(context, request))        
 
     return response
 
@@ -348,8 +352,12 @@ def login(request):
         template = loader.get_template('landing.html')
         response = HttpResponse(template.render(context, request))
     else:
+        context = {
+            'page': 'login'
+        }
         print("userName not found")
-        response = render(request, 'login.html')
+        template = loader.get_template('login.html')
+        response = HttpResponse(template.render(context, request))
 
     return response
 

@@ -28,20 +28,24 @@
                 <span class="login">Logout</span>
             </a>
         </div>
+        {% else %}
+            {% if page == "registerForm" %}
+            <div class="contentVerticallyCenter">
+                <a href="../login/">
+                    <span class="login">Login</span>
+                </a>
+            </div>
+            {% endif %}
+
+            {% if page == "login" %}
+            <div class="contentVerticallyCenter">
+                <a href="../registerForm/">
+                    <span class="login">Register</span>
+                </a>
+            </div>
+            {% endif %}
         {% endif %}
 
-        {% if not userName %}
-        <div class="contentVerticallyCenter">
-            <a href="../login/">
-                <span class="login">Login</span>
-            </a>
-        </div>
-        <div class="contentVerticallyCenter">
-            <a href="../registerForm/">
-                <span class="login">Register</span>
-            </a>
-        </div>
-        {% endif %}
 
     </div>
   

@@ -303,7 +303,7 @@ def registerForm(request):
     if userName:
         print("userName found")
         context = {
-            'userName': userName
+            'placeholder': 'test'
         }
         template = loader.get_template('landing.html')
         response = HttpResponse(template.render(context, request))
@@ -347,7 +347,7 @@ def login(request):
     if userName:
         print("userName found")
         context = {
-            'userName': userName
+            'placeholder': 'test'
         }
         template = loader.get_template('landing.html')
         response = HttpResponse(template.render(context, request))
@@ -375,7 +375,7 @@ def doLogin(request):
                 template = loader.get_template('landing.html')
                 print("Password correct")
                 context = {
-                    'userName': user.userName
+                    'placeholder': 'test'
                 }
                 request.session['userName'] = user.userName
                 response = HttpResponse(template.render(context, request))
@@ -385,8 +385,12 @@ def doLogin(request):
                 template = loader.get_template('login.html')
                 print("Password incorrect")
                 context = {
-                    'userName': 'N/A'
+                    'errMsg': 'Login error'
                 }
+                try:
+                    del request.session['userName']
+                except KeyError:
+                    pass
                 response = HttpResponse(template.render(context, request))
         else:
             template = loader.get_template('login.html')
@@ -422,7 +426,7 @@ def ride(request):
 
     print("userName retrieved is: ", userName)
     context = {
-        'userName': userName
+        'placeholder': 'test'
     }
     template = loader.get_template('ride.html')
     response = HttpResponse(template.render(context, request))

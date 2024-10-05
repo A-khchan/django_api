@@ -363,8 +363,8 @@ def doLogin(request):
 
             result = bcrypt.checkpw(password, user.passwordHash)
 
-            template = loader.get_template('landing.html')
             if result:
+                template = loader.get_template('landing.html')
                 print("Password correct")
                 context = {
                     'userName': user.userName
@@ -374,6 +374,7 @@ def doLogin(request):
                 # response.set_cookie(key='userName', value=user.userName)
 
             else:
+                template = loader.get_template('login.html')
                 print("Password incorrect")
                 context = {
                     'userName': 'N/A'
@@ -385,6 +386,10 @@ def doLogin(request):
             context = {
                 'errMsg': 'Login error'
             }
+            try:
+                del request.session['userName']
+            except KeyError:
+                pass
             response = HttpResponse(template.render(context, request))
 
     return response

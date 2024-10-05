@@ -409,12 +409,13 @@ def doLogin(request):
 
 def logout(request):
 
-    response = render(request, 'login.html')
-    # response.delete_cookie('userName')
     try:
         del request.session['userName']
     except KeyError:
         pass
+
+    response = render(request, 'login.html')
+    # response.delete_cookie('userName')
 
     return response    
 

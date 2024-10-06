@@ -20,7 +20,9 @@
                 <br>
                 <input class="button" type="submit" value="Login">
             </form>
-            <h2>Message: {{ errMsg }}</h2>
+            {% if errMsg != "" %}
+                <h3>Message: {{ errMsg }}</h3>
+            {% endif %}
         </div>    
     </div>    
 </body>

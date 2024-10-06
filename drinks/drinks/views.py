@@ -336,8 +336,26 @@ def register(request):
             userObj = User.objects.create(userName = request.POST['username'], 
                                           passwordHash = hashed)
             userObj.save()
+            context = {
+                'page': 'registerForm',
+            }
+            template = loader.get_template('thank_register.html')
+            response = HttpResponse(template.render(context, request))            
+        else:
+            context = {
+                'page': 'registerForm',
+                'errMsg': 'User name not available'
+            }
+            template = loader.get_template('registerForm.html')
+            response = HttpResponse(template.render(context, request))            
+    else:
+        context = {
+            'page': 'registerForm'
+        }
+        template = loader.get_template('registerForm.html')
+        response = HttpResponse(template.render(context, request))        
 
-    return render(request, 'thank_register.html')
+    return response
 
 
 def login(request):

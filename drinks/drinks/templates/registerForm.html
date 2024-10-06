@@ -17,10 +17,11 @@
                 <span class="label">Password:</span> <input class="textField" name="password" type="password"><br>
                 <br>
                 <input class="button" type="submit" value="Register">
-                {% if errMsg != "" %}
-                    <h3>Message: {{ errMsg }}</h3>                
-                {% endif %}
             </form>
+            {% if errMsg %}
+                <h3>Message: {{ errMsg }}</h3>                
+            {% endif %}
+
         </div>    
     </div>    
 </body>

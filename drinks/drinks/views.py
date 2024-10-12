@@ -25,6 +25,10 @@ import bcrypt
 from django.http import HttpResponse
 from django.template import loader
 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
 
@@ -451,3 +455,74 @@ def ride(request):
     response = HttpResponse(template.render(context, request))
 
     return response
+
+def recover():
+    html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixing the "Non-CSS MIME Types Are Not Allowed in Strict Mode" Error</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    code {
+      background-color: #f9f9f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    pre {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-left: 4px solid #ccc;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Understanding the "Non-CSS MIME Types Are Not Allowed in Strict Mode" Error and How to Fix It</h1>
+
+
+</body>
+</html>
+"""
+
+    sendEmail("albert88hk@gmail.com", "sent from python", html_content)
+
+def sendEmail(receiver_email, subject, html_content):
+    
+    sender_email = "info@roboosoft.com"
+    smtp_server = "smtp.ionos.com"  # Replace with your SMTP server
+    smtp_port = 587  # SMTP port for TLS (for Gmail or similar servers)
+    smtp_username = "info@roboosoft.com"
+    smtp_password = "your_password"  # Use a secure method to handle passwords
+
+    # Create the email message
+    msg = MIMEMultipart("alternative")
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+    msg["Subject"] = subject
+
+    # Attach the HTML content to the email
+    msg.attach(MIMEText(html_content, "html"))
+
+    # Send the email using SMTP
+    try:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()  # Upgrade the connection to a secure encrypted SSL/TLS connection
+            server.login(smtp_username, smtp_password)
+            server.sendmail(sender_email, receiver_email, msg.as_string())
+        print("Email sent successfully.")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+
+

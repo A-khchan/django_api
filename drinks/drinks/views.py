@@ -32,6 +32,8 @@ from email.mime.text import MIMEText
 import os
 from django.conf import settings
 
+import re
+
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
 
@@ -325,14 +327,18 @@ def registerForm(request):
     return response
 
 def register(request):
-
+    
     if request.method == 'POST':
         print("request method is POST")
         print("request.POST is: ", request.POST)
         print("request.POST['username'] is: ", request.POST['username'])
         print("request.POST['password'] is: ", request.POST['password'])
-        userExists = User.objects.filter(userName=request.POST['username']).exists()
-        if not userExists:
+
+        userName=request.POST['username']
+        # check userName format, it must be an email
+
+        userExists = User.objects.filter(userName).exists()
+        if is_valid_email(userName) and not userExists:
             print("user does not exist")
             password = bytes(request.POST['password'], 'utf-8')
             salt = bcrypt.gensalt()
@@ -351,7 +357,7 @@ def register(request):
         else:
             context = {
                 'page': 'registerForm',
-                'errMsg': 'User name not available'
+                'errMsg': 'Invalid email or it has been registered'
             }
             template = loader.get_template('registerForm.html')
             response = HttpResponse(template.render(context, request))            
@@ -547,5 +553,12 @@ def sendEmail(receiver_email, subject, html_content):
 
     return result
 
+
+def is_valid_email(email):
+    # Regular expression for validating an email address
+    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    
+    # Use the re.match() method to check if the input matches the pattern
+    return re.match(email_regex, email) is not None
 
 

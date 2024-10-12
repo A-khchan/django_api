@@ -29,6 +29,9 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+import os
+from django.conf import settings
+
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
 
@@ -514,7 +517,9 @@ def sendEmail(receiver_email, subject, html_content):
     smtp_port = 587  # SMTP port for TLS (for Gmail or similar servers)
     smtp_username = "info@roboosoft.com"
 
-    with open('info_smtp.txt', 'r') as file:
+    file_path = os.path.join(settings.BASE_DIR, 'drinks', 'info_smtp.txt')
+
+    with open(file_path, 'r') as file:
         smtp_password = file.read()  # Use a secure method to handle passwords
 
     # Create the email message

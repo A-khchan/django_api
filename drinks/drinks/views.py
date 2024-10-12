@@ -456,7 +456,7 @@ def ride(request):
 
     return response
 
-def recover():
+def recover(request):
     html_content = """
 <!DOCTYPE html>
 <html lang="en">
@@ -496,6 +496,16 @@ def recover():
 """
 
     sendEmail("albert88hk@gmail.com", "sent from python", html_content)
+
+    template = loader.get_template('login.html')
+    # request.session['errMsg'] = 'Login error'
+    context = {
+        'errMsg': 'Email sent'
+    }
+    response = HttpResponse(template.render(context, request))
+
+    return response
+
 
 def sendEmail(receiver_email, subject, html_content):
     

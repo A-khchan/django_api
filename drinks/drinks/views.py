@@ -522,7 +522,7 @@ def sendEmail(receiver_email, subject, html_content):
     file_path = os.path.join(settings.BASE_DIR, 'drinks', 'info_smtp.txt')
 
     with open(file_path, 'r') as file:
-        smtp_password = file.read()  # Use a secure method to handle passwords
+        smtp_password = file.read().strip()  # Use a secure method to handle passwords
 
     # Create the email message
     msg = MIMEMultipart("alternative")

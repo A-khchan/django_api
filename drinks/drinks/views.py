@@ -337,7 +337,7 @@ def register(request):
         userName=request.POST['username']
         # check userName format, it must be an email
 
-        userExists = User.objects.filter(userName).exists()
+        userExists = User.objects.filter(userName=userName).exists()
         if is_valid_email(userName) and not userExists:
             print("user does not exist")
             password = bytes(request.POST['password'], 'utf-8')

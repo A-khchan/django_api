@@ -498,12 +498,12 @@ def recover(request):
 </html>
 """
 
-    sendEmail("albert88hk@gmail.com", "sent from python", html_content)
+    result = sendEmail("albert88hk@gmail.com", "sent from python", html_content)
 
     template = loader.get_template('login.html')
     # request.session['errMsg'] = 'Login error'
     context = {
-        'errMsg': 'Email sent'
+        'errMsg': result
     }
     response = HttpResponse(template.render(context, request))
 
@@ -512,6 +512,8 @@ def recover(request):
 
 def sendEmail(receiver_email, subject, html_content):
     
+    result = "to be confirmed"
+
     sender_email = "info@roboosoft.com"
     smtp_server = "smtp.ionos.com"  # Replace with your SMTP server
     smtp_port = 587  # SMTP port for TLS (for Gmail or similar servers)
@@ -538,8 +540,12 @@ def sendEmail(receiver_email, subject, html_content):
             server.login(smtp_username, smtp_password)
             server.sendmail(sender_email, receiver_email, msg.as_string())
         print("Email sent successfully.")
+        result = "Email sent successfully."
     except Exception as e:
         print(f"Error sending email: {e}")
+        result = f"Error sending email: {e}"
+
+    return result
 
 
 

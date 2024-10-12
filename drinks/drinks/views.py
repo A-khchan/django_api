@@ -503,7 +503,9 @@ def sendEmail(receiver_email, subject, html_content):
     smtp_server = "smtp.ionos.com"  # Replace with your SMTP server
     smtp_port = 587  # SMTP port for TLS (for Gmail or similar servers)
     smtp_username = "info@roboosoft.com"
-    smtp_password = "your_password"  # Use a secure method to handle passwords
+
+    with open('info_smtp.txt', 'r') as file:
+        smtp_password = file.read()  # Use a secure method to handle passwords
 
     # Create the email message
     msg = MIMEMultipart("alternative")

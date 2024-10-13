@@ -530,68 +530,81 @@ def recover(request):
     
     userName = request.POST['username']
     if is_valid_email(userName):
+        
+        # check if user exist
+        userExists = User.objects.filter(userName=request.POST['username']).exists()
+        if userExists:
 
-        # Generate a random alphanumeric string of length 100
-        length = 100
-        characters = string.ascii_letters + string.digits  # Contains both letters and digits
-        random_string = ''.join(random.choice(characters) for _ in range(length))
+            # Generate a random alphanumeric string of length 100
+            length = 100
+            characters = string.ascii_letters + string.digits  # Contains both letters and digits
+            random_string = ''.join(random.choice(characters) for _ in range(length))
 
-        recoveryCode = bytes(random_string, 'utf-8')
-        salt = bcrypt.gensalt()
-        hashed = bcrypt.hashpw(recoveryCode, salt)    
+            recoveryCode = bytes(random_string, 'utf-8')
+            salt = bcrypt.gensalt()
+            hashed = bcrypt.hashpw(recoveryCode, salt)    
 
-        User.objects.update(userName = request.POST['username'], 
-                                    recoveryCode = hashed)
+            User.objects.update(userName = request.POST['username'], 
+                                        recoveryCode = hashed)
 
-        html_content = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixing the "Non-CSS MIME Types Are Not Allowed in Strict Mode" Error</title>
-    <style>
-        body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        line-height: 1.6;
-        }
-        h1, h2, h3 {
-        color: #333;
-        }
-        code {
-        background-color: #f9f9f9;
-        padding: 2px 6px;
-        border-radius: 4px;
-        }
-        pre {
-        background-color: #f9f9f9;
-        padding: 10px;
-        border-left: 4px solid #ccc;
-        overflow-x: auto;
-        }
-    </style>
-    </head>
-    <body>
+            html_content = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fixing the "Non-CSS MIME Types Are Not Allowed in Strict Mode" Error</title>
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            }
+            h1, h2, h3 {
+            color: #333;
+            }
+            code {
+            background-color: #f9f9f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            }
+            pre {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #ccc;
+            overflow-x: auto;
+            }
+        </style>
+        </head>
+        <body>
 
-    <h3>Below is your recovery link:</h3>
-    https://www.roboosoft.com/account/reset/?code=""" 
+        <h3>Below is your recovery link:</h3>
+        https://www.roboosoft.com/account/reset/?code=""" 
 
-        html_content = html_content + random_string + """
+            html_content = html_content + random_string + """
 
 
-    </body>
-    </html>
-    """
+        </body>
+        </html>
+        """
 
-        result = sendEmail(userName, "RobooSoft - link for password reset", html_content)
+            result = sendEmail(userName, "RobooSoft - link for password reset", html_content)
 
-        template = loader.get_template('login.html')
-        # request.session['errMsg'] = 'Login error'
-        context = {
-            'errMsg': result
-        }
-        response = HttpResponse(template.render(context, request))
+            template = loader.get_template('login.html')
+            # request.session['errMsg'] = 'Login error'
+            context = {
+                'errMsg': result
+            }
+            response = HttpResponse(template.render(context, request))
+        else:
+            #User does not exist
+            template = loader.get_template('registerForm.html')
+            context = {
+                'errMsg': 'User not found, please register',
+                'buttonName': 'Register',
+                'emailInputted': userName
+            }
+            response = HttpResponse(template.render(context, request))            
     else:
         #Invalid user name (email)
         template = loader.get_template('login.html')

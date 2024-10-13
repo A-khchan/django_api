@@ -13,17 +13,23 @@
     <div class="contentVerticallyCenter">
         <div class="container">
             <form class="registerForm" method="post" action="../register/" >{% csrf_token %}
-                <span class="label">User name:</span> <input class="textField" name="username" type="text"><br>
-                <span class="label">Password:</span> <input class="textField" name="password" type="password"><br>
+                <span class="label">Email:</span> <input class="textField" name="username" type="text" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
+                <span class="label">Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
                 <br>
                 <input class="button" type="submit" value="Register">
             </form>
             {% if errMsg %}
-                <h3>Message: {{ errMsg }}</h3>                
+                <h3 id="message">Message: {{ errMsg }}</h3>                
             {% endif %}
 
         </div>    
     </div>    
+
+    <script>
+        function clearMessage() {
+            document.getElementById('message').innerText = ''; // Clear the message
+        }
+    </script>     
 </body>
 </html>
 

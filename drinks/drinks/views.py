@@ -378,9 +378,9 @@ def register(request):
                         result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
 
                     if result:
-                        User.objects.update(userName = request.POST['username'], 
-                                                    passwordHash = hashed,
-                                                    recoveryCode = None)
+                        user.passwordHash = hashed
+                        user.save()
+
                         context = {
                             'page': 'registerForm',
                             'registerMsg': 'Your password is updated'
@@ -401,7 +401,7 @@ def register(request):
                     # Serializer will make the binary data to blank.
                     userObj = User.objects.create(userName = request.POST['username'], 
                                                 passwordHash = hashed,
-                                                recoveryCode = '')
+                                                recoveryCode = None)
                     userObj.save()
                     context = {
                         'page': 'registerForm',
@@ -544,8 +544,9 @@ def recover(request):
             salt = bcrypt.gensalt()
             hashed = bcrypt.hashpw(recoveryCode, salt)    
 
-            User.objects.update(userName = request.POST['username'], 
-                                        recoveryCode = hashed)
+            user = User.objects.filter(userName=request.POST['username']).first()
+            user.recoveryCode = hashed
+            user.save()
 
             html_content = """
         <!DOCTYPE html>

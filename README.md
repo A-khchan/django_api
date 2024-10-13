@@ -26,3 +26,6 @@ Steps to start django server on local MacBook
 > cd drinks
 > python3 manage.py runserver 0.0.0.0:8000 
 
+
+How to view sqlite data
+> 

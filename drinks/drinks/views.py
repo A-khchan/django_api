@@ -357,7 +357,8 @@ def register(request):
         else:
             context = {
                 'page': 'registerForm',
-                'errMsg': 'Invalid email or it has been registered'
+                'errMsg': 'Invalid email or it has been registered',
+                'emailInputted': userName,
             }
             template = loader.get_template('registerForm.html')
             response = HttpResponse(template.render(context, request))            

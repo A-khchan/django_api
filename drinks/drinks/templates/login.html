@@ -16,7 +16,7 @@
         <div class="container">
             <form class="login" method="post" action="../doLogin/" >{% csrf_token %}
                 <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}"><br>
-                <span class="label">Password:</span> <input class="textField" name="password" type="password"><br>
+                <span class="label">Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
                 <br>
                 <input class="button" type="submit" value="Login">
                 <br>
@@ -24,10 +24,16 @@
                 <a href="../recover">Send me a recovery link</a>
             </form>
             {% if errMsg %}
-                <h3>Message: {{ errMsg }}</h3>
+                <h3 id="message">Message: {{ errMsg }}</h3>
             {% endif %}
         </div>    
-    </div>    
+    </div>   
+
+    <script>
+        function clearMessage() {
+            document.getElementById('message').innerText = ''; // Clear the message
+        }
+    </script> 
 </body>
 </html>
 

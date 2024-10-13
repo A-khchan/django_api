@@ -16,7 +16,8 @@
                 <span class="label">Email:</span> <input class="textField" name="username" type="text" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
                 <span class="label">Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
                 <br>
-                <input class="button" type="submit" value="Register">
+                <input type="hidden" name="resetCode" value="{{ resetCode }}">
+                <input class="button" type="submit" value="{{ buttonName }}">
             </form>
             {% if errMsg %}
                 <h3 id="message">Message: {{ errMsg }}</h3>                

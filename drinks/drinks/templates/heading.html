@@ -15,14 +15,16 @@
         </div>
         <div class="box"> </div>
 
-        <div class="contentVerticallyCenter">
+        <!-- <div class="contentVerticallyCenter">
             <a href="../ride/">
                 <span class="login">Ride</span>
             </a>
-        </div>
+        </div> -->
         
         {% if request.session.userName %}
-        <h2>hi, {{ request.session.userName }} </h2>
+        <div class="contentVerticallyCenter">
+            <h2>hi, {{ request.session.userName }} </h2>
+        </div>
         <div class="contentVerticallyCenter">
             <a href="../logout/">
                 <span class="login">Logout</span>

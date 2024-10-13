@@ -34,6 +34,9 @@ from django.conf import settings
 
 import re
 
+import random
+import string
+
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
 
@@ -319,9 +322,10 @@ def registerForm(request):
     else:
         print("userName not found")
         context = {
-            'page': 'registerForm'
+            'page': 'registerForm',
+            'buttonName': 'Register'
         }
-        template = loader.get_template('registerForm.html')
+        template = loader.get_template('registerForm.html')        
         response = HttpResponse(template.render(context, request))        
 
     return response
@@ -337,43 +341,76 @@ def register(request):
         userName=request.POST['username']
         # check userName format, it must be an email
 
+        resetCode = request.POST['resetCode']
+
         userExists = User.objects.filter(userName=userName).exists()
-        if is_valid_email(userName) and not userExists:
+        if is_valid_email(userName) and (not userExists or userExists and resetCode != ''):
             if len(request.POST['password']) < 8:
                 context = {
                     'page': 'registerForm',
                     'errMsg': 'Password must contain at least 8 characters',
                     'emailInputted': userName,
+                    'buttonName': 'Register'
                 }
                 template = loader.get_template('registerForm.html')
                 response = HttpResponse(template.render(context, request))            
             else:
-                print("user does not exist")
                 password = bytes(request.POST['password'], 'utf-8')
                 salt = bcrypt.gensalt()
                 hashed = bcrypt.hashpw(password, salt)
 
-                # Cannot use UserSerializer() and save() function to add to db
-                # Serializer will make the binary data to blank.
-                userObj = User.objects.create(userName = request.POST['username'], 
-                                            passwordHash = hashed)
-                userObj.save()
-                context = {
-                    'page': 'registerForm',
-                }
-                template = loader.get_template('thank_register.html')
-                response = HttpResponse(template.render(context, request))            
+                if userExists:
+                    user = User.objects.filter(userName=request.POST['username']).first()
+                    recoveryCode = bytes(request.POST['recoverCode'], 'utf-8')
+
+                    result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
+
+                    if result:
+                        userObj = User.objects.update(userName = request.POST['username'], 
+                                                    passwordHash = hashed,
+                                                    recoveryCode = '')
+                        userObj.save()
+                        context = {
+                            'page': 'registerForm',
+                            'registerMsg': 'Your password is updated'
+                        }
+                        template = loader.get_template('thank_register.html')
+                        response = HttpResponse(template.render(context, request)) 
+                    else:
+                        context = {
+                            'page': 'registerForm',
+                            'buttonName': 'Reset',
+                            'errMsg': 'Reset failed, link used is invalid',
+                        }
+                        template = loader.get_template('registerForm.html')
+                        response = HttpResponse(template.render(context, request)) 
+                else:
+
+                    # Cannot use UserSerializer() and save() function to add to db
+                    # Serializer will make the binary data to blank.
+                    userObj = User.objects.create(userName = request.POST['username'], 
+                                                passwordHash = hashed,
+                                                recoveryCode = '')
+                    userObj.save()
+                    context = {
+                        'page': 'registerForm',
+                        'registerMsg': 'Thank you for registration'
+                    }
+                    template = loader.get_template('thank_register.html')
+                    response = HttpResponse(template.render(context, request))            
         else:
             context = {
                 'page': 'registerForm',
                 'errMsg': 'Invalid email or it has been registered',
                 'emailInputted': userName,
+                'buttonName': 'Register'
             }
             template = loader.get_template('registerForm.html')
             response = HttpResponse(template.render(context, request))            
     else:
         context = {
-            'page': 'registerForm'
+            'page': 'registerForm',
+            'buttonName': 'Register'
         }
         template = loader.get_template('registerForm.html')
         response = HttpResponse(template.render(context, request))        
@@ -479,6 +516,19 @@ def ride(request):
     return response
 
 def recover(request):
+    # Generate a random alphanumeric string of length 100
+    length = 100
+    characters = string.ascii_letters + string.digits  # Contains both letters and digits
+    random_string = ''.join(random.choice(characters) for _ in range(length))
+
+    recoveryCode = bytes(random_string, 'utf-8')
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(recoveryCode, salt)    
+
+    userObj = User.objects.update(userName = request.POST['username'], 
+                                recoveryCode = hashed)
+    userObj.save()
+
     html_content = """
 <!DOCTYPE html>
 <html lang="en">
@@ -510,7 +560,10 @@ def recover(request):
 </head>
 <body>
 
-<h1>Understanding the "Non-CSS MIME Types Are Not Allowed in Strict Mode" Error and How to Fix It</h1>
+<h3>Below is your recovery link:</h3>
+https://www.roboosoft.com/account/reset/?code=""" 
+
+    html_content = html_content + random_string + """
 
 
 </body>
@@ -575,3 +628,31 @@ def is_valid_email(email):
     return re.match(email_regex, email) is not None
 
 
+def reset(request):
+    if request.method == "GET":
+        resetCode = request.GET.get('code', 'default')
+        if resetCode != 'default':
+            context = {
+                    'page': 'registerForm',
+                    'buttonName': 'Reset',
+                    'resetCode': resetCode
+                }
+            template = loader.get_template('registerForm.html')
+            response = HttpResponse(template.render(context, request))  
+        else:
+            context = {
+                    'page': 'registerForm',
+                    'buttonName': 'Register'
+                }
+            template = loader.get_template('registerForm.html')
+            response = HttpResponse(template.render(context, request))  
+    else:
+        context = {
+                'page': 'registerForm',
+                'buttonName': 'Register'
+            }
+        template = loader.get_template('registerForm.html')
+        response = HttpResponse(template.render(context, request))  
+                
+
+    return response

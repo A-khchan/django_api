@@ -11,6 +11,14 @@ Steps to start django server on GCP VM
 > nohup python3 manage.py runserver 0.0.0.0:8000 &
 
 
+After update models.py, goto the directory containing manage.py (ensure u're in v-env)
+> cd drinks   (where you found manage.py)
+> python3 manage.py makemigrations
+> python3 manage.py migrate
+
+
+
+
 Steps to start django server on local MacBook
 
 > cd ~/Documents/App/django_api

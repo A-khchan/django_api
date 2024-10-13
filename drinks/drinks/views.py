@@ -341,17 +341,26 @@ def register(request):
         userName=request.POST['username']
         # check userName format, it must be an email
 
-        resetCode = request.POST['resetCode']
+        recoveryCode = request.POST['recoveryCode']
 
         userExists = User.objects.filter(userName=userName).exists()
-        if is_valid_email(userName) and (not userExists or userExists and resetCode != ''):
+        if is_valid_email(userName) and (not userExists or userExists and recoveryCode != ''):
             if len(request.POST['password']) < 8:
-                context = {
-                    'page': 'registerForm',
-                    'errMsg': 'Password must contain at least 8 characters',
-                    'emailInputted': userName,
-                    'buttonName': 'Register'
-                }
+                if userExists:
+                    context = {
+                        'page': 'registerForm',
+                        'errMsg': 'Password must contain at least 8 characters',
+                        'emailInputted': userName,
+                        'buttonName': 'Reset',
+                        'recoveryCode': recoveryCode
+                    }
+                else:
+                    context = {
+                        'page': 'registerForm',
+                        'errMsg': 'Password must contain at least 8 characters',
+                        'emailInputted': userName,
+                        'buttonName': 'Register'
+                    }
                 template = loader.get_template('registerForm.html')
                 response = HttpResponse(template.render(context, request))            
             else:
@@ -572,7 +581,7 @@ def recover(request):
     </html>
     """
 
-        result = sendEmail("albert88hk@gmail.com", "sent from python", html_content)
+        result = sendEmail(userName, "RobooSoft - link for password reset", html_content)
 
         template = loader.get_template('login.html')
         # request.session['errMsg'] = 'Login error'
@@ -639,12 +648,12 @@ def is_valid_email(email):
 
 def reset(request):
     if request.method == "GET":
-        resetCode = request.GET.get('code', 'default')
-        if resetCode != 'default':
+        recoveryCode = request.GET.get('code', 'default')
+        if recoveryCode != 'default':
             context = {
                     'page': 'registerForm',
                     'buttonName': 'Reset',
-                    'resetCode': resetCode
+                    'recoveryCode': recoveryCode
                 }
             template = loader.get_template('registerForm.html')
             response = HttpResponse(template.render(context, request))  

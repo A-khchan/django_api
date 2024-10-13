@@ -653,21 +653,24 @@ def reset(request):
             context = {
                     'page': 'registerForm',
                     'buttonName': 'Reset',
-                    'recoveryCode': recoveryCode
+                    'recoveryCode': recoveryCode,
+                    'registerMsg': 'RecoveryCode >>' + recoveryCode + '<<'
                 }
             template = loader.get_template('registerForm.html')
             response = HttpResponse(template.render(context, request))  
         else:
             context = {
                     'page': 'registerForm',
-                    'buttonName': 'Register'
+                    'buttonName': 'Register',
+                    'registerMsg': 'RecoveryCode = default'
                 }
             template = loader.get_template('registerForm.html')
             response = HttpResponse(template.render(context, request))  
     else:
         context = {
                 'page': 'registerForm',
-                'buttonName': 'Register'
+                'buttonName': 'Register',
+                'registerMsg': 'method is not GET'
             }
         template = loader.get_template('registerForm.html')
         response = HttpResponse(template.render(context, request))  

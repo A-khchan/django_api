@@ -366,10 +366,9 @@ def register(request):
                     result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
 
                     if result:
-                        userObj = User.objects.update(userName = request.POST['username'], 
+                        User.objects.update(userName = request.POST['username'], 
                                                     passwordHash = hashed,
                                                     recoveryCode = '')
-                        userObj.save()
                         context = {
                             'page': 'registerForm',
                             'registerMsg': 'Your password is updated'
@@ -529,9 +528,8 @@ def recover(request):
         salt = bcrypt.gensalt()
         hashed = bcrypt.hashpw(recoveryCode, salt)    
 
-        userObj = User.objects.update(userName = request.POST['username'], 
+        User.objects.update(userName = request.POST['username'], 
                                     recoveryCode = hashed)
-        userObj.save()
 
         html_content = """
     <!DOCTYPE html>

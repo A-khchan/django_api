@@ -377,7 +377,7 @@ def register(request):
                     if result:
                         User.objects.update(userName = request.POST['username'], 
                                                     passwordHash = hashed,
-                                                    recoveryCode = '')
+                                                    recoveryCode = None)
                         context = {
                             'page': 'registerForm',
                             'registerMsg': 'Your password is updated'

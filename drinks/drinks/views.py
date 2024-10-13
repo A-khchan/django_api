@@ -395,6 +395,7 @@ def login(request):
 def doLogin(request):
 
     if request.method == 'POST':
+        userName=request.POST['username']
         userExists = User.objects.filter(userName=request.POST['username']).exists()
         if userExists:
             user = User.objects.filter(userName=request.POST['username']).first()
@@ -416,7 +417,8 @@ def doLogin(request):
                 template = loader.get_template('login.html')
                 print("Password incorrect")
                 context = {
-                    'errMsg': 'Login error'
+                    'errMsg': 'Login error',
+                    'emailInputted': userName,
                 }
                 try:
                     del request.session['userName']
@@ -427,7 +429,8 @@ def doLogin(request):
             template = loader.get_template('login.html')
             # request.session['errMsg'] = 'Login error'
             context = {
-                'errMsg': 'Login error'
+                'errMsg': 'Login error',
+                'emailInputted': userName,
             }
             try:
                 del request.session['userName']

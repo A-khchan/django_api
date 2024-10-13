@@ -15,7 +15,7 @@
     <div class="contentVerticallyCenter">
         <div class="container">
             <form class="login" method="post" action="../doLogin/" >{% csrf_token %}
-                <span class="label">Email:</span> <input class="textField" name="username" type="text"><br>
+                <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}"><br>
                 <span class="label">Password:</span> <input class="textField" name="password" type="password"><br>
                 <br>
                 <input class="button" type="submit" value="Login">

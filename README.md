@@ -32,6 +32,6 @@ How to view sqlite data
 > sqlite3 db.sqlite3
 then, "sqlite>" prompted, you can input SQL command.  To view tables, 
 sqlite> .table
-To see all records from table drinks_user
-sqlite> select * from drinks_user
+To see all records from table drinks_user, note: sql ended by ;
+sqlite> select * from drinks_user;
 

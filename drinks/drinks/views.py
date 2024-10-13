@@ -379,6 +379,7 @@ def register(request):
 
                     if result:
                         user.passwordHash = hashed
+                        user.recoveryCode = None
                         user.save()
 
                         context = {

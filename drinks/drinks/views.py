@@ -370,7 +370,7 @@ def register(request):
 
                 if userExists:
                     user = User.objects.filter(userName=request.POST['username']).first()
-                    recoveryCode = bytes(request.POST['recoverCode'], 'utf-8')
+                    recoveryCode = bytes(request.POST['recoveryCode'], 'utf-8')
 
                     result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
 

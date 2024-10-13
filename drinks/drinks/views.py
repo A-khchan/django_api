@@ -339,21 +339,30 @@ def register(request):
 
         userExists = User.objects.filter(userName=userName).exists()
         if is_valid_email(userName) and not userExists:
-            print("user does not exist")
-            password = bytes(request.POST['password'], 'utf-8')
-            salt = bcrypt.gensalt()
-            hashed = bcrypt.hashpw(password, salt)
+            if len(request.POST['password']) < 8:
+                context = {
+                    'page': 'registerForm',
+                    'errMsg': 'Password must contain at least 8 characters',
+                    'emailInputted': userName,
+                }
+                template = loader.get_template('registerForm.html')
+                response = HttpResponse(template.render(context, request))            
+            else:
+                print("user does not exist")
+                password = bytes(request.POST['password'], 'utf-8')
+                salt = bcrypt.gensalt()
+                hashed = bcrypt.hashpw(password, salt)
 
-            # Cannot use UserSerializer() and save() function to add to db
-            # Serializer will make the binary data to blank.
-            userObj = User.objects.create(userName = request.POST['username'], 
-                                          passwordHash = hashed)
-            userObj.save()
-            context = {
-                'page': 'registerForm',
-            }
-            template = loader.get_template('thank_register.html')
-            response = HttpResponse(template.render(context, request))            
+                # Cannot use UserSerializer() and save() function to add to db
+                # Serializer will make the binary data to blank.
+                userObj = User.objects.create(userName = request.POST['username'], 
+                                            passwordHash = hashed)
+                userObj.save()
+                context = {
+                    'page': 'registerForm',
+                }
+                template = loader.get_template('thank_register.html')
+                response = HttpResponse(template.render(context, request))            
         else:
             context = {
                 'page': 'registerForm',

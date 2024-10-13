@@ -372,7 +372,10 @@ def register(request):
                     user = User.objects.filter(userName=request.POST['username']).first()
                     recoveryCode = bytes(request.POST['recoveryCode'], 'utf-8')
 
-                    result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
+                    if user.recoveryCode == None:
+                        result = False                        
+                    else:
+                        result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
 
                     if result:
                         User.objects.update(userName = request.POST['username'], 

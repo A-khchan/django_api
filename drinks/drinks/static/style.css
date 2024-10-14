@@ -90,13 +90,14 @@ body {
 }
 
 .textField {
+    display: flex;
     margin: 5px;
     background-color: bisque;
     font-size: 12px;
 }
 
 .label {
-    display: inline-block;
+    display: flex;
     width: 100px;
     /* background-color:gray; */
     text-align: left;

@@ -94,6 +94,7 @@ body {
     margin: 5px;
     background-color: bisque;
     font-size: 12px;
+    width: 100%;
 }
 
 .label {

@@ -108,10 +108,14 @@ body {
     width: 200px;
 }
 
-
 .button {
     font-size: 12px;
     height: 20px;
+}
+
+.button_recover {
+    font-size: 10px;
+    height: 15px;
 }
 
 .userName {

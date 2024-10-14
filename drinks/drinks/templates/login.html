@@ -26,10 +26,10 @@
                 <br>
                 <br>
                 <button class="button_recover" type="submit" formaction="../recover/">Send me a recovery link</button>
+                {% if errMsg %}
+                    <h3 id="message">Message: {{ errMsg }}</h3>
+                {% endif %}
             </form>
-            {% if errMsg %}
-                <h3 id="message">Message: {{ errMsg }}</h3>
-            {% endif %}
         </div>    
     </div>   
 

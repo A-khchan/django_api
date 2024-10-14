@@ -116,6 +116,7 @@ body {
 .button_recover {
     font-size: 10px;
     height: 15px;
+    padding: 3px;
 }
 
 .userName {

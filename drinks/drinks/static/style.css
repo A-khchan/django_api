@@ -71,9 +71,10 @@ body {
 } */
 
 .container {
+    display: flex;
     /* display: block; */
     text-align: center;
-    /* align-items: center; */
+    align-items: center;
     background-color:chartreuse;
     flex: 1;
     padding-top: 100px;

@@ -24,12 +24,15 @@
                 <br>
                 <input class="button" type="submit" value="Login">
                 <br>
-                <br>
                 <button class="button_recover" type="submit" formaction="../recover/">Send me a recovery link</button>
                 {% if errMsg %}
                     <h3 id="message">Message: {{ errMsg }}</h3>
                 {% endif %}
             </form>
+
+            <div>
+                <img src="{% static 'login_background.jpg'}" width="512" height="512">
+            </div>
         </div>    
     </div>   
 

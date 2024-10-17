@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="headBar">
-        <div class="contentVerticallyCenter">
+        <div class="companyNameContainer">
             <h1 class="companyName">Roboosoft</h1>
         </div>
         <div class="box"> </div>
@@ -27,20 +27,20 @@
         </div>
         <div class="cornerButton">
             <a href="../logout/">
-                <span class="login">Logout</span>
+                <span>Logout</span>
             </a>
         </div>
         {% else %}
             {% if page == "registerForm" %}
             <div class="cornerButton">
                 <a href="../login/">
-                    <span class="login">Goto Login page</span>
+                    <span>Goto Login page</span>
                 </a>
             </div>
             {% else %}
             <div class="cornerButton">
                 <a href="../registerForm/">
-                    <span class="login">Goto Register page</span>
+                    <span>Goto Register page</span>
                 </a>
             </div>
             {% endif %}

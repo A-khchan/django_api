@@ -46,6 +46,8 @@ body {
     background-color: white;
     border-radius: 5px;
     border: 3px solid white;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .companyNameContainer {
@@ -100,6 +102,10 @@ body {
     background-color: rgb(167, 167, 167);
     border-radius: 5px;
     /* min-width: 400px; */
+}
+
+.separator {
+    width: 20px;
 }
 
 .registerForm {

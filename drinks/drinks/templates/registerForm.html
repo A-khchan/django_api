@@ -10,8 +10,8 @@
 </head>
 <body>
     {% include "heading.html" %}
-    <div class="contentVerticallyCenter">
-        <div class="colContainer">
+    <div class="flex_row_middle_up">
+        <div class="contentVerticallyCenter">
             <form class="registerForm" method="post" action="../register/" >{% csrf_token %}
                 <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
                 <span class="label">{{ new }}Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
@@ -20,13 +20,7 @@
                 <input class="button" type="submit" value="{{ buttonName }}">
             </form>
             <div class="err_msg">
-                {% if errMsg %}
-                    <h3 id="message">Message: {{ errMsg }}</h3>                
-                {% endif %}
-            </div>
-
-            <div>
-            testing
+                <span id="message">{{ errMsg }}</span>
             </div>
 
         </div>    

@@ -36,5 +36,10 @@ sqlite> .table
 To see all records from table drinks_user, note: sql ended by ;
 sqlite> select * from drinks_user;
 
+To see the field name of a table. After this command, select stmt will show headers.
+sqlite> .headers on
+
+
+
 To exit, control-D
 

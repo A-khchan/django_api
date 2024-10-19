@@ -161,8 +161,10 @@ body {
 }
 
 .userName {
-    color: rgb(167, 18, 18);
+    color: yellow;
     margin-right: 5px;
+    justify-content: center;
+    flex-grow: 1;
 }
 
 .err_msg {

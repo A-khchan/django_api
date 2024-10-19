@@ -166,3 +166,8 @@ body {
 .err_msg {
     color: red
 }
+
+.flex_column {
+    display: flex;
+    flex-direction: column;
+}

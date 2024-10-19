@@ -14,21 +14,23 @@
 
     <div class="flex_row_middle_up">
         <div class="contentVerticallyCenter">
-            <form class="login" method="post" action="../doLogin/" >{% csrf_token %}
-                <div class="contentVerticallyCenter">
-                    <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
-                </div>
-                <div class="contentVerticallyCenter">
-                    <span class="label">Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
-                </div>
-                <br>
-                <input class="button" type="submit" value="Login">
-                <br>
-                <button class="button_recover" type="submit" formaction="../recover/">Send me a recovery link</button>
-            </form>
+            <div class="flex_column">
+                <form class="login" method="post" action="../doLogin/" >{% csrf_token %}
+                    <div class="contentVerticallyCenter">
+                        <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
+                    </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label">Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
+                    </div>
+                    <br>
+                    <input class="button" type="submit" value="Login">
+                    <br>
+                    <button class="button_recover" type="submit" formaction="../recover/">Send me a recovery link</button>
+                </form>
 
-            <div class="err_msg">
-                <h3 id="message">{{ errMsg }}</h3>
+                <div class="err_msg">
+                    <h3 id="message">{{ errMsg }}</h3>
+                </div>
             </div>
         </div>
         <div class="separator">

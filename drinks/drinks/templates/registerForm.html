@@ -21,12 +21,13 @@
             </form>
 
         </div>    
-        <div class="err_msg">
-            {% if errMsg %}
-                <h3 id="message">Message: {{ errMsg }}</h3>                
-            {% endif %}
-        </div>
+
     </div>    
+    <div class="err_msg">
+        {% if errMsg %}
+            <h3 id="message">Message: {{ errMsg }}</h3>                
+        {% endif %}
+    </div>
 
     <script>
         function clearMessage() {

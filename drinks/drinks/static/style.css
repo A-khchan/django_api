@@ -35,6 +35,12 @@ body {
     flex-grow: 1;
 }
 
+.flex_row_middle_up {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
 .cornerButton {
     display: flex;
     /* flex-direction: column; */

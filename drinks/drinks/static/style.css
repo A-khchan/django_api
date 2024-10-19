@@ -123,6 +123,7 @@ body {
     /* margin-right: auto; */
     background-color:rgb(167, 167, 167);
     padding: 6px;
+    max-width: 50%;
 }
 
 .label {

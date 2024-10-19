@@ -44,7 +44,7 @@ body {
     margin: 1px;
 }
 
-.cornerButton > span {
+.cornerButton > a > span {
     background-color: aqua;
 }
 

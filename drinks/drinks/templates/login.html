@@ -13,22 +13,23 @@
     {% include "heading.html" %}
 
     <div class="flex_row_middle_up">
-        <form class="login" method="post" action="../doLogin/" >{% csrf_token %}
-            <div class="contentVerticallyCenter">
-                <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
-            </div>
-            <div class="contentVerticallyCenter">
-                <span class="label">Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
-            </div>
-            <br>
-            <input class="button" type="submit" value="Login">
-            <br>
-            <button class="button_recover" type="submit" formaction="../recover/">Send me a recovery link</button>
-            {% if errMsg %}
-                <h3 id="message">Message: {{ errMsg }}</h3>
-            {% endif %}
-        </form>
-
+        <div class="contentVerticallyCenter"></div>
+            <form class="login" method="post" action="../doLogin/" >{% csrf_token %}
+                <div class="contentVerticallyCenter">
+                    <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
+                </div>
+                <div class="contentVerticallyCenter">
+                    <span class="label">Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
+                </div>
+                <br>
+                <input class="button" type="submit" value="Login">
+                <br>
+                <button class="button_recover" type="submit" formaction="../recover/">Send me a recovery link</button>
+                {% if errMsg %}
+                    <h3 id="message">Message: {{ errMsg }}</h3>
+                {% endif %}
+            </form>
+        </div>
         <div class="separator">
         </div>
 

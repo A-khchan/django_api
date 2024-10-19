@@ -161,6 +161,7 @@ body {
 }
 
 .userName {
+    display: flex;
     color: yellow;
     margin-right: 5px;
     justify-content: center;

@@ -13,8 +13,12 @@
     <div class="flex_row_middle_up">
         <div class="contentVerticallyCenter">
             <form class="registerForm" method="post" action="../register/" >{% csrf_token %}
-                <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
-                <span class="label">{{ new }}Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
+                <div class="contentVerticallyCenter">
+                    <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>
+                </div>
+                <div class="contentVerticallyCenter">
+                    <span class="label">{{ new }}Password:</span> <input class="textField" name="password" type="password" oninput="clearMessage()"><br>
+                </div>
                 <br>
                 <input type="hidden" name="recoveryCode" value="{{ recoveryCode }}">
                 <input class="button" type="submit" value="{{ buttonName }}">
@@ -24,7 +28,12 @@
             </div>
 
         </div>    
+        <div class="separator">
+        </div>
 
+        <div>
+            <img src="{% static 'register_background.jpg' %}" width="700" height="700">
+        </div>
     </div>    
 
     <script>

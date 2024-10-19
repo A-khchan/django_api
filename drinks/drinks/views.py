@@ -302,6 +302,20 @@ def invokeFF(request, format=None):
 
     return JsonResponse(data, safe=False)
 
+
+def checkLoginStatus(request, page):
+    userName = request.session.get('userName')
+    if userName:
+        context = {
+            'placeholder': 'test'
+        }
+        template = loader.get_template(page)
+        response = HttpResponse(template.render(context, request))
+    else:
+        response = None
+
+    return response
+
 def registerForm(request):
     # user = User.objects.all()
     # print("user is: ", user)
@@ -432,16 +446,19 @@ def register(request):
 
 def login(request):
     # userName = request.COOKIES.get('userName')
-    userName = request.session.get('userName')
-    print("userName retrieved is: ", userName)
-    if userName:
-        print("userName found")
-        context = {
-            'placeholder': 'test'
-        }
-        template = loader.get_template('landing.html')
-        response = HttpResponse(template.render(context, request))
-    else:
+    # userName = request.session.get('userName')
+    # print("userName retrieved is: ", userName)
+    # if userName:
+    #     print("userName found")
+    #     context = {
+    #         'placeholder': 'test'
+    #     }
+    #     template = loader.get_template('landing.html')
+    #     response = HttpResponse(template.render(context, request))
+
+    response = checkLoginStatus(request, 'landing.html')
+
+    if response is None:
         context = {
             'page': 'login'
         }
@@ -452,29 +469,51 @@ def login(request):
     return response
 
 def doLogin(request):
+    
+    userName = request.session.get('userName')
+    print("userName retrieved is: ", userName)
+    if userName:
+        print("userName found")
+        context = {
+            'placeholder': 'test'
+        }
+        template = loader.get_template('landing.html')
+        response = HttpResponse(template.render(context, request))
+    else:
+        if request.method == 'POST':
+            userName=request.POST['username']
+            userExists = User.objects.filter(userName=request.POST['username']).exists()
+            if userExists:
+                user = User.objects.filter(userName=request.POST['username']).first()
+                password = bytes(request.POST['password'], 'utf-8')
 
-    if request.method == 'POST':
-        userName=request.POST['username']
-        userExists = User.objects.filter(userName=request.POST['username']).exists()
-        if userExists:
-            user = User.objects.filter(userName=request.POST['username']).first()
-            password = bytes(request.POST['password'], 'utf-8')
+                result = bcrypt.checkpw(password, user.passwordHash)
 
-            result = bcrypt.checkpw(password, user.passwordHash)
+                if result:
+                    template = loader.get_template('landing.html')
+                    print("Password correct")
+                    context = {
+                        'placeholder': 'test'
+                    }
+                    request.session['userName'] = user.userName
+                    response = HttpResponse(template.render(context, request))
+                    # response.set_cookie(key='userName', value=user.userName)
 
-            if result:
-                template = loader.get_template('landing.html')
-                print("Password correct")
-                context = {
-                    'placeholder': 'test'
-                }
-                request.session['userName'] = user.userName
-                response = HttpResponse(template.render(context, request))
-                # response.set_cookie(key='userName', value=user.userName)
-
+                else:
+                    template = loader.get_template('login.html')
+                    print("Password incorrect")
+                    context = {
+                        'errMsg': 'Login error',
+                        'emailInputted': userName,
+                    }
+                    try:
+                        del request.session['userName']
+                    except KeyError:
+                        pass
+                    response = HttpResponse(template.render(context, request))
             else:
                 template = loader.get_template('login.html')
-                print("Password incorrect")
+                # request.session['errMsg'] = 'Login error'
                 context = {
                     'errMsg': 'Login error',
                     'emailInputted': userName,
@@ -486,15 +525,9 @@ def doLogin(request):
                 response = HttpResponse(template.render(context, request))
         else:
             template = loader.get_template('login.html')
-            # request.session['errMsg'] = 'Login error'
             context = {
-                'errMsg': 'Login error',
-                'emailInputted': userName,
+                'placeholder': 'test'
             }
-            try:
-                del request.session['userName']
-            except KeyError:
-                pass
             response = HttpResponse(template.render(context, request))
 
     return response

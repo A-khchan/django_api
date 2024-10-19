@@ -691,33 +691,37 @@ def is_valid_email(email):
 
 
 def reset(request):
-    if request.method == "GET":
-        recoveryCode = request.GET.get('code', 'default')
-        if recoveryCode != 'default':
-            context = {
-                    'page': 'registerForm',
-                    'buttonName': 'Reset',
-                    'recoveryCode': recoveryCode,
-                    'registerMsg': 'RecoveryCode >>' + recoveryCode + '<<'
-                }
-            template = loader.get_template('registerForm.html')
-            response = HttpResponse(template.render(context, request))  
+    
+    response = checkLoginStatus(request, 'landing.html')
+
+    if response is None:
+        if request.method == "GET":
+            recoveryCode = request.GET.get('code', 'default')
+            if recoveryCode != 'default':
+                context = {
+                        'page': 'registerForm',
+                        'buttonName': 'Reset',
+                        'recoveryCode': recoveryCode,
+                        'registerMsg': 'RecoveryCode >>' + recoveryCode + '<<'
+                    }
+                template = loader.get_template('registerForm.html')
+                response = HttpResponse(template.render(context, request))  
+            else:
+                context = {
+                        'page': 'registerForm',
+                        'buttonName': 'Register',
+                        'registerMsg': 'RecoveryCode = default'
+                    }
+                template = loader.get_template('registerForm.html')
+                response = HttpResponse(template.render(context, request))  
         else:
             context = {
                     'page': 'registerForm',
                     'buttonName': 'Register',
-                    'registerMsg': 'RecoveryCode = default'
+                    'registerMsg': 'method is not GET'
                 }
             template = loader.get_template('registerForm.html')
             response = HttpResponse(template.render(context, request))  
-    else:
-        context = {
-                'page': 'registerForm',
-                'buttonName': 'Register',
-                'registerMsg': 'method is not GET'
-            }
-        template = loader.get_template('registerForm.html')
-        response = HttpResponse(template.render(context, request))  
                 
 
     return response

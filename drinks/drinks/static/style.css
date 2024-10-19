@@ -164,7 +164,8 @@ body {
 }
 
 .err_msg {
-    color: red
+    color: red;
+    height: 16px;
 }
 
 .flex_column {

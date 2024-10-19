@@ -303,12 +303,15 @@ def invokeFF(request, format=None):
     return JsonResponse(data, safe=False)
 
 
-def checkLoginStatus(request, page):
+def checkLoginStatus(request, page, context=None):
+# This function checks if user already logged in, if so, return the 'page' as response, else return None
+
     userName = request.session.get('userName')
     if userName:
-        context = {
-            'placeholder': 'test'
-        }
+        if context is None:
+            context = {
+                'placeholder': 'test'
+            }
         template = loader.get_template(page)
         response = HttpResponse(template.render(context, request))
     else:
@@ -324,16 +327,9 @@ def registerForm(request):
     # print("user[1].userName is: ", user[1].userName)
     # print("user[1].userName is: ", user[1].passwordHash)
 
-    userName = request.session.get('userName')
-    print("userName retrieved is: ", userName)
-    if userName:
-        print("userName found")
-        context = {
-            'placeholder': 'test'
-        }
-        template = loader.get_template('landing.html')
-        response = HttpResponse(template.render(context, request))
-    else:
+    response = checkLoginStatus(request, 'landing.html')
+
+    if response is None:
         print("userName not found")
         context = {
             'page': 'registerForm',
@@ -346,115 +342,109 @@ def registerForm(request):
 
 def register(request):
     
-    if request.method == 'POST':
-        print("request method is POST")
-        print("request.POST is: ", request.POST)
-        print("request.POST['username'] is: ", request.POST['username'])
-        print("request.POST['password'] is: ", request.POST['password'])
+    response = checkLoginStatus(request, 'landing.html')
 
-        userName=request.POST['username']
-        # check userName format, it must be an email
+    if response is None:    
+        if request.method == 'POST':
+            print("request method is POST")
+            print("request.POST is: ", request.POST)
+            print("request.POST['username'] is: ", request.POST['username'])
+            print("request.POST['password'] is: ", request.POST['password'])
 
-        recoveryCode = request.POST['recoveryCode']
+            userName=request.POST['username']
+            # check userName format, it must be an email
 
-        userExists = User.objects.filter(userName=userName).exists()
-        if is_valid_email(userName) and (not userExists or userExists and recoveryCode != ''):
-            if len(request.POST['password']) < 8:
-                if userExists:
-                    context = {
-                        'page': 'registerForm',
-                        'errMsg': 'Password must contain at least 8 characters',
-                        'emailInputted': userName,
-                        'buttonName': 'Reset',
-                        'recoveryCode': recoveryCode
-                    }
-                else:
-                    context = {
-                        'page': 'registerForm',
-                        'errMsg': 'Password must contain at least 8 characters',
-                        'emailInputted': userName,
-                        'buttonName': 'Register'
-                    }
-                template = loader.get_template('registerForm.html')
-                response = HttpResponse(template.render(context, request))            
-            else:
-                password = bytes(request.POST['password'], 'utf-8')
-                salt = bcrypt.gensalt()
-                hashed = bcrypt.hashpw(password, salt)
+            recoveryCode = request.POST['recoveryCode']
 
-                if userExists:
-                    user = User.objects.filter(userName=request.POST['username']).first()
-                    recoveryCode = bytes(request.POST['recoveryCode'], 'utf-8')
-
-                    if user.recoveryCode == None:
-                        result = False                        
-                    else:
-                        result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
-
-                    if result:
-                        user.passwordHash = hashed
-                        user.recoveryCode = None
-                        user.save()
-
+            userExists = User.objects.filter(userName=userName).exists()
+            if is_valid_email(userName) and (not userExists or userExists and recoveryCode != ''):
+                if len(request.POST['password']) < 8:
+                    if userExists:
                         context = {
                             'page': 'registerForm',
-                            'registerMsg': 'Your password is updated'
+                            'errMsg': 'Password must contain at least 8 characters',
+                            'emailInputted': userName,
+                            'buttonName': 'Reset',
+                            'recoveryCode': recoveryCode
+                        }
+                    else:
+                        context = {
+                            'page': 'registerForm',
+                            'errMsg': 'Password must contain at least 8 characters',
+                            'emailInputted': userName,
+                            'buttonName': 'Register'
+                        }
+                    template = loader.get_template('registerForm.html')
+                    response = HttpResponse(template.render(context, request))            
+                else:
+                    password = bytes(request.POST['password'], 'utf-8')
+                    salt = bcrypt.gensalt()
+                    hashed = bcrypt.hashpw(password, salt)
+
+                    if userExists:
+                        user = User.objects.filter(userName=request.POST['username']).first()
+                        recoveryCode = bytes(request.POST['recoveryCode'], 'utf-8')
+
+                        if user.recoveryCode == None:
+                            result = False                        
+                        else:
+                            result = bcrypt.checkpw(recoveryCode, user.recoveryCode)
+
+                        if result:
+                            user.passwordHash = hashed
+                            user.recoveryCode = None
+                            user.save()
+
+                            context = {
+                                'page': 'registerForm',
+                                'registerMsg': 'Your password is updated'
+                            }
+                            template = loader.get_template('thank_register.html')
+                            response = HttpResponse(template.render(context, request)) 
+                        else:
+                            context = {
+                                'page': 'registerForm',
+                                'buttonName': 'Reset',
+                                'errMsg': 'Reset failed, link used is invalid',
+                            }
+                            template = loader.get_template('registerForm.html')
+                            response = HttpResponse(template.render(context, request)) 
+                    else:
+
+                        # Cannot use UserSerializer() and save() function to add to db
+                        # Serializer will make the binary data to blank.
+                        userObj = User.objects.create(userName = request.POST['username'], 
+                                                    passwordHash = hashed,
+                                                    recoveryCode = None)
+                        userObj.save()
+                        context = {
+                            'page': 'registerForm',
+                            'registerMsg': 'Thank you for registration'
                         }
                         template = loader.get_template('thank_register.html')
-                        response = HttpResponse(template.render(context, request)) 
-                    else:
-                        context = {
-                            'page': 'registerForm',
-                            'buttonName': 'Reset',
-                            'errMsg': 'Reset failed, link used is invalid',
-                        }
-                        template = loader.get_template('registerForm.html')
-                        response = HttpResponse(template.render(context, request)) 
-                else:
-
-                    # Cannot use UserSerializer() and save() function to add to db
-                    # Serializer will make the binary data to blank.
-                    userObj = User.objects.create(userName = request.POST['username'], 
-                                                passwordHash = hashed,
-                                                recoveryCode = None)
-                    userObj.save()
-                    context = {
-                        'page': 'registerForm',
-                        'registerMsg': 'Thank you for registration'
-                    }
-                    template = loader.get_template('thank_register.html')
-                    response = HttpResponse(template.render(context, request))            
+                        response = HttpResponse(template.render(context, request))            
+            else:
+                context = {
+                    'page': 'registerForm',
+                    'errMsg': 'Invalid email or it has been registered',
+                    'emailInputted': userName,
+                    'buttonName': 'Register'
+                }
+                template = loader.get_template('registerForm.html')
+                response = HttpResponse(template.render(context, request))            
         else:
             context = {
                 'page': 'registerForm',
-                'errMsg': 'Invalid email or it has been registered',
-                'emailInputted': userName,
                 'buttonName': 'Register'
             }
             template = loader.get_template('registerForm.html')
-            response = HttpResponse(template.render(context, request))            
-    else:
-        context = {
-            'page': 'registerForm',
-            'buttonName': 'Register'
-        }
-        template = loader.get_template('registerForm.html')
-        response = HttpResponse(template.render(context, request))        
+            response = HttpResponse(template.render(context, request)) 
 
     return response
 
 
 def login(request):
     # userName = request.COOKIES.get('userName')
-    # userName = request.session.get('userName')
-    # print("userName retrieved is: ", userName)
-    # if userName:
-    #     print("userName found")
-    #     context = {
-    #         'placeholder': 'test'
-    #     }
-    #     template = loader.get_template('landing.html')
-    #     response = HttpResponse(template.render(context, request))
 
     response = checkLoginStatus(request, 'landing.html')
 
@@ -470,16 +460,9 @@ def login(request):
 
 def doLogin(request):
     
-    userName = request.session.get('userName')
-    print("userName retrieved is: ", userName)
-    if userName:
-        print("userName found")
-        context = {
-            'placeholder': 'test'
-        }
-        template = loader.get_template('landing.html')
-        response = HttpResponse(template.render(context, request))
-    else:
+    response = checkLoginStatus(request, 'landing.html')
+
+    if response is None:
         if request.method == 'POST':
             userName=request.POST['username']
             userExists = User.objects.filter(userName=request.POST['username']).exists()
@@ -562,91 +545,101 @@ def ride(request):
 
 def recover(request):
     
-    userName = request.POST['username']
-    if is_valid_email(userName):
-        
-        # check if user exist
-        userExists = User.objects.filter(userName=request.POST['username']).exists()
-        if userExists:
+    response = checkLoginStatus(request, 'landing.html')
 
-            # Generate a random alphanumeric string of length 100
-            length = 100
-            characters = string.ascii_letters + string.digits  # Contains both letters and digits
-            random_string = ''.join(random.choice(characters) for _ in range(length))
+    if response is None:
+        if request.method == 'POST':    
+            userName = request.POST['username']
+            if is_valid_email(userName):
+                
+                # check if user exist
+                userExists = User.objects.filter(userName=request.POST['username']).exists()
+                if userExists:
 
-            recoveryCode = bytes(random_string, 'utf-8')
-            salt = bcrypt.gensalt()
-            hashed = bcrypt.hashpw(recoveryCode, salt)    
+                    # Generate a random alphanumeric string of length 100
+                    length = 100
+                    characters = string.ascii_letters + string.digits  # Contains both letters and digits
+                    random_string = ''.join(random.choice(characters) for _ in range(length))
 
-            user = User.objects.filter(userName=request.POST['username']).first()
-            user.recoveryCode = hashed
-            user.save()
+                    recoveryCode = bytes(random_string, 'utf-8')
+                    salt = bcrypt.gensalt()
+                    hashed = bcrypt.hashpw(recoveryCode, salt)    
 
-            html_content = """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Fixing the "Non-CSS MIME Types Are Not Allowed in Strict Mode" Error</title>
-        <style>
-            body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-            }
-            h1, h2, h3 {
-            color: #333;
-            }
-            code {
-            background-color: #f9f9f9;
-            padding: 2px 6px;
-            border-radius: 4px;
-            }
-            pre {
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-left: 4px solid #ccc;
-            overflow-x: auto;
-            }
-        </style>
-        </head>
-        <body>
+                    user = User.objects.filter(userName=request.POST['username']).first()
+                    user.recoveryCode = hashed
+                    user.save()
 
-        <h3>Below is your recovery link:</h3>
-        https://www.roboosoft.com/account/reset/?code=""" 
+                    html_content = """
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Fixing the "Non-CSS MIME Types Are Not Allowed in Strict Mode" Error</title>
+                <style>
+                    body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    line-height: 1.6;
+                    }
+                    h1, h2, h3 {
+                    color: #333;
+                    }
+                    code {
+                    background-color: #f9f9f9;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    }
+                    pre {
+                    background-color: #f9f9f9;
+                    padding: 10px;
+                    border-left: 4px solid #ccc;
+                    overflow-x: auto;
+                    }
+                </style>
+                </head>
+                <body>
 
-            html_content = html_content + random_string + """
+                <h3>Below is your recovery link:</h3>
+                https://www.roboosoft.com/account/reset/?code=""" 
+
+                    html_content = html_content + random_string + """
 
 
-        </body>
-        </html>
-        """
+                </body>
+                </html>
+                """
 
-            result = sendEmail(userName, "RobooSoft - link for password reset", html_content)
+                    result = sendEmail(userName, "RobooSoft - link for password reset", html_content)
 
+                    template = loader.get_template('login.html')
+                    # request.session['errMsg'] = 'Login error'
+                    context = {
+                        'errMsg': result
+                    }
+                    response = HttpResponse(template.render(context, request))
+                else:
+                    #User does not exist
+                    template = loader.get_template('registerForm.html')
+                    context = {
+                        'errMsg': 'User not found, please register',
+                        'buttonName': 'Register',
+                        'emailInputted': userName
+                    }
+                    response = HttpResponse(template.render(context, request))            
+            else:
+                #Invalid user name (email)
+                template = loader.get_template('login.html')
+                context = {
+                    'errMsg': 'Please enter a valid email'
+                }
+                response = HttpResponse(template.render(context, request))
+        else:
             template = loader.get_template('login.html')
-            # request.session['errMsg'] = 'Login error'
             context = {
-                'errMsg': result
+                'placeholder': 'test'
             }
             response = HttpResponse(template.render(context, request))
-        else:
-            #User does not exist
-            template = loader.get_template('registerForm.html')
-            context = {
-                'errMsg': 'User not found, please register',
-                'buttonName': 'Register',
-                'emailInputted': userName
-            }
-            response = HttpResponse(template.render(context, request))            
-    else:
-        #Invalid user name (email)
-        template = loader.get_template('login.html')
-        context = {
-            'errMsg': 'Please enter a valid email'
-        }
-        response = HttpResponse(template.render(context, request))
 
     return response
 

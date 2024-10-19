@@ -11,7 +11,7 @@
 <body>
     {% include "heading.html" %}
     <div class="flex_row_middle_up">
-        <div class="contentVerticallyCenter">
+        <div class="flex_column">
             <form class="registerForm" method="post" action="../register/" >{% csrf_token %}
                 <div class="contentVerticallyCenter">
                     <span class="label">Email:</span> <input class="textField" name="username" type="text" value="{{ emailInputted }}" oninput="clearMessage()"><br>

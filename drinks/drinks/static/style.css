@@ -33,7 +33,6 @@ body {
     justify-content: center;
     background-color: rgb(201, 97, 97);
     flex-grow: 1;
-    flex-basis: 100vh;
 }
 
 .cornerButton {

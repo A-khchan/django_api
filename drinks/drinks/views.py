@@ -590,6 +590,8 @@ def recover(request):
                     user.recoveryCode = hashed
                     user.save()
 
+                    recoveryURL = "https://www.roboosoft.com/account/reset/?code=" + random_string 
+
                     html_content = """
                 <!DOCTYPE html>
                 <html lang="en">
@@ -622,10 +624,12 @@ def recover(request):
                 <body>
 
                 <h3>Below is your recovery link:</h3>
-                https://www.roboosoft.com/account/reset/?code=""" 
+                <a href=""""" 
 
-                    html_content = html_content + random_string + """
-
+                    html_content = html_content + recoveryURL + """"">"""
+                    
+                    html_content = html_content + recoveryURL + """</a>
+                  
 
                 </body>
                 </html>
@@ -695,7 +699,7 @@ def sendEmail(receiver_email, subject, html_content):
             server.login(smtp_username, smtp_password)
             server.sendmail(sender_email, receiver_email, msg.as_string())
         print("Email sent successfully.")
-        result = "Email sent successfully."
+        result = "Email sent successfully"
     except Exception as e:
         print(f"Error sending email: {e}")
         result = f"Error sending email: {e}" + ">>>" + smtp_password + "<<<"

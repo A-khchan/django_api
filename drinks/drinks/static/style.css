@@ -33,8 +33,7 @@ body {
     justify-content: center;
     /* background-color: rgb(201, 97, 97); */
     /* flex-grow: 1; */
-    border: 3px solid blue;
-
+    /* border: 3px solid blue; */
 }
 
 .flex_row_middle_up {
@@ -166,6 +165,7 @@ body {
 .err_msg {
     color: red;
     height: 16px;
+    margin-left: 3px;
 }
 
 .flex_column {

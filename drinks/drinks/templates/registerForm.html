@@ -19,11 +19,13 @@
                 <input type="hidden" name="recoveryCode" value="{{ recoveryCode }}">
                 <input class="button" type="submit" value="{{ buttonName }}">
             </form>
+
+        </div>    
+        <div class="err_msg">
             {% if errMsg %}
                 <h3 id="message">Message: {{ errMsg }}</h3>                
             {% endif %}
-
-        </div>    
+        </div>
     </div>    
 
     <script>

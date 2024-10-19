@@ -22,7 +22,7 @@ body {
     /* border-width: 10px;
     border-color: chocolate; */
     /* border: 3px solid blue; */
-    flex-grow: 1;
+    flex-grow: 0;
 }
 
 .contentVerticallyCenter {
@@ -30,7 +30,9 @@ body {
     /* flex-direction: column; */
     align-items: center;
     justify-content: center;
-    background-color: rgb(201, 97, 97)
+    background-color: rgb(201, 97, 97);
+    flex-grow: 1;
+    height: 100vh;
 }
 
 .cornerButton {

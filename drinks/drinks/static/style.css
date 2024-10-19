@@ -164,7 +164,5 @@ body {
 }
 
 .err_msg {
-    position: absolute;
-    bottom: -10px;
-    left: 3px;
+    color: red
 }

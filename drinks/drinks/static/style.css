@@ -96,7 +96,7 @@ body {
 .colContainer {
     display: flex;
     text-align: center;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     background-color: chartreuse;
 }

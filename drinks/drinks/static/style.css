@@ -44,6 +44,10 @@ body {
     margin: 1px;
 }
 
+.cornerButton > span {
+    background-color: aqua;
+}
+
 .companyNameContainer {
     display: flex;
     /* flex-direction: column; */

@@ -365,6 +365,7 @@ def register(request):
                             'errMsg': 'Password must contain at least 8 characters',
                             'emailInputted': userName,
                             'buttonName': 'Reset',
+                            'new': 'New ',
                             'recoveryCode': recoveryCode
                         }
                     else:
@@ -405,6 +406,7 @@ def register(request):
                             context = {
                                 'page': 'registerForm',
                                 'buttonName': 'Reset',
+                                'new': 'New ',
                                 'errMsg': 'Reset failed, link used is invalid',
                             }
                             template = loader.get_template('registerForm.html')
@@ -701,6 +703,7 @@ def reset(request):
                 context = {
                         'page': 'registerForm',
                         'buttonName': 'Reset',
+                        'new': 'New ',
                         'recoveryCode': recoveryCode,
                         'registerMsg': 'RecoveryCode >>' + recoveryCode + '<<'
                     }

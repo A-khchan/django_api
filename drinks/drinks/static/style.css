@@ -23,6 +23,7 @@ body {
     border-color: chocolate; */
     /* border: 3px solid blue; */
     flex-grow: 0;
+    flex-shrink: 0;
 }
 
 .contentVerticallyCenter {

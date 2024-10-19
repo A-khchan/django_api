@@ -1,7 +1,7 @@
 body {
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background-color: rgb(244, 241, 69);
     padding: 0px;
     margin: 0px;
     /* flex: 1; */
@@ -9,7 +9,6 @@ body {
 
 .headBar {
     display: flex;
-    flex: 0.4;
     /* position: absolute; */
     /* top: 0; */
     /* left: 0; */

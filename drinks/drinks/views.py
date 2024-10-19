@@ -624,7 +624,7 @@ def recover(request):
                 <body>
 
                 <h3>Below is your recovery link:</h3>
-                <a href="""" 
+                <a href=" """ 
 
                     html_content = html_content + recoveryURL + """">"""
                     

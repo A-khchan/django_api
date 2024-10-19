@@ -164,7 +164,6 @@ body {
 }
 
 .err_msg {
-    display: inline-block;
     position: absolute;
     bottom: -10px;
     left: 3px;

@@ -415,15 +415,27 @@ def register(request):
 
                         # Cannot use UserSerializer() and save() function to add to db
                         # Serializer will make the binary data to blank.
-                        userObj = User.objects.create(userName = request.POST['username'], 
-                                                    passwordHash = hashed,
-                                                    recoveryCode = None)
-                        userObj.save()
-                        context = {
-                            'page': 'registerForm',
-                            'registerMsg': 'Thank you for registration'
-                        }
-                        template = loader.get_template('thank_register.html')
+
+                        if recoveryCode == '':
+                            userObj = User.objects.create(userName = request.POST['username'], 
+                                                        passwordHash = hashed,
+                                                        recoveryCode = None)
+                            userObj.save()
+                            context = {
+                                'page': 'registerForm',
+                                'registerMsg': 'Thank you for registration'
+                            }
+                            template = loader.get_template('thank_register.html')
+                        else:
+                            context = {
+                                'page': 'registerForm',
+                                'errMsg': 'Invalid email or reset link, cannot reset',
+                                'emailInputted': userName,
+                                'buttonName': 'Reset',
+                                'new': 'New '
+                            }
+                            template = loader.get_template('registerForm.html')
+
                         response = HttpResponse(template.render(context, request))            
             else:
                 if recoveryCode != '':

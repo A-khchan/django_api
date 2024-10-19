@@ -426,11 +426,18 @@ def register(request):
                         template = loader.get_template('thank_register.html')
                         response = HttpResponse(template.render(context, request))            
             else:
+                if recoveryCode != '':
+                    errMsg = 'Invalid email or reset link, cannot reset'
+                    buttonName = 'Reset'
+                else:
+                    errMsg = 'Invalid email or it has been registered'
+                    buttonName = 'Register'
+
                 context = {
                     'page': 'registerForm',
-                    'errMsg': 'Invalid email or it has been registered',
+                    'errMsg': errMsg,
                     'emailInputted': userName,
-                    'buttonName': 'Register'
+                    'buttonName': buttonName
                 }
                 template = loader.get_template('registerForm.html')
                 response = HttpResponse(template.render(context, request))            

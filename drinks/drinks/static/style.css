@@ -32,7 +32,7 @@ body {
     align-items: center;
     justify-content: center;
     /* background-color: rgb(201, 97, 97); */
-    flex-grow: 1;
+    /* flex-grow: 1; */
     border: 3px solid blue;
 
 }
@@ -40,7 +40,7 @@ body {
 .flex_row_middle_up {
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: stretch;
 }
 
 .cornerButton {

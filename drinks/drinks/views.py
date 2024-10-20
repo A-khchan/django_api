@@ -783,7 +783,7 @@ def post(request):
             userName = request.POST['username']
             postObj = Post.objects.create(
                             date = dt.now().isoformat(),
-                            author = request.POST['username'], 
+                            author = request.session.get('userName'), 
                             title = request.POST['title'],
                             content = request.POST['content'],
                             image = None,

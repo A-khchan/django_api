@@ -128,6 +128,7 @@ th {
 .post_row {
     display: flex;
     margin: 5px;
+    align-items: center;
 }
 
 /* This ensures that the width property includes padding and border in the total 

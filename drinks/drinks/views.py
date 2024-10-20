@@ -780,7 +780,6 @@ def post(request):
         response = HttpResponse(template.render(context, request))
     else:
         if request.method == 'POST':    
-            userName = request.POST['username']
             postObj = Post.objects.create(
                             date = dt.now().isoformat(),
                             author = request.session.get('userName'), 

@@ -17,7 +17,7 @@
         <form class="login" method="post" action="../post/" >{% csrf_token %}
             <div class="post_row">
                 <div class="label">Author</div>
-                <div class="textField_display" id="username">
+                <div class="textField_display">
                     {{ request.session.userName }}
                 </div>        
             </div>
@@ -25,12 +25,12 @@
             <div class="post_row">
                 <div class="label">Title</div>
                 <div class="textField">
-                    <input id="title" type="text"><br>
+                    <input name="title" type="text"><br>
                 </div>        
             </div>
             <div class="post_row">
                 <div class="label">Content</div>
-                <textarea id="content" class="textField"></textarea><br>
+                <textarea name="content" class="textField"></textarea><br>
             </div>
  
             <button class="button_recover" type="submit">Post</button>   

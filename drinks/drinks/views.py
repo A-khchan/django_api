@@ -780,16 +780,22 @@ def post(request):
         response = HttpResponse(template.render(context, request))
     else:
         if request.method == 'POST':    
-            postObj = Post.objects.create(
-                            date = dt.now().isoformat(),
-                            author = request.session.get('userName'), 
-                            title = request.POST['title'],
-                            content = request.POST['content'],
-                            image = None,
-                            replyID = None)
-            postObj.save()
+            errMsg = ""
+            for key, value in request.POST.items():
+                errMsg = errMsg + "Key: " + key + ", value: " + value + '\n'
+
+
+            # postObj = Post.objects.create(
+            #                 date = dt.now().isoformat(),
+            #                 author = request.session.get('userName'), 
+            #                 title = request.POST['title'],
+            #                 content = request.POST['content'],
+            #                 image = None,
+            #                 replyID = None)
+            # postObj.save()
             context = {
-                'postMsg': 'Post created'
+                # 'postMsg': 'Post created'
+                'postMsg': errMsg
             }
             template = loader.get_template('postform.html')
             response = HttpResponse(template.render(context, request))

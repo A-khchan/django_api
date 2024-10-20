@@ -129,6 +129,7 @@ th {
     display: flex;
     margin: 5px;
     align-items: center;
+    justify-content: center;
 }
 
 /* This ensures that the width property includes padding and border in the total 

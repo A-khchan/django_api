@@ -228,7 +228,7 @@ input
     display: flex;
     flex-direction: column;
     align-items: start;
-    width: 100%;
+    /* width: 100%; */
     /* border: black;
     border-style: dashed;
     border-width: 1px; */

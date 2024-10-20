@@ -35,11 +35,78 @@
  
             <button class="button_recover" type="submit">Post</button>   
         </form>
+        <span>{{ postMsg }}</span>
 
         <div id="codes" class="codes">
         
         </div>
     </div>   
+
+    <script type="text/javascript">
+        const django_server = "https://www.roboosoft.com/"
+
+        async function reloadPost() {
+
+            prom = await fetch(django_server + "post/");
+            jsonObj = await prom.json();
+            console.log("no. of element in array: ", jsonObj.length)
+
+            div = document.getElementById("codes")
+
+            childArray = []
+
+            jsonObj.forEach(element => {
+
+                child = document.createElement("div")
+                child.className = "code_box"
+                child.id = element.id
+
+                author = document.createElement("div")
+                author.className = "author"
+                author.innerText = element.author
+
+                date = document.createElement("div")
+                date.className = "date"
+                post_date = new Date(element.date)
+                date.innerText = post_date.toLocaleDateString() + " " +
+                                 post_date.toLocaleTimeString() 
+
+                title = document.createElement("div")
+                title.className = "title_lax"
+                title.innerText = element.title
+
+                place_filler = document.createElement("div")
+                place_filler.className = "place_filler"
+
+                auth_date = document.createElement("div")
+                auth_date.className = "auth_date"
+                auth_date.appendChild(author)
+                auth_date.appendChild(title)
+                auth_date.appendChild(place_filler)
+                auth_date.appendChild(date)
+
+                child.appendChild(auth_date)
+
+                content = document.createElement("div")
+                content.className = "content_lax"
+                content.innerText = element.content
+
+                child.appendChild(content)
+
+                childArray.unshift(child)
+            });
+
+            div.replaceChildren(...childArray)
+
+        }
+
+
+
+
+
+        reloadPost()
+    </script>
+
 </body>
 </html>
 

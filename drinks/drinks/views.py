@@ -37,6 +37,8 @@ import re
 import random
 import string
 
+from datetime import datetime as dt
+
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
 
@@ -776,6 +778,22 @@ def post(request):
             'errMsg': 'Please login to create a post'
         }
         response = HttpResponse(template.render(context, request))
+    else:
+        if request.method == 'POST':    
+            userName = request.POST['username']
+            postObj = Post.objects.create(
+                            date = dt.now().isoformat(),
+                            author = request.POST['username'], 
+                            title = request.POST['title'],
+                            content = request.POST['content'],
+                            image = None,
+                            replyID = None)
+            postObj.save()
+            context = {
+                'postMsg': 'Post created'
+            }
+            template = loader.get_template('postform.html')
+            response = HttpResponse(template.render(context, request))
 
     return response
 

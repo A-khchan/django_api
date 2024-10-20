@@ -177,15 +177,6 @@ th {
 
 
 
-
-
-
-.label {
-    display: flex;
-    width: 35px;
-    flex-grow: 1;
-}
-
 .field {
     display: flex;
     /* width: 60px; */

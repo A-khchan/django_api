@@ -120,8 +120,8 @@ th {
 .post_main {
     display: flex;
     flex-direction: column;
-    margin-left: 10%;
-    margin-right: 10%;
+    /* margin-left: 10%;
+    margin-right: 10%; */
 }
 
 .post_row {

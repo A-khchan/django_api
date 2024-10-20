@@ -136,10 +136,18 @@ body {
     width: 70px;
     /* background-color:gray; */
     text-align: left;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .textField {
+    display: flex;
+    margin: 5px;
+    background-color: white;
+    font-size: 12px;
+    width: 250px;
+}
+
+.textField_display {
     display: flex;
     margin: 5px;
     background-color: white;

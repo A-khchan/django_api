@@ -43,6 +43,8 @@ urlpatterns = [
     path('ride/', views.ride),
     path('account/recover/', views.recover),
     path('account/reset/', views.reset),
+    path('account/postform/', views.postform),
+    path('account/post/', views.post),
     # path('ws/count/', consumers.Counter.as_asgi()), 
 ]
 

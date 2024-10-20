@@ -751,3 +751,31 @@ def reset(request):
                 
 
     return response
+
+
+def postform(request):
+    
+    response = checkLoginStatus(request, 'postform.html')
+
+    if response is None:
+        template = loader.get_template('login.html')
+        context = {
+            'errMsg': 'Please login to create a post'
+        }
+        response = HttpResponse(template.render(context, request))
+
+    return response
+
+def post(request):
+    
+    response = checkLoginStatus(request, 'postform.html')
+
+    if response is None:
+        template = loader.get_template('login.html')
+        context = {
+            'errMsg': 'Please login to create a post'
+        }
+        response = HttpResponse(template.render(context, request))
+
+    return response
+

@@ -1,0 +1,251 @@
+.box {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid blue;
+    margin: 3px;
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: blue;
+    color: white;
+    width: 100vw;
+    padding: 5px;
+    z-index: 9999;
+    font-size: x-large;
+}
+
+.v_middle {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 5px;
+}
+
+.content {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;          /* with flex, flex-direction: column, this line make the content 
+                                     center (i.e. middle of left and right)  */
+    width: 100%;
+    min-width: min-content;
+    padding-right: 3px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {background-color: #ddd;}
+
+td {
+    white-space: nowrap;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: rgb(13, 198, 198);
+    padding: 5px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* width: 25vw; */
+}
+
+.button {
+    margin: 5px;
+}
+
+.post_button {
+    width: 50px;
+    margin: 5px;
+}
+
+.result_box_row {
+    display: flex;
+    flex-direction: row;
+    line-height: 120%;
+}
+
+.regex_input {
+    margin: 5px;
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.image {
+    width: 50vw;
+    align-self: center;
+}
+
+.image img { 
+    height: 100%; 
+    width: 100%; 
+}
+
+.image img { 
+    object-fit: contain; 
+    /* or object-fit: cover; */ 
+}
+
+.main_icon {
+    display: flex;
+    flex-direction: row;
+    background-color: blue;
+    color: white;
+    font-size: x-large;
+    width: 150px;
+    justify-content: center;
+    /* justify-self: flex-end; */
+    align-items: center;
+}
+
+.align_self_center {
+    align-self: center;
+}
+
+.post_main {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.post_row {
+    display: flex;
+    margin: 5px;
+}
+
+/* This ensures that the width property includes padding and border in the total 
+   width calculation, preventing the child elements from exceeding the parent's width. */
+* {
+  box-sizing: border-box;
+}
+
+
+.code_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    border-style: solid;
+    border-color: deeppink;
+    border-width: 1px;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+
+    overflow: hidden;
+    transition: height 1s ease-in-out, transform 1s ease-in-out;    
+}
+
+.flatten {
+    /* height: 10px; */
+    transform: scaleY(0.1);
+}
+
+/* Animation keyframes */
+@keyframes shrink {
+  0% {
+    height: auto;
+    transform: scaleY(1);
+  }
+  100% {
+    height: 10px;
+    transform: scaleY(0.1);
+  }
+}
+
+/* Add this class to trigger the animation */
+.flatten2 {
+  animation: shrink 2s linear forwards;
+}
+
+
+
+
+
+
+.label {
+    display: flex;
+    width: 35px;
+    flex-grow: 1;
+}
+
+.field {
+    display: flex;
+    /* width: 60px; */
+    flex-grow: 8;
+}
+
+input
+{
+  flex:1;
+  display:block;
+  /* border:none; */
+  min-width:0;
+} 
+
+.author {
+    font-size: large;
+    color: blue;
+}
+
+.content_lax {
+    font-size: medium;
+    /* border-style: solid;
+    border-color: greenyellow;
+    border-width: 1px; */
+    
+}
+
+.auth_date {
+    display: flex;
+    flex-direction: row;
+    border-top: white;
+    border-left: white;
+    border-right: white;
+    border-bottom: gray;
+    border-style:solid;
+    border-width: 1px;
+}
+
+.date {
+    justify-content: end;
+}
+
+.place_filler {
+    display: flex;
+    flex-grow: 1;
+}
+
+.codes {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    /* border: black;
+    border-style: dashed;
+    border-width: 1px; */
+}
+
+.title_lax {
+    font-size: medium;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 20px;
+}

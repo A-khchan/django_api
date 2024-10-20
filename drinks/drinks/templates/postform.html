@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Done</title>
+    <link rel="stylesheet" href="{% static 'poststyle.css' %}">
+</head>
+<body>
+    {% include "heading.html" %}
+    <div class="post_main">
+        <h3>Create a Post</h3>
+
+        <form class="login" method="post" action="../post/" >{% csrf_token %}
+            <div class="post_row">
+                <div class="label">Author</div>
+                <div class="field">
+                    {{ userName }}
+                </div>        
+            </div>
+
+            <div class="post_row">
+                <div class="label">Title</div>
+                <div class="field">
+                    <input id="title" type="text"><br>
+                </div>        
+            </div>
+            <div class="post_row">
+                <div class="label">Content</div>
+                <textarea id="content" class="field"></textarea><br>
+            </div>
+ 
+            <button class="button_recover" type="submit">Post</button>   
+        </form>
+
+        <div id="codes" class="codes">
+        
+        </div>
+    </div>   
+</body>
+</html>
+
+
+

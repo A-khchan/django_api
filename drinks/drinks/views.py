@@ -508,11 +508,12 @@ def userinfoUpdate(request):
         response = HttpResponse(template.render(context, request))
     else:
         nickname = request.POST['nickname']   
-        user = User.objects.filter(userName=request.POST['username']).first()
+        user = User.objects.filter(userName=request.session['userName']).first()
         user.nickname = nickname
         user.save()
         context = {
             'errMsg': 'Info updated',
+            'nickname': nickname,
         }
         template = loader.get_template('userinfo.html')
         response = HttpResponse(template.render(context, request))    

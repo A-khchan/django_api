@@ -481,6 +481,44 @@ def login(request):
 
     return response
 
+def userinfo(request):
+
+    response = checkLoginStatus(request, 'userinfo.html')
+
+    if response is None:
+        context = {
+            'page': 'login',
+            'errMsg': 'Please login',
+        }
+        template = loader.get_template('login.html')
+        response = HttpResponse(template.render(context, request))
+
+    return response
+
+def userInfoUpdate(request):
+    
+    response = checkLoginStatus(request, 'login.html')
+
+    if response is None or not request.method == 'POST':
+        context = {
+            'page': 'login',
+            'errMsg': 'Please login',
+        }
+        template = loader.get_template('login.html')
+        response = HttpResponse(template.render(context, request))
+    else:
+        nickname = request.POST['nickname']   
+        user = User.objects.filter(userName=request.POST['username']).first()
+        user.nickname = nickname
+        user.save()
+        context = {
+            'errMsg': 'Info updated',
+        }
+        template = loader.get_template('userinfo.html')
+        response = HttpResponse(template.render(context, request))    
+
+    return response
+
 def doLogin(request):
     
     response = checkLoginStatus(request, 'landing.html')

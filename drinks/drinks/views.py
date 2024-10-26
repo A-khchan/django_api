@@ -311,8 +311,11 @@ def checkLoginStatus(request, page, context=None):
     userName = request.session.get('userName')
     if userName:
         if context is None:
+            user = User.objects.filter(userName=request.session.get('userName')).first()
             context = {
-                'placeholder': 'test'
+                'placeholder': 'test',
+                'nickname': user.nickname,
+
             }
         template = loader.get_template(page)
         response = HttpResponse(template.render(context, request))
@@ -362,13 +365,15 @@ def register(request):
             if is_valid_email(userName) and (not userExists or userExists and recoveryCode != ''):
                 if len(request.POST['password']) < 8:
                     if userExists:
+                        user = User.objects.filter(userName=request.session.get('userName')).first()
                         context = {
                             'page': 'registerForm',
                             'errMsg': 'Password must contain at least 8 characters',
                             'emailInputted': userName,
                             'buttonName': 'Reset',
                             'new': 'New ',
-                            'recoveryCode': recoveryCode
+                            'recoveryCode': recoveryCode,
+                            'nickname': user.nickname,
                         }
                     else:
                         context = {
@@ -400,7 +405,8 @@ def register(request):
 
                             context = {
                                 'page': 'registerForm',
-                                'registerMsg': 'Your password is updated'
+                                'registerMsg': 'Your password is updated',
+                                'nickname': user.nickname,
                             }
                             template = loader.get_template('thank_register.html')
                             response = HttpResponse(template.render(context, request)) 
@@ -425,7 +431,8 @@ def register(request):
                             userObj.save()
                             context = {
                                 'page': 'registerForm',
-                                'registerMsg': 'Thank you for registration'
+                                'registerMsg': 'Thank you for registration',
+                                'nickname': userObj.nickname,
                             }
                             template = loader.get_template('thank_register.html')
                         else:
@@ -538,7 +545,8 @@ def doLogin(request):
                     template = loader.get_template('landing.html')
                     print("Password correct")
                     context = {
-                        'placeholder': 'test'
+                        'placeholder': 'test',
+                        'nickname': user.nickname,
                     }
                     request.session['userName'] = user.userName
                     response = HttpResponse(template.render(context, request))
@@ -681,7 +689,8 @@ def recover(request):
                     template = loader.get_template('login.html')
                     # request.session['errMsg'] = 'Login error'
                     context = {
-                        'errMsg': result
+                        'errMsg': result,
+                        'nickname': user.nickname,
                     }
                     response = HttpResponse(template.render(context, request))
                 else:
@@ -831,8 +840,10 @@ def post(request):
                             image = None,
                             replyID = None)
             postObj.save()
+            user = User.objects.filter(userName=request.session.get('userName')).first()
             context = {
-                'postMsg': 'Post created'
+                'postMsg': 'Post created',
+                'nickname': user.nickname,
                 # 'postMsg': errMsg
             }
             template = loader.get_template('postform.html')

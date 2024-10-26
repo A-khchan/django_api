@@ -17,7 +17,11 @@
             <div class="flex_column">
                 <form class="login" method="post" action="../userinfoUpdate/" >{% csrf_token %}
                     <div class="contentVerticallyCenter">
-                        <span class="label">Email:</span> <input class="textField_display" name="username" type="text" value="{{ request.session.userName }}" oninput="clearMessage()"><br>
+                        <span class="label">Email:</span> 
+                        <div class="textField_display">
+                            {{ request.session.userName }}
+                        </div>
+                        <br>
                     </div>
                     <div class="contentVerticallyCenter">
                         <span class="label">Nickname:</span> <input class="textField" name="nickname" type="text" value="{{ nickname }}" oninput="clearMessage()"><br>

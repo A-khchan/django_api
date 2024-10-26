@@ -809,8 +809,16 @@ def postform(request):
 
     # if response is None:
     template = loader.get_template('postform.html')
+    
+    if request.session.get('userName'):
+        user = User.objects.filter(userName=request.session.get('userName')).first()
+        nickname = user.nickname
+    else:
+        nickname: None
+
     context = {
-        'placeholder': 'test'
+        'placeholder': 'test',
+        'nickname': nickname,
     }
     response = HttpResponse(template.render(context, request))
 

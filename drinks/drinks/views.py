@@ -495,7 +495,7 @@ def userinfo(request):
 
     return response
 
-def userInfoUpdate(request):
+def userinfoUpdate(request):
     
     response = checkLoginStatus(request, 'login.html')
 

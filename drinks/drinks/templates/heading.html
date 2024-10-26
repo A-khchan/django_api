@@ -24,7 +24,11 @@
         
         {% if request.session.userName %}
         <div class="userName">
-            <span>hi, {{ nickname }} </span>
+            {% if nickname %}
+                <span>hi, {{ nickname }} </span>
+            {% else %}
+                <span>hi, {{ request.session.userName }} </span>
+            {% endif %}
         </div>
         <div class="cornerButton">
             <a href="../logout/">

@@ -29,6 +29,7 @@ class User(models.Model):
     userName = models.CharField(max_length=100)
     passwordHash = models.BinaryField()
     recoveryCode = models.BinaryField(blank=True, null=True)
+    nickname = models.CharField(max_length=100, blank=True, null=True)
 
 class Post(models.Model):
     date = models.CharField(max_length=24)

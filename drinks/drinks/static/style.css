@@ -158,6 +158,10 @@ body {
     width: 400px;
 }
 
+.area {
+    margin: 5px;
+}
+
 .textField_display {
     display: flex;
     margin: 5px;

@@ -146,7 +146,16 @@ body {
     margin: 5px;
     background-color: white;
     font-size: 12px;
-    width: 250px;
+    width: 400px;
+}
+
+.textArea {
+    display: flex;
+    margin: 5px;
+    background-color: white;
+    font-size: 12px;
+    height: 300px;
+    width: 400px;
 }
 
 .textField_display {

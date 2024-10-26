@@ -12,32 +12,38 @@
 <body>
     {% include "heading.html" %}
     <div class="post_main">
-        <h3>Create a Post</h3>
 
-        <form class="login" method="post" action="../post/" >{% csrf_token %}
-            <div class="post_row">
-                <div class="label">Author</div>
-                <div class="textField_display">
-                    {{ request.session.userName }}
-                </div>        
-            </div>
+        {% if request.session.userName %}
+            <h3>Create a Post</h3>
 
-            <div class="post_row">
-                <div class="label">Title</div>
-                <div class="textField">
-                    <input name="title" type="text"><br>
-                </div>        
-            </div>
-            <div class="post_row">
-                <div class="label">Content</div>
-                <div class="textArea">
-                    <textarea name="content" class="area"></textarea><br>
+            <form class="login" method="post" action="../post/" >{% csrf_token %}
+                <div class="post_row">
+                    <div class="label">Author</div>
+                    <div class="textField_display">
+                        {{ request.session.userName }}
+                    </div>        
                 </div>
-            </div>
- 
-            <input class="button" type="submit" value="Post">   
-        </form>
-        <span>{{ postMsg }}</span>
+
+                <div class="post_row">
+                    <div class="label">Title</div>
+                    <div class="textField">
+                        <input name="title" type="text"><br>
+                    </div>        
+                </div>
+                <div class="post_row">
+                    <div class="label">Content</div>
+                    <div class="textArea">
+                        <textarea name="content" class="area"></textarea><br>
+                    </div>
+                </div>
+    
+                <input class="button" type="submit" value="Post">   
+            </form>
+            <span>{{ postMsg }}</span>
+        {% else %}
+            <h3>To reate a Post, please login <a href="../login">here</a></h3>
+
+        {% endif %}
         <br>
         <div id="codes" class="codes">
         

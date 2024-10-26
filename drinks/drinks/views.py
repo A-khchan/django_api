@@ -757,14 +757,14 @@ def reset(request):
 
 def postform(request):
     
-    response = checkLoginStatus(request, 'postform.html')
+    # response = checkLoginStatus(request, 'postform.html')
 
-    if response is None:
-        template = loader.get_template('login.html')
-        context = {
-            'errMsg': 'Please login to create a post'
-        }
-        response = HttpResponse(template.render(context, request))
+    # if response is None:
+    template = loader.get_template('postform.html')
+    context = {
+        'placeholder': 'test'
+    }
+    response = HttpResponse(template.render(context, request))
 
     return response
 

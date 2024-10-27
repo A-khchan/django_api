@@ -124,8 +124,9 @@
             div = document.getElementById("pages")
             pagesDiv = []
 
-            for(i=0;i<indexCount;i++) {
+            for(i=1;i<indexCount;i++) {
                 aDiv = document.createElement("div")
+                aDiv.className = "pageIndex"
                 if(i == '{{ pageNum }}') {
                     aDiv.innerText = i
                 } else {

@@ -69,7 +69,7 @@
             start = jsonObj.length - ('{{ pageNum }}' * '{{ postPerPage }}')
             if(start < 0)
                 start = 0
-            end = start + '{{ postPerPage }}' - 1
+            end = start + parseInt('{{ postPerPage }}')
             jsonObjSelected = jsonObj.slice(start, end)
 
             jsonObjSelected.forEach(element => {

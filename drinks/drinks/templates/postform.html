@@ -115,6 +115,28 @@
 
             div.replaceChildren(...childArray)
 
+            indexCount = jsonObj.length / parseInt('{{ postPerPage }}')
+            remainder = jsonObj.length % parseInt('{{ postPerPage }}')
+            if(remainder > 0)
+                indexCount += 1
+
+
+            div = document.getElementById("pages")
+            pagesDiv = []
+
+            for(i=0;i<indexCount;i++) {
+                aDiv = document.createElement("div")
+                if(i == '{{ pageNum }}') {
+                    aDiv.innerText = i
+                } else {
+                    aHref = document.createElement("a")
+                    aHref.href = "../postform/?pages=" + i
+                    aHref.textContent = i
+                    aDiv.appendChild(aHref)
+                }
+                pagesDiv.push(aDiv)
+            }
+            div.replaceChildren(...pagesDiv)
         }
 
         reloadPost()

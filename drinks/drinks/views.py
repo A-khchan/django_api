@@ -73,6 +73,7 @@ from datetime import datetime as dt
 
 # print('my sid is', sio.sid)
 
+postPerPage = 3
 
 @api_view(['GET', 'POST'])
 def drink_list(request, format=None):
@@ -805,8 +806,6 @@ def reset(request):
 
 def postform(request):
 
-    postPerPage = 3
-
     pageNumStr = request.GET.get('page', '1')
     if pageNumStr.isdigit():
         pageNum = int(pageNumStr)
@@ -859,6 +858,8 @@ def post(request):
             context = {
                 'postMsg': 'Post created',
                 'nickname': user.nickname,
+                'postPerPage': postPerPage,
+                'pageNum': 1,
                 # 'postMsg': errMsg
             }
             template = loader.get_template('postform.html')

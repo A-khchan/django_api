@@ -804,10 +804,15 @@ def reset(request):
 
 
 def postform(request):
-    
-    # response = checkLoginStatus(request, 'postform.html')
 
-    # if response is None:
+    postPerPage = 3
+
+    pageNumStr = request.GET.get('page', '1')
+    if pageNumStr.isdigit():
+        pageNum = int(pageNumStr)
+    else:
+        pageNum = 1
+
     template = loader.get_template('postform.html')
     
     if request.session.get('userName'):
@@ -819,6 +824,8 @@ def postform(request):
     context = {
         'placeholder': 'test',
         'nickname': nickname,
+        'postPerPage': postPerPage,
+        'pageNum': pageNum,
     }
     response = HttpResponse(template.render(context, request))
 

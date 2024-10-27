@@ -237,6 +237,11 @@ input
     width: 70%;
 }
 
+.pages {
+    display: flex;
+    justify-content: center;
+}
+
 .title_lax {
     font-size: medium;
     padding-top: 2px;

@@ -72,7 +72,7 @@
             end = start + '{{ postPerPage }}' - 1
             jsonObjSelected = jsonObj.slice(start, end)
 
-            jsonObj.forEach(element => {
+            jsonObjSelected.forEach(element => {
 
                 child = document.createElement("div")
                 child.className = "code_box"

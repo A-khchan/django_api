@@ -66,10 +66,11 @@
 
             childArray = []
 
-            start = jsonObj.length - ('{{ pageNum }}' * '{{ postPerPage }}')
-            if(start < 0)
-                start = 0
+            start = ('{{ pageNum }}' - 1) * '{{ postPerPage }}'
             end = start + parseInt('{{ postPerPage }}')
+            if(end > jsonObj.length) {
+                end = jsonObj.length
+            }
             jsonObjSelected = jsonObj.slice(start, end)
 
             jsonObjSelected.forEach(element => {

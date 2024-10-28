@@ -56,6 +56,8 @@
     <script type="text/javascript">
         const django_server = "https://www.roboosoft.com/"
 
+        const userDict = JSON.parse('{{ userDict|safe }}');
+
         async function reloadPost() {
 
             prom = await fetch(django_server + "post/");
@@ -87,7 +89,13 @@
 
                 author = document.createElement("div")
                 author.className = "author"
-                author.innerText = element.author
+
+                authorNick = userDict[element.author]
+                if(authorNick) {
+                    author.innerText = authorNick
+                } else {
+                    author.innerText = element.author
+                }
 
                 date = document.createElement("div")
                 date.className = "date"

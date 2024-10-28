@@ -820,11 +820,17 @@ def postform(request):
     else:
         nickname: None
 
+    userAll = User.objects.all()
+    userDict = {}
+    for i in range(0, len(userAll), 1):
+        userDict[userAll[i].userName] = userAll[i].nickname
+
     context = {
         'placeholder': 'test',
         'nickname': nickname,
         'postPerPage': postPerPage,
         'pageNum': pageNum,
+        'userDict': userDict,
     }
     response = HttpResponse(template.render(context, request))
 

@@ -58,6 +58,8 @@
 
         const userDict = JSON.parse('{{ userDict|safe }}');
 
+        console.log("userDict: ", userDict)
+
         async function reloadPost() {
 
             prom = await fetch(django_server + "post/");

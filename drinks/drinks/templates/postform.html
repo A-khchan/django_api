@@ -66,6 +66,11 @@
             jsonObj = await prom.json();
             console.log("no. of element in array: ", jsonObj.length)
 
+            indexCount = Math.floor(jsonObj.length / parseInt('{{ postPerPage }}'))
+            remainder = jsonObj.length % parseInt('{{ postPerPage }}')
+            if(remainder > 0)
+                indexCount += 1
+
             div = document.getElementById("codes")
 
             childArray = []
@@ -75,10 +80,15 @@
             // if(end > jsonObj.length) {
             //     end = jsonObj.length
             // }
-            end = jsonObj.length - ('{{ pageNum }}' - 1) * '{{ postPerPage }}'
-            start = end - parseInt('{{ postPerPage }}')
-            if(start < 0) {
+            if('{{ pageNum }}' > indexCount) {
                 start = 0
+                end = parseInt('{{ postPerPage }}')
+            } else {
+                end = jsonObj.length - ('{{ pageNum }}' - 1) * '{{ postPerPage }}'
+                start = end - parseInt('{{ postPerPage }}')
+                if(start < 0) {
+                    start = 0
+                }
             }
 
             jsonObjSelected = jsonObj.slice(start, end)
@@ -131,11 +141,6 @@
             });
 
             div.replaceChildren(...childArray)
-
-            indexCount = Math.floor(jsonObj.length / parseInt('{{ postPerPage }}'))
-            remainder = jsonObj.length % parseInt('{{ postPerPage }}')
-            if(remainder > 0)
-                indexCount += 1
 
 
             div = document.getElementById("pages")

@@ -53,10 +53,14 @@
         </div>
     </div>   
 
+    <!-- Embed the JSON data safely using the json_script template tag -->
+    {% load json_script %}
+    {% json_script userDict as context_data_json %}
+
     <script type="text/javascript">
         const django_server = "https://www.roboosoft.com/"
 
-        const userDict = JSON.parse('{{ userDict|safe }}');
+        const userDict = JSON.parse(document.getElementById('context_data_json').textContent)
 
         console.log("userDict: ", userDict)
 

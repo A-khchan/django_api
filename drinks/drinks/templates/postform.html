@@ -132,7 +132,7 @@
 
             div.replaceChildren(...childArray)
 
-            indexCount = jsonObj.length / parseInt('{{ postPerPage }}')
+            indexCount = Math.floor(jsonObj.length / parseInt('{{ postPerPage }}'))
             remainder = jsonObj.length % parseInt('{{ postPerPage }}')
             if(remainder > 0)
                 indexCount += 1

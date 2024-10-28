@@ -863,11 +863,20 @@ def post(request):
                             replyID = None)
             postObj.save()
             user = User.objects.filter(userName=request.session.get('userName')).first()
+
+            userAll = User.objects.all()
+            userDict = {}
+            for i in range(0, len(userAll), 1):
+                userDict[userAll[i].userName] = userAll[i].nickname
+
+            userDict_json = json.dumps(userDict)
+
             context = {
                 'postMsg': 'Post created',
                 'nickname': user.nickname,
                 'postPerPage': postPerPage,
                 'pageNum': 1,
+                'userDict': userDict_json,
                 # 'postMsg': errMsg
             }
             template = loader.get_template('postform.html')

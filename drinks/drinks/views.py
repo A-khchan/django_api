@@ -818,7 +818,7 @@ def postform(request):
         user = User.objects.filter(userName=request.session.get('userName')).first()
         nickname = user.nickname
     else:
-        nickname: None
+        nickname = None
 
     userAll = User.objects.all()
     userDict = {}

@@ -20,7 +20,11 @@
                 <div class="post_row">
                     <div class="label">Author</div>
                     <div class="textField_display">
-                        {{ request.session.userName }}
+                        {% if nickname %}
+                            {{ nickname }}
+                        {% else %}
+                            {{ request.session.userName }}
+                        {% endif %}
                     </div>        
                 </div>
 

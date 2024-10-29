@@ -240,6 +240,7 @@ input
 .pages {
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .title_lax {

@@ -73,7 +73,7 @@ from datetime import datetime as dt
 
 # print('my sid is', sio.sid)
 
-postPerPage = 3
+postPerPage = 5
 
 @api_view(['GET', 'POST'])
 def drink_list(request, format=None):

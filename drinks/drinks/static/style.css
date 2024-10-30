@@ -200,6 +200,7 @@ body {
     justify-content: center;
     border-radius: 8px;
     flex-grow: 0;
+    padding: 5px;
     background-image: 
                 linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,255,255,0.9) 70.71%),            
                 linear-gradient(127deg, rgba(0,255,0,.8), rgba(255,255,255,0.9) 70.71%),            

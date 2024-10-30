@@ -21,6 +21,8 @@
                 <span class="login">Ride</span>
             </a>
         </div> -->
+
+        <div class="fillLeft"></div>
         
         {% if request.session.userName %}
         <div class="userName">
@@ -32,6 +34,9 @@
                 {% endif %}
             </a>
         </div>
+
+        <div class="fillRight"></div>
+
         <div class="cornerButton">
             <a href="../logout/">
                 <span>Logout</span>
@@ -41,6 +46,9 @@
             <div class="userName">
                 <span> </span>
             </div>
+
+            <div class="fillRight"></div>
+
             {% if page == "registerForm" %}
             <div class="cornerButton">
                 <a href="../login/">

@@ -189,17 +189,26 @@ body {
     max-width: 60%;
 }
 
+.fillLeft {
+    flex-grow: 0.5;
+}
+
 .userName {
     display: flex;
     color: yellow;
     margin-right: 5px;
     justify-content: center;
-    flex-grow: 1;
+    border-radius: 8px;
+    flex-grow: 0;
     background-image: 
                 linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,255,255,0.9) 70.71%),            
                 linear-gradient(127deg, rgba(0,255,0,.8), rgba(255,255,255,0.9) 70.71%),            
                 linear-gradient(336deg, rgba(0,0,255,.8), rgba(255,255,255,0.9) 70.71%);
 
+}
+
+.fillRight {
+    flex-grow: 0.7;
 }
 
 .err_msg {

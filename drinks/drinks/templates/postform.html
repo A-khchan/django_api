@@ -40,9 +40,10 @@
                                 <textarea name="content" class="area"></textarea><br>
                             </div>
                         </div>
-                        <label>Take a photo</label>
-                        <input type="file" accept="image/*" capture>
-            
+                        <label for="file" style="cursor: pointer;">Take a picture</label>
+                        <input type="file" id="file" name="image" accept="image/*" onchange="loadFile(event)" style="display: none;" capture>
+                        <img id="output" width="200" />
+
                         <input class="button" type="submit" value="Post">   
                     </form>
                     <span>{{ postMsg }}</span>
@@ -168,6 +169,11 @@
             }
             div.replaceChildren(...pagesDiv)
         }
+
+        var loadFile = function(event) {
+    	    var image = document.getElementById('output');
+	        image.src = URL.createObjectURL(event.target.files[0]);
+        };
 
         reloadPost()
     </script>

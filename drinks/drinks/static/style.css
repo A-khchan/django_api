@@ -162,8 +162,7 @@ body {
 
 .textFieldDiv {
     display: flex;
-    margin: 5px;
-    background-color: white;
+    background-color: rgb(197, 197, 197);
     font-size: 12px;
     width: 400px;
 }

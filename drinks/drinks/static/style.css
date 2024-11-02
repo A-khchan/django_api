@@ -165,6 +165,7 @@ body {
     background-color: rgb(197, 197, 197);
     font-size: 12px;
     width: 400px;
+    margin: 0px;
 }
 
 .textArea {

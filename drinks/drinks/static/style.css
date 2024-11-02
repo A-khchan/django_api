@@ -185,6 +185,7 @@ body {
     border-style: solid;
     border-color: blue; */
     flex-grow: 1;
+    color: blue;
 }
 
 .button {

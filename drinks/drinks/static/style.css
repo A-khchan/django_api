@@ -155,7 +155,7 @@ body {
 .textField {
     display: flex;
     margin: 5px;
-    background-color: rgb(197, 197, 197);
+    background-color: white;
     font-size: 12px;
     width: 400px;
 }
@@ -163,7 +163,7 @@ body {
 .textArea {
     display: flex;
     margin: 5px;
-    background-color: rgb(197, 197, 197);
+    background-color: white;
     font-size: 12px;
     height: 150px;
     width: 400px;

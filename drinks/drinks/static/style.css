@@ -148,6 +148,8 @@ body {
     border-style: solid;
     border-color: blueviolet;
     flex-grow: 1;
+    margin: 5px;
+
 }
 
 .textField {

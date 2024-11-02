@@ -216,6 +216,7 @@ input
     border-bottom: gray;
     border-style:solid;
     border-width: 1px;
+    flex-wrap: wrap;
 }
 
 .date {

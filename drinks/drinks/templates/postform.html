@@ -16,33 +16,35 @@
         {% if request.session.userName %}
             <h3>Create a Post</h3>
 
-            <div class="flex_column">
-                <form class="login" method="post" action="../post/" >{% csrf_token %}
-                    <div class="post_row">
-                        <div class="label">Author</div>
-                        <div class="textField_display">
-                            {% if nickname %}
-                                {{ nickname }}
-                            {% else %}
-                                {{ request.session.userName }}
-                            {% endif %}
-                        </div>        
-                    </div>
-
-                    <div class="contentVerticallyCenter">
-                        <span class="label">Title</span>
-                        <input class="textField" name="title" type="text"><br>
-                    </div>
-                    <div class="post_row">
-                        <div class="label">Content</div>
-                        <div class="textArea">
-                            <textarea name="content" class="area"></textarea><br>
+            <div class="contentVerticallyCenter">
+                <div class="flex_column">
+                    <form class="login" method="post" action="../post/" >{% csrf_token %}
+                        <div class="post_row">
+                            <div class="label">Author</div>
+                            <div class="textField_display">
+                                {% if nickname %}
+                                    {{ nickname }}
+                                {% else %}
+                                    {{ request.session.userName }}
+                                {% endif %}
+                            </div>        
                         </div>
-                    </div>
-        
-                    <input class="button" type="submit" value="Post">   
-                </form>
-                <span>{{ postMsg }}</span>
+
+                        <div class="contentVerticallyCenter">
+                            <span class="label">Title</span>
+                            <input class="textField" name="title" type="text"><br>
+                        </div>
+                        <div class="post_row">
+                            <div class="label">Content</div>
+                            <div class="textArea">
+                                <textarea name="content" class="area"></textarea><br>
+                            </div>
+                        </div>
+            
+                        <input class="button" type="submit" value="Post">   
+                    </form>
+                    <span>{{ postMsg }}</span>
+                </div>
             </div>
         {% else %}
             <h3>To create a Post, please login <a href="../login">here</a></h3>

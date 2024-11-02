@@ -130,7 +130,6 @@ th {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(197, 197, 197);
 }
 
 /* This ensures that the width property includes padding and border in the total 

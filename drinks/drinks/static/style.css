@@ -144,6 +144,9 @@ body {
     /* background-color:gray; */
     text-align: left;
     font-size: 12px;
+    border: 2px;
+    border-style: solid;
+    border-color: blueviolet;
 }
 
 .textField {
@@ -175,6 +178,10 @@ body {
     font-size: 12px;
     width: 400px;
     background-color: rgb(197, 197, 197);
+    border: 2px;
+    border-style: solid;
+    border-color: blue;
+
 }
 
 .button {

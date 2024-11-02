@@ -16,8 +16,6 @@
         {% if request.session.userName %}
             <h3>Create a Post</h3>
 
-            <div class="contentVerticallyCenter">
-                <div class="flex_column">
                     <form class="login" method="post" action="../post/" >{% csrf_token %}
                         <div class="post_row">
                             <div class="label">Author</div>
@@ -46,8 +44,7 @@
                         <input class="button" type="submit" value="Post">   
                     </form>
                     <span>{{ postMsg }}</span>
-                </div>
-            </div>
+
         {% else %}
             <h3>To create a Post, please login <a href="../login">here</a></h3>
 

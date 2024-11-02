@@ -147,6 +147,7 @@ body {
     border: 2px;
     border-style: solid;
     border-color: blueviolet;
+    flex-grow: 1;
 }
 
 .textField {

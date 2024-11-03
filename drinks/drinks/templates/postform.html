@@ -149,8 +149,9 @@
                     console.log("image name: " + element.image)
                     ImgProm = await fetch(django_server + "account/getimgurl/?name=images/" + element.image);
                     ImgJsonObj = await ImgProm.json();
+                    console.log("ImgJsonObj: ", ImgJsonObj)
                     imgElement = document.createElement("img")
-                    imgElement.src = ImgJsonObj[0].url
+                    imgElement.src = ImgJsonObj.url
                     imgElement.width = 200 
                     child.appendChild(imgElement)
                 }

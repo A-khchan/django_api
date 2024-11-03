@@ -18,7 +18,8 @@ from django.shortcuts import render
 
 from drinks.ff import multiSearch
 import json
-from datetime import datetime, timedelta, date
+from datetime import timedelta, date
+import pytz
 
 import bcrypt
 
@@ -41,7 +42,6 @@ from datetime import datetime as dt
 
 from google.cloud import storage  # need: pip install google-cloud-storage 
 
-from datetime import timedelta
 
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
@@ -883,7 +883,7 @@ def post(request):
                 blob_name = None
 
             postObj = Post.objects.create(
-                            date = dt.now().isoformat(),
+                            date = dt.now(pytz.utc).isoformat(),
                             author = request.session.get('userName'), 
                             title = request.POST['title'],
                             content = request.POST['content'],

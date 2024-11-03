@@ -119,6 +119,7 @@
 
                 date = document.createElement("div")
                 date.className = "date"
+                console.log("element.date: " + element.date)
                 post_date = new Date(element.date)
                 date.innerText = post_date.toLocaleDateString() + " " +
                                  post_date.toLocaleTimeString() 

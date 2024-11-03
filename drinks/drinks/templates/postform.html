@@ -145,7 +145,7 @@
 
                 child.appendChild(content)
 
-                ImgProm = await fetch(django_server + "post/");
+                ImgProm = await fetch(django_server + "account/getimgurl/?name=" + element.image);
                 ImgJsonObj = await ImgProm.json();
                 imgElement = document.createElement("img")
                 imgElement.src = ImgJsonObj[0].url

@@ -145,12 +145,15 @@
 
                 child.appendChild(content)
 
-                ImgProm = await fetch(django_server + "account/getimgurl/?name=" + element.image);
-                ImgJsonObj = await ImgProm.json();
-                imgElement = document.createElement("img")
-                imgElement.src = ImgJsonObj[0].url
-                imgElement.width = 200 
-                child.appendChild(imgElement)
+                if(element.image != "") {
+                    console.log("image name: " + element.image)
+                    ImgProm = await fetch(django_server + "account/getimgurl/?name=images/" + element.image);
+                    ImgJsonObj = await ImgProm.json();
+                    imgElement = document.createElement("img")
+                    imgElement.src = ImgJsonObj[0].url
+                    imgElement.width = 200 
+                    child.appendChild(imgElement)
+                }
 
                 childArray.unshift(child)
             }

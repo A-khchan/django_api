@@ -41,6 +41,7 @@ from datetime import datetime as dt
 
 from google.cloud import storage  # need: pip install google-cloud-storage 
 
+from datetime import timedelta
 
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
@@ -921,8 +922,8 @@ def getimgurl(request):
         client = storage.Client()  # Implicit environ set-up
         bucket = client.bucket('offerimage-may2018.appspot.com')
         blob = bucket.blob(name)
-        url_lifetime = 3600  # Seconds in an hour
-        serving_url = blob.generate_signed_url(url_lifetime)
+        expiration = timedelta(minutes=60)
+        serving_url = blob.generate_signed_url(expiration, method="GET",)
 
     return JsonResponse({ "url": serving_url })
 

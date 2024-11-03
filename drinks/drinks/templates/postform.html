@@ -152,6 +152,7 @@
                     ImgJsonObj = await ImgProm.json();
                     console.log("ImgJsonObj: ", ImgJsonObj)
                     imgElement = document.createElement("img")
+                    imgElement.className = "post_img"
                     imgElement.src = ImgJsonObj.url
                     imgElement.width = 200 
                     child.appendChild(imgElement)

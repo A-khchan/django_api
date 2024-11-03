@@ -873,7 +873,7 @@ def post(request):
 
                 # Create a blob object with the desired file name
                 blob_name = date + random_string
-                folder_name = 'image'
+                folder_name = 'images'
                 blob = bucket.blob(f'{folder_name}/{blob_name}')
 
                 # Upload the file to GCS

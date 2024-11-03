@@ -32,7 +32,7 @@ class User(models.Model):
     nickname = models.CharField(max_length=100, blank=True, null=True)
 
 class Post(models.Model):
-    date = models.CharField(max_length=24)
+    date = models.CharField(max_length=100)
     author = models.CharField(max_length=50, blank=True, null=True)
     title = models.CharField(max_length=200)
     content = models.TextField()

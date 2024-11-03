@@ -924,7 +924,7 @@ def getimgurl(request):
         url_lifetime = 3600  # Seconds in an hour
         serving_url = blob.generate_signed_url(url_lifetime)
 
-    return Response({ "url": serving_url })
+    return JsonResponse({ "url": serving_url })
 
 credential_path = os.path.join(settings.BASE_DIR, 'drinks', 'gcs_bucket.json')
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path

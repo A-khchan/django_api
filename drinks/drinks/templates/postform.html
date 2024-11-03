@@ -145,7 +145,7 @@
 
                 child.appendChild(content)
 
-                if(element.image != "") {
+                if(element.image != "none") {
                     console.log("image name: " + element.image)
                     ImgProm = await fetch(django_server + "account/getimgurl/?name=images/" + element.image);
                     ImgJsonObj = await ImgProm.json();

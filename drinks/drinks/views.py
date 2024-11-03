@@ -877,7 +877,7 @@ def post(request):
                 blob = bucket.blob(f'{folder_name}/{blob_name}')
 
                 # Upload the file to GCS
-                blob.upload_from_file(image)
+                blob.upload_from_file(image, content_type = image.content_type)
             else:
                 blob_name = None
 

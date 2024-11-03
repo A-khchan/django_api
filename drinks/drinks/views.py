@@ -858,8 +858,8 @@ def post(request):
             # for key, value in request.POST.items():
             #     errMsg = errMsg + "Key: " + key + ", value: " + value + '\n'
 
-            image = request.FILES['image']
-            if image:
+            if 'image' in request.FILES:
+                image = request.FILES['image']
                 # Create a storage client
                 storage_client = storage.Client()
 

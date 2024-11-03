@@ -858,7 +858,7 @@ def post(request):
             #     errMsg = errMsg + "Key: " + key + ", value: " + value + '\n'
 
             image = request.FILES['image']
-            if not image.filename == '':
+            if image:
                 # Create a storage client
                 storage_client = storage.Client()
 

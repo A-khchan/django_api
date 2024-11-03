@@ -44,6 +44,7 @@ urlpatterns = [
     path('account/recover/', views.recover),
     path('account/reset/', views.reset),
     path('account/postform/', views.postform),
+    path('account/getimgurl/', views.getimgurl),
     path('account/post/', views.post),
     path('account/userinfo/', views.userinfo),
     path('account/userinfoUpdate/', views.userinfoUpdate),

@@ -101,8 +101,8 @@
 
             jsonObjSelected = jsonObj.slice(start, end)
 
-            jsonObjSelected.forEach(element => {
-
+            // jsonObjSelected.forEach(element => {
+            for (const element of jsonObjSelected) {
                 child = document.createElement("div")
                 child.className = "code_box"
                 child.id = element.id
@@ -145,8 +145,16 @@
 
                 child.appendChild(content)
 
+                ImgProm = await fetch(django_server + "post/");
+                ImgJsonObj = await ImgProm.json();
+                imgElement = document.createElement("img")
+                imgElement.src = ImgJsonObj[0].url
+                imgElement.width = 200 
+                child.appendChild(imgElement)
+
                 childArray.unshift(child)
-            });
+            }
+            // });
 
             div.replaceChildren(...childArray)
 

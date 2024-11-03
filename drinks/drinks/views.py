@@ -914,6 +914,18 @@ def post(request):
     return response
 
 
+def getimgurl(request):
+    serving_url = "No URL"
+    if request.method == "GET":
+        name = request.GET.get('name', 'default')
+        client = storage.Client()  # Implicit environ set-up
+        bucket = client.bucket('offerimage-may2018.appspot.com')
+        blob = bucket.blob(name)
+        url_lifetime = 3600  # Seconds in an hour
+        serving_url = blob.generate_signed_url(url_lifetime)
+
+    return Response({ "url": serving_url })
+
 credential_path = os.path.join(settings.BASE_DIR, 'drinks', 'gcs_bucket.json')
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 

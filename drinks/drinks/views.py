@@ -39,6 +39,9 @@ import string
 
 from datetime import datetime as dt
 
+from google.cloud import storage  # need: pip install google-cloud-storage 
+
+
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
 
@@ -854,14 +857,40 @@ def post(request):
             # for key, value in request.POST.items():
             #     errMsg = errMsg + "Key: " + key + ", value: " + value + '\n'
 
+            image = request.files['image']
+            if not image.filename == '':
+                # Create a storage client
+                storage_client = storage.Client()
+
+                # Specify the bucket name
+                bucket_name = 'offerimage-may2018.appspot.com'
+                bucket = storage_client.bucket(bucket_name)
+
+                # Generate a random alphanumeric string of length 100
+                length = 20
+                characters = string.ascii_letters + string.digits  # Contains both letters and digits
+                random_string = ''.join(random.choice(characters) for _ in range(length))
+
+                # Create a blob object with the desired file name
+                blob_name = date + random_string
+                folder_name = 'image'
+                blob = bucket.blob(f'{folder_name}/{blob_name}')
+
+                # Upload the file to GCS
+                blob.upload_from_file(image)
+            else:
+                blob_name = None
+
             postObj = Post.objects.create(
                             date = dt.now().isoformat(),
                             author = request.session.get('userName'), 
                             title = request.POST['title'],
                             content = request.POST['content'],
-                            image = None,
+                            image = blob_name,
                             replyID = None)
             postObj.save()
+
+
             user = User.objects.filter(userName=request.session.get('userName')).first()
 
             userAll = User.objects.all()
@@ -883,4 +912,8 @@ def post(request):
             response = HttpResponse(template.render(context, request))
 
     return response
+
+
+credential_path = os.path.join(settings.BASE_DIR, 'drinks', 'gcs_bucket.json')
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 

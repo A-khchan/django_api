@@ -872,7 +872,7 @@ def post(request):
                 random_string = ''.join(random.choice(characters) for _ in range(length))
 
                 # Create a blob object with the desired file name
-                blob_name = date + random_string
+                blob_name = dt.now().isoformat() + random_string
                 folder_name = 'images'
                 blob = bucket.blob(f'{folder_name}/{blob_name}')
 

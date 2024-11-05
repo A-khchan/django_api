@@ -268,6 +268,18 @@ def post_detail(request, id, format=None):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
+        #delete the associate image from GCS bucket first
+        if post.image and not post.image == "":
+                # Initialize a client
+                client = storage.Client()
+                # Get the bucket
+                bucket = client.get_bucket('offerimage-may2018.appspot.com')
+                # Get the blob (file) to delete
+                folder_name = 'images'
+                blob = bucket.blob(f'{folder_name}/{post.image}')
+                # Delete the blob
+                blob.delete()
+
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

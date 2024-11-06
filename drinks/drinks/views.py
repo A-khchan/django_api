@@ -42,6 +42,10 @@ from datetime import datetime as dt
 
 from google.cloud import storage  # need: pip install google-cloud-storage 
 
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 
 # Need this: pip install python-socketio, not pip install socketio
 # import socketio
@@ -872,6 +876,9 @@ def post(request):
 
             if 'image' in request.FILES:
                 image = request.FILES['image']
+
+                resized_image = resize_image(image)
+
                 # Create a storage client
                 storage_client = storage.Client()
 
@@ -890,7 +897,7 @@ def post(request):
                 blob = bucket.blob(f'{folder_name}/{blob_name}')
 
                 # Upload the file to GCS
-                blob.upload_from_file(image, content_type = image.content_type)
+                blob.upload_from_file(resized_image, content_type = resized_image.content_type)
             else:
                 blob_name = None
 
@@ -942,3 +949,35 @@ def getimgurl(request):
 credential_path = os.path.join(settings.BASE_DIR, 'drinks', 'gcs_bucket.json')
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
+
+def resize_image(image, max_length=1024):
+    # Open the image with PIL
+    img = Image.open(image)
+    
+    # Calculate the new size, keeping the aspect ratio
+    if img.width > img.height:
+        new_width = max_length
+        new_height = int((max_length / img.width) * img.height)
+    else:
+        new_height = max_length
+        new_width = int((max_length / img.height) * img.width)
+    
+    # Resize the image
+    img = img.resize((new_width, new_height), Image.ANTIALIAS)
+    
+    # Save the resized image to a BytesIO object
+    img_io = BytesIO()
+    img.save(img_io, format=img.format)
+    img_io.seek(0)
+
+    # Create a new InMemoryUploadedFile object
+    resized_image = InMemoryUploadedFile(
+        img_io, 
+        image.field_name, 
+        image.name, 
+        image.content_type, 
+        sys.getsizeof(img_io), 
+        image.charset
+    )
+    
+    return resized_image

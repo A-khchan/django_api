@@ -7,6 +7,10 @@ body {
     /* flex: 1; */
 }
 
+.image {
+    margin-top: 5px;
+}
+
 .headBar {
     display: flex;
     align-items: center;

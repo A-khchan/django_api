@@ -42,7 +42,7 @@ from datetime import datetime as dt
 
 from google.cloud import storage  # need: pip install google-cloud-storage 
 
-from PIL import Image
+from PIL import Image, ExifTags
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys

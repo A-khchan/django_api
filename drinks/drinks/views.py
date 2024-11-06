@@ -954,6 +954,24 @@ def resize_image(image, max_length=1024):
     # Open the image with PIL
     img = Image.open(image)
     
+    # Apply orientation from EXIF data, if available
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        
+        exif = img._getexif()
+        if exif is not None and orientation in exif:
+            if exif[orientation] == 3:
+                img = img.rotate(180, expand=True)
+            elif exif[orientation] == 6:
+                img = img.rotate(270, expand=True)
+            elif exif[orientation] == 8:
+                img = img.rotate(90, expand=True)
+    except (AttributeError, KeyError, IndexError):
+        # If no EXIF data is found, skip orientation adjustment
+        pass
+
     # Set the format if not detected
     format_ = img.format or 'JPEG'  # Use 'JPEG' or 'PNG' as a fallback
 

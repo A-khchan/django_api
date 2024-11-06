@@ -994,7 +994,7 @@ def resize_image(image, max_length=1024):
     # Create a new InMemoryUploadedFile object
     resized_image = InMemoryUploadedFile(
         img_io, 
-        image.field_name, 
+        None,  # Replace field_name with None
         f"{image.name.split('.')[0]}.{format_.lower()}",  # set the correct extension
         image.content_type, 
         sys.getsizeof(img_io), 

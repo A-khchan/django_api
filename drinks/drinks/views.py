@@ -963,7 +963,7 @@ def resize_image(image, max_length=1024):
         new_width = int((max_length / img.height) * img.width)
     
     # Resize the image
-    img = img.resize((new_width, new_height), Image.ANTIALIAS)
+    img = img.resize((new_width, new_height), Image.LANCZOS)
     
     # Save the resized image to a BytesIO object
     img_io = BytesIO()

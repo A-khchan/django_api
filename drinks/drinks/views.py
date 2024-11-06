@@ -954,6 +954,9 @@ def resize_image(image, max_length=1024):
     # Open the image with PIL
     img = Image.open(image)
     
+    # Set the format if not detected
+    format_ = img.format or 'JPEG'  # Use 'JPEG' or 'PNG' as a fallback
+
     # Calculate the new size, keeping the aspect ratio
     if img.width > img.height:
         new_width = max_length
@@ -962,19 +965,19 @@ def resize_image(image, max_length=1024):
         new_height = max_length
         new_width = int((max_length / img.height) * img.width)
     
-    # Resize the image
+    # Resize the image using LANCZOS (high-quality resampling)
     img = img.resize((new_width, new_height), Image.LANCZOS)
     
     # Save the resized image to a BytesIO object
     img_io = BytesIO()
-    img.save(img_io, format=img.format)
+    img.save(img_io, format=format_)
     img_io.seek(0)
 
     # Create a new InMemoryUploadedFile object
     resized_image = InMemoryUploadedFile(
         img_io, 
         image.field_name, 
-        image.name, 
+        f"{image.name.split('.')[0]}.{format_.lower()}",  # set the correct extension
         image.content_type, 
         sys.getsizeof(img_io), 
         image.charset

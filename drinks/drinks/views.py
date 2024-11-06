@@ -77,7 +77,7 @@ from google.cloud import storage  # need: pip install google-cloud-storage
 
 # print('my sid is', sio.sid)
 
-postPerPage = 5
+postPerPage = 10
 
 @api_view(['GET', 'POST'])
 def drink_list(request, format=None):

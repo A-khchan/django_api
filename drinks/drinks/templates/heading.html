@@ -23,11 +23,6 @@
         </div> -->
 
         <div class="fillLeft"></div>
-        <div class="cornerButton">
-            <a href="../postform/">
-                <span>View post</span>
-            </a>
-        </div>
         
         {% if request.session.userName %}
         <div class="userName">
@@ -43,12 +38,22 @@
         <div class="fillRight"></div>
 
         <div class="cornerButton">
+            <a href="../postform/">
+                <span>View post</span>
+            </a>
+        </div>
+        <div class="cornerButton">
             <a href="../logout/">
                 <span>Logout</span>
             </a>
         </div>
         {% else %}
             <div class="fillRight"></div>
+            <div class="cornerButton">
+                <a href="../postform/">
+                    <span>View post</span>
+                </a>
+            </div>
 
             {% if page == "registerForm" %}
             <div class="cornerButton">

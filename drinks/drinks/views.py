@@ -1046,7 +1046,10 @@ def delPost(request):
         user = User.objects.filter(userName=request.session.get('userName')).first()
         nickname = user.nickname
 
-        pageNum = request.GET.get('pageNum', 0)
+        try:
+            pageNum = int(request.GET.get('pageNum', 0))
+        except:
+            pageNum = 0
         if pageNum > 0:
             allPost = Post.objects.all()
             totalPage = len(allPost) / postPerPage

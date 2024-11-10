@@ -1022,7 +1022,7 @@ def delPost(request):
         except:
             postId = 0
         if postId > 0:
-            post = Post.objects.get(pk=postId)
+            post = Post.objects.get(pk=str(postId))
             if post:
                 if post.image and not post.image == "":
                     # Initialize a client

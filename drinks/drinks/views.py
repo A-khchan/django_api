@@ -1022,8 +1022,8 @@ def delPost(request):
         except:
             postId = 0
         if postId > 0:
-            post = Post.objects.filter(id=postId).first()
-            if post.image and not post.image == "":
+            post = Post.objects.filter(pk=postId).first()
+            if post and post.image and not post.image == "":
                     # Initialize a client
                     client = storage.Client()
                     # Get the bucket

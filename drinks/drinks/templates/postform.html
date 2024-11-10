@@ -19,39 +19,39 @@
         {% if request.session.userName %}
             <h3>Create a Post</h3>
 
-                    <form class="login" enctype="multipart/form-data" method="post" action="../post/" >{% csrf_token %}
-                        <div class="post_row">
-                            <div class="label">Author</div>
-                            <div class="textField_display">
-                                {% if nickname %}
-                                    {{ nickname }}
-                                {% else %}
-                                    {{ request.session.userName }}
-                                {% endif %}
-                            </div>        
-                        </div>
+            <form class="login" enctype="multipart/form-data" method="post" action="../post/" >{% csrf_token %}
+                <div class="post_row">
+                    <div class="label">Author</div>
+                    <div class="textField_display">
+                        {% if nickname %}
+                            {{ nickname }}
+                        {% else %}
+                            {{ request.session.userName }}
+                        {% endif %}
+                    </div>        
+                </div>
 
-                        <div class="contentVerticallyCenter">
-                            <span class="label">Title</span>
-                            <div class="textFieldDiv">
-                                <input class="textField" name="title" type="text"><br>
-                            </div>                            
-                        </div>
-                        <div class="post_row">
-                            <div class="label">Content</div>
-                            <div class="textArea">
-                                <textarea name="content" class="area"></textarea><br>
-                            </div>
-                        </div>
-                        <div class="take_pic">
-                            <label for="file" style="cursor: pointer;">Add a picture</label>
-                        </div>
-                        <input type="file" id="file" name="image" accept="image/*" onchange="loadFile(event)" style="display: none;">
-                        <img id="output" width="200" />
-                        <br>
-                        <input class="button" type="submit" value="Post">   
-                    </form>
-                    <span>{{ postMsg }}</span>
+                <div class="contentVerticallyCenter">
+                    <span class="label">Title</span>
+                    <div class="textFieldDiv">
+                        <input class="textField" name="title" type="text"><br>
+                    </div>                            
+                </div>
+                <div class="post_row">
+                    <div class="label">Content</div>
+                    <div class="textArea">
+                        <textarea name="content" class="area"></textarea><br>
+                    </div>
+                </div>
+                <div class="take_pic">
+                    <label for="file" style="cursor: pointer;">Add a picture</label>
+                </div>
+                <input type="file" id="file" name="image" accept="image/*" onchange="loadFile(event)" style="display: none;">
+                <img id="output" width="200" />
+                <br>
+                <input class="button" type="submit" value="Post">   
+            </form>
+            <span>{{ postMsg }}</span>
 
         {% else %}
             <h3>To create a Post, please login <a href="../login">here</a></h3>
@@ -162,6 +162,12 @@
                     imgElement.src = ImgJsonObj.url
                     imgElement.width = 200 
                     child.appendChild(imgElement)
+                }
+
+                if('{{ allowDel }}' == "Y") {
+                    delLink = document.createElement('a')
+                    delLink.href = "../delPost/?id=" + element.id + "&" + "pageNum=" + '{{ pageNum}}'
+                    child.appendChild(delLink)
                 }
 
                 childArray.unshift(child)

@@ -327,7 +327,8 @@ def invokeFF(request, format=None):
 
 
 def checkLoginStatus(request, page, context=None):
-# This function checks if user already logged in, if so, return the 'page' as response, else return None
+# This function checks if user already logged in, 
+# if so, return the 'page' as response, else return None
 
     userName = request.session.get('userName')
     if userName:
@@ -834,6 +835,10 @@ def postform(request):
 
     template = loader.get_template('postform.html')
     
+    allowDel = "N"
+    if request.session.get('userName') == "albert88hk@yahoo.com.hk":
+        allowDel = "Y"
+
     if request.session.get('userName'):
         user = User.objects.filter(userName=request.session.get('userName')).first()
         nickname = user.nickname
@@ -853,6 +858,7 @@ def postform(request):
         'postPerPage': postPerPage,
         'pageNum': pageNum,
         'userDict': userDict_json,
+        'allowDel': allowDel,
     }
     response = HttpResponse(template.render(context, request))
 
@@ -1002,3 +1008,60 @@ def resize_image(image, max_length=1024):
     )
     
     return resized_image
+
+def delPost(request):
+
+    userName=request.session.get('userName')
+    if userName and userName == "albert88hk@yahoo.com.hk":
+        postId = request.GET.get('id', 0)
+        if postId > 0:
+            post = Post.objects.filter(id=postId).first()
+            if post.image and not post.image == "":
+                    # Initialize a client
+                    client = storage.Client()
+                    # Get the bucket
+                    bucket = client.get_bucket('offerimage-may2018.appspot.com')
+                    # Get the blob (file) to delete
+                    folder_name = 'images'
+                    blob = bucket.blob(f'{folder_name}/{post.image}')
+                    # Delete the blob
+                    blob.delete()
+            post.delete()
+
+        template = loader.get_template('postform.html')
+        userAll = User.objects.all()
+        userDict = {}
+        for i in range(0, len(userAll), 1):
+            userDict[userAll[i].userName] = userAll[i].nickname
+
+        userDict_json = json.dumps(userDict)
+
+        user = User.objects.filter(userName=request.session.get('userName')).first()
+        nickname = user.nickname
+
+        pageNum = request.GET.get('pageNum', 0)
+        if pageNum > 0:
+            allPost = Post.objects.all()
+            totalPage = len(allPost) / postPerPage
+            if pageNum > totalPage:
+                pageNum = totalPage
+        else:
+            pageNum = 1
+
+        context = {
+            'placeholder': 'test',
+            'nickname': nickname,
+            'postPerPage': postPerPage,
+            'pageNum': pageNum,
+            'userDict': userDict_json,
+            'allowDel': "Y",
+        }
+        response = HttpResponse(template.render(context, request))           
+    else:      
+        template = loader.get_template('login.html')
+        context = {
+                'placeholder': 'test',
+        }
+        response = HttpResponse(template.render(context, request))        
+
+    return response

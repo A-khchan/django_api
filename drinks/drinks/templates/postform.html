@@ -165,9 +165,13 @@
                 }
 
                 if('{{ allowDel }}' == "Y") {
+                    console.log("AllowDel is Y")
                     delLink = document.createElement('a')
                     delLink.href = "../delPost/?id=" + element.id + "&" + "pageNum=" + '{{ pageNum}}'
                     child.appendChild(delLink)
+                } else {
+                    console.log("AllowDel is N")
+
                 }
 
                 childArray.unshift(child)

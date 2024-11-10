@@ -916,6 +916,9 @@ def post(request):
                             replyID = None)
             postObj.save()
 
+            allowDel = "N"
+            if request.session.get('userName') == "albert88hk@yahoo.com.hk":
+                allowDel = "Y"
 
             user = User.objects.filter(userName=request.session.get('userName')).first()
 
@@ -932,6 +935,7 @@ def post(request):
                 'postPerPage': postPerPage,
                 'pageNum': 1,
                 'userDict': userDict_json,
+                'allowDel': allowDel,
                 # 'postMsg': errMsg
             }
             template = loader.get_template('postform.html')
@@ -1013,7 +1017,10 @@ def delPost(request):
 
     userName=request.session.get('userName')
     if userName and userName == "albert88hk@yahoo.com.hk":
-        postId = request.GET.get('id', 0)
+        try:
+            postId = int(request.GET.get('id', 0))
+        except:
+            postId = 0
         if postId > 0:
             post = Post.objects.filter(id=postId).first()
             if post.image and not post.image == "":

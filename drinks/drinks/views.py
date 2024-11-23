@@ -1076,3 +1076,18 @@ def delPost(request):
         response = HttpResponse(template.render(context, request))        
 
     return response
+
+
+def csrf_failure(request, reason=""):
+    user = User.objects.filter(userName=request.session.get('userName')).first()
+    context = {
+        'page': 'registerForm',
+        'registerMsg': 'CSRF verification failure, reason: ' + reason,
+        'nickname': user.nickname,
+    }
+    template = loader.get_template('thank_register.html')
+    response = HttpResponse(template.render(context, request)) 
+
+    return response
+
+

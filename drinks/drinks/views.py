@@ -1142,7 +1142,7 @@ def deliveryAdd(request):
                         parentID = 0,
                         repeatFreq = 'Monthly',
                         eligible = False,
-                        ticketNo = 0
+                        ticketNo = 0,
                         leaveAtDoor = True,
                         phoneForPic = '123-456-7890',
                         status = 'Planned',

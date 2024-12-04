@@ -1149,6 +1149,11 @@ def deliveryAdd(request):
                         log = '',
                         comments = None)
             deliveryObj.save()
+            template = loader.get_template('deliveryForm.html')
+            context = {
+                'errMsg': 'A delivery is created'
+            }
+            response = HttpResponse(template.render(context, request))         
         else:
             template = loader.get_template('deliveryForm.html')
             context = {

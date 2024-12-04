@@ -1138,7 +1138,7 @@ def deliveryAdd(request):
                         dateOfBirth = '01/01/2000',
                         deliveryDate = '01/01/2024',
                         address = '',
-                        selfPickup = 'No',
+                        selfPickup = False,
                         parentID = 0,
                         repeatFreq = 'Monthly',
                         eligible = False,

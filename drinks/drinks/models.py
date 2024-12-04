@@ -38,3 +38,32 @@ class Post(models.Model):
     content = models.TextField()
     image = models.CharField(max_length=200, blank=True, null=True)
     replyID = models.TextField(blank=True, null=True)
+
+class Delivery(models.Model):
+    lastName = models.CharField(max_length=100)
+    firstName = models.CharField(max_length=100)
+    dateOfBirth = models.CharField(max_length=10)
+    deliveryDate = models.CharField(max_length=10)
+    address = models.CharField(max_length=200)
+    selfPickup = models.BinaryField()
+    parentID = models.IntegerField()
+    repeatFreq = models.CharField(max_length=50)
+    eligible = models.BinaryField()
+    ticketNo = models.IntegerField()
+    leaveAtDoor = models.BinaryField()
+    phoneForPic = models.CharField(max_length=20, blank=True, null=True)
+    status = models.CharField(max_length=10)
+    log = models.CharField(max_length=200, blank=True, null=True)
+    comments = models.CharField(max_length=300, blank=True, null=True)
+
+class DeliveryItems(models.Model):
+    deliveryID = models.IntegerField()
+    item = models.CharField(max_length=20)
+    quantity1 = models.IntegerField()
+    quantity2 = models.IntegerField()
+
+class DeliveredItems(models.Model):
+    deliveryID = models.IntegerField()
+    item = models.CharField(max_length=20)
+    quantity1 = models.IntegerField()
+    quantity2 = models.IntegerField()

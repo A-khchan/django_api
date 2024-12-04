@@ -4,6 +4,8 @@ from .models import Target
 from .models import Flight
 from .models import Post
 from .models import User
+from .models import Delivery
+from .models import DeliveryItems
 from .serializers import DrinkSerializer
 from .serializers import TargetSerializer
 from .serializers import FlightSerializer
@@ -337,7 +339,6 @@ def checkLoginStatus(request, page, context=None):
             context = {
                 'placeholder': 'test',
                 'nickname': user.nickname,
-
             }
         template = loader.get_template(page)
         response = HttpResponse(template.render(context, request))
@@ -1100,4 +1101,82 @@ def csrf_failure(request, reason=""):
 
     return response
 
+def deliveryForm(request):
 
+    userName = request.session.get('userName')
+
+    if userName:    
+        template = loader.get_template('deliveryForm.html')
+        context = {
+            'placeholder': 'test',
+        }
+        response = HttpResponse(template.render(context, request))   
+    else:
+        template = loader.get_template('login.html')
+        context = {
+            'errMsg': 'Please login to create a delivery'
+        }
+        response = HttpResponse(template.render(context, request))   
+
+    return response
+
+def deliveryAdd(request):
+    
+    userName = request.session.get('userName')
+
+    if userName is None:
+        template = loader.get_template('login.html')
+        context = {
+            'errMsg': 'Please login to create a delivery'
+        }
+        response = HttpResponse(template.render(context, request))
+    else:
+        if request.method == 'POST':    
+            deliveryObj = Delivery.objects.create(
+                        lastName = request.POST['lastname'],
+                        firstName = request.POST['firstname'],
+                        dateOfBirth = '01/01/2000',
+                        deliveryDate = '01/01/2024',
+                        address = '',
+                        selfPickup = 'No',
+                        parentID = 0,
+                        repeatFreq = 'Monthly',
+                        eligible = False,
+                        ticketNo = 0
+                        leaveAtDoor = True,
+                        phoneForPic = '123-456-7890',
+                        status = 'Planned',
+                        log = '',
+                        comments = None)
+            deliveryObj.save()
+        else:
+            template = loader.get_template('deliveryForm.html')
+            context = {
+                'errMsg': 'POST request is required to create a delivery'
+            }
+            response = HttpResponse(template.render(context, request))         
+
+    return response   
+
+def deliveryList(request):
+    
+    userName = request.session.get('userName')
+
+    if userName:
+        deliveryAll = Delivery.objects.all()
+        delivery_json = json.dumps(deliveryAll)
+
+        template = loader.get_template('deliveryList.html')
+        context = {
+            'errMsg': 'Please login to create a delivery',
+            'delivery_json': delivery_json,
+        }
+        response = HttpResponse(template.render(context, request))      
+    else:
+        template = loader.get_template('login.html')
+        context = {
+            'errMsg': 'Please login to create a delivery'
+        }
+        response = HttpResponse(template.render(context, request))        
+
+    return response

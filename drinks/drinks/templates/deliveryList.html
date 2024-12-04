@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    {% include "heading.html" %}
+    <div class="flex_column" id="deliveryList">
+
+    </div>    
+
+    <script>
+        function clearMessage() {
+            document.getElementById('message').innerText = ''; // Clear the message
+        }
+
+        function fill() {
+            const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
+            console.log("Last name is: " + delivery_json[0].lastName)
+        }
+
+        fill()
+    </script>     
+</body>
+</html>
+
+
+
+
+
+
+

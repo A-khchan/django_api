@@ -49,6 +49,9 @@ urlpatterns = [
     path('account/userinfo/', views.userinfo),
     path('account/userinfoUpdate/', views.userinfoUpdate),
     path('account/delPost/', views.delPost),
+    path('account/deliveryList/', views.deliveryList),
+    path('account/deliveryForm/', views.deliveryForm),
+    path('account/deliveryAdd/', views.deliveryAdd),
     # path('ws/count/', consumers.Counter.as_asgi()), 
 ]
 

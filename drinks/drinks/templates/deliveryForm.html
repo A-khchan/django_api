@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    {% include "heading.html" %}
+    <div class="flex_row_middle_up">
+        <div class="contentVerticallyCenter">
+            <div class="flex_column">
+                <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
+                    <div class="contentVerticallyCenter">
+                        <span class="label">Last name:</span> <input class="textField" name="lastname" type="text" oninput="clearMessage()"><br>
+                    </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label">First name:</span> <input class="textField" name="firstname" type="text" oninput="clearMessage()"><br>
+                    </div>
+                    <br>
+                    <input class="button" type="submit" value="{{ buttonName }}">
+                </form>
+                <div class="err_msg">
+                    <span id="message">{{ errMsg }}</span>
+                </div>
+
+            </div>    
+        </div>
+        <div class="separator">
+        </div>
+
+    </div>    
+
+    <script>
+        function clearMessage() {
+            document.getElementById('message').innerText = ''; // Clear the message
+        }
+    </script>     
+</body>
+</html>
+
+
+
+
+
+
+

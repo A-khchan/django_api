@@ -1171,7 +1171,10 @@ def deliveryList(request):
         deliveryAll = Delivery.objects.all()
         deliveryArray = []
         for i in range(0, len(deliveryAll), 1):
-            deliveryArray.append(deliveryAll[i])
+            deliveryArray.append({
+                "lastName": deliveryAll[i].lastName,
+                "firstName": deliveryAll[i].firstName,
+                                 })
 
         delivery_json = json.dumps(deliveryArray)
 

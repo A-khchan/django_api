@@ -1164,7 +1164,11 @@ def deliveryList(request):
 
     if userName:
         deliveryAll = Delivery.objects.all()
-        delivery_json = json.dumps(deliveryAll)
+        deliveryArray = []
+        for i in range(0, len(deliveryAll), 1):
+            deliveryArray.append(deliveryAll[i])
+
+        delivery_json = json.dumps(deliveryArray)
 
         template = loader.get_template('deliveryList.html')
         context = {

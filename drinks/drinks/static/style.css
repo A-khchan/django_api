@@ -261,3 +261,9 @@ body {
                 linear-gradient(336deg, rgba(156, 156, 239, 0.8), rgba(239, 192, 90, 0.9) 70.71%);
     border-radius: 5px;
 }
+
+.delivery_box {
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: black;
+}

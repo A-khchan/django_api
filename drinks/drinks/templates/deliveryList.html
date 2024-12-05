@@ -22,6 +22,17 @@
         function fill() {
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             console.log("Last name is: " + delivery_json[0].lastName)
+
+            deliveryList = document.getElementById("deliveryList")
+
+            for(const element of delivery_json) {
+                child = document.createElement("div")
+                child.className = "delivery_box"
+                child.id = element.id
+                child.innerText = element.lastName + ", " + element.firstName
+
+                deliveryList.appendChild(child)
+            }
         }
 
         fill()

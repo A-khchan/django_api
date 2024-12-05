@@ -10,10 +10,14 @@
 </head>
 <body>
     {% include "heading.html" %}
-    <div class="flex_column" id="deliveryList">
+    <div class="flex_column">
+        <div class="flex_column" id="deliveryList">
 
-    </div>    
+        </div>    
 
+        <a href="../deliveryForm">Create a delivery</a>
+    </div>
+    
     <script>
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message

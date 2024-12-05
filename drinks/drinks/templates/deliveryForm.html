@@ -13,6 +13,7 @@
     <div class="flex_row_middle_up">
         <div class="contentVerticallyCenter">
             <div class="flex_column">
+                <div>Create a delivery</div>
                 <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
                     <div class="contentVerticallyCenter">
                         <span class="label">Last name:</span> <input class="textField" name="lastname" type="text" oninput="clearMessage()"><br>
@@ -26,7 +27,7 @@
                 <div class="err_msg">
                     <span id="message">{{ errMsg }}</span>
                 </div>
-
+                <a href="../deliveryList">View delivery list</a>
             </div>    
         </div>
         <div class="separator">

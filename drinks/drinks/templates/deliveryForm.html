@@ -18,7 +18,6 @@
                     <div class="contentVerticallyCenter">
                         <span class="label">Delivery date:</span> <input class="textField" name="deliveryDate" type="text" oninput="clearMessage()"><br>
                     </div>
-                    <div id="calendar" class="calendar"></div>
                     <div class="contentVerticallyCenter">
                         <span class="label">Last name:</span> <input class="textField" name="lastname" type="text" oninput="clearMessage()"><br>
                     </div>
@@ -28,6 +27,7 @@
                     <br>
                     <input class="button" type="submit" value="Create">
                 </form>
+                <div id="calendar" class="calendar"></div>
                 <div class="err_msg">
                     <span id="message">{{ errMsg }}</span>
                 </div>

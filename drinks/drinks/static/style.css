@@ -274,4 +274,5 @@ body {
     position: absolute;
     top: 20px;
     left: 5px;
+    align-self: center;
 }

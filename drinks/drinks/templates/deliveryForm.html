@@ -16,6 +16,10 @@
                 <div>Create a delivery</div>
                 <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
                     <div class="contentVerticallyCenter">
+                        <span class="label">Delivery date:</span> <input class="textField" name="deliveryDate" type="text" oninput="clearMessage()"><br>
+                        <div id="calendar" class="calendar"></div>
+                    </div>
+                    <div class="contentVerticallyCenter">
                         <span class="label">Last name:</span> <input class="textField" name="lastname" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
@@ -39,7 +43,47 @@
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message
         }
+
+
+      const options = {
+        type: "single", // Other values: "multiple",
+        months: 1,
+        jumpMonths: 1,
+        settings: {
+          selection: {
+            day: "single",  // Other values: "multiple-ranged"
+          },
+          iso8601: false, //Make Sunday as first day of the week
+        },
+        actions: {
+          clickDay(event, self) {
+            // console.log(self.selectedDates);
+            selectedDate = self.selectedDates[0];
+
+            // console.log("startDate: ", startDate);
+            // console.log("endDate: ", endDate);
+          },
+        },
+      };
+
+      function initCalendar() {
+        const calendar = new VanillaCalendar("#calendar", options);
+        calendar.init();
+      }
+
+
     </script>     
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/vanilla-calendar.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/vanilla-calendar.min.js"
+      async
+      defer
+      onload="initCalendar()"
+    ></script>
 </body>
 </html>
 

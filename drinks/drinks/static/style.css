@@ -267,4 +267,10 @@ body {
     border-radius: 3px;
     border-color: black;
     border-style: dotted;
+    margin: 2px;
+}
+
+.calendar {
+    position: absolute;
+    top: 20px;
 }

@@ -16,7 +16,7 @@
                 <div>Create a delivery</div>
                 <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
                     <div class="contentVerticallyCenter">
-                        <span class="label">Delivery date:</span> <input class="textField" name="deliveryDate" type="text" oninput="clearMessage()"><br>
+                        <span class="label">Delivery date:</span> <input class="textField" id="deliveryDate" name="deliveryDate" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
                         <span class="label">Last name:</span> <input class="textField" name="lastname" type="text" oninput="clearMessage()"><br>
@@ -59,7 +59,7 @@
           clickDay(event, self) {
             // console.log(self.selectedDates);
             selectedDate = self.selectedDates[0];
-
+            document.getElementById("deliveryDate").value = self.selectedDates[0]
             // console.log("startDate: ", startDate);
             // console.log("endDate: ", endDate);
           },

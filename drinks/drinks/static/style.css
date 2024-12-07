@@ -5,6 +5,7 @@ body {
     padding: 0px;
     margin: 0px;
     /* flex: 1; */
+    position: relative;
 }
 
 .image {

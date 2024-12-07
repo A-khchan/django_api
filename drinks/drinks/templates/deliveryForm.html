@@ -27,6 +27,31 @@
                     <div class="contentVerticallyCenter">
                         <span class="label">First name:</span> <input class="textField" name="firstname" type="text" oninput="clearMessage()"><br>
                     </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label">Date of Birth:</span> <input class="textField" name="dateOfBirth" type="text" oninput="clearMessage()"><br>
+                    </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label">Self pickup:</span> <input class="textField" name="selfPickup" type="text" oninput="clearMessage()"><br>
+                    </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label">Delivery address:</span> <input class="textField" name="address" type="text" oninput="clearMessage()"><br>
+                    </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label">Repeat frequency:</span> 
+                        <div>
+                            <input type="radio" name="repeatFreq" id="None" value="None" checked />
+                            <label for="None">None</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="repeatFreq" id="None" value="Monthly" checked />
+                            <label for="Monthly">Monthly</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="repeatFreq" id="None" value="Bi-Monthly" checked />
+                            <label for="Bi-Monthly">Bi-Monthly</label>
+                        </div>
+                        <input class="textField" name="repeatFreq" type="text" oninput="clearMessage()"><br>
+                    </div>
                     <br>
                     <input class="button" type="submit" value="Create">
                 </form>

@@ -10,7 +10,7 @@
 </head>
 <body>
     {% include "heading.html" %}
-    <div class="calendar">
+    <div id="cal_div" class="calendar">
         <div id="calendar"></div>
     </div>
     <div class="flex_row_middle_up">
@@ -42,6 +42,22 @@
     </div>    
 
     <script>
+
+        document.getElementById('deliveryDate').addEventListener('click', function (event) {
+        const inputField = event.target; // Get the clicked input field
+        
+        // Get the position and size of the input field
+        const rect = inputField.getBoundingClientRect();
+        
+        // Find the tooltip div
+        const tooltip = document.getElementById('cal_div');
+        
+        // Position the tooltip to the right of the input field
+        tooltip.style.left = `${rect.right + 5}px`; // Add 5px gap
+        tooltip.style.top = `${rect.top}px`;
+        tooltip.style.display = 'block'; // Make the tooltip visible
+        });
+
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message
         }

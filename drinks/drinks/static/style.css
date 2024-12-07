@@ -159,7 +159,7 @@ body {
 
 .label_long {
     display: flex;
-    width: 70px;
+    width: 120px;
     /* background-color:gray; */
     text-align: left;
     font-size: 12px;

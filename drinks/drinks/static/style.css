@@ -179,6 +179,13 @@ body {
     width: 400px;
 }
 
+.radio_group {
+    display: flex;
+    margin: 5px;
+    font-size: 12px;
+    width: 400px;
+}
+
 .textFieldDiv {
     display: flex;
     background-color: rgb(197, 197, 197);

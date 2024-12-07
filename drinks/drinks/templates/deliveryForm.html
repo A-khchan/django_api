@@ -10,6 +10,7 @@
 </head>
 <body>
     {% include "heading.html" %}
+    <div id="calendar" class="calendar"></div>
     <div class="flex_row_middle_up">
         <div class="contentVerticallyCenter">
             <div class="flex_column">
@@ -27,7 +28,6 @@
                     <br>
                     <input class="button" type="submit" value="Create">
                 </form>
-                <div id="calendar" class="calendar"></div>
                 <div class="err_msg">
                     <span id="message">{{ errMsg }}</span>
                 </div>

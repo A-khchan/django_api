@@ -44,19 +44,25 @@
     <script>
 
         document.getElementById('deliveryDate').addEventListener('click', function (event) {
-        const inputField = event.target; // Get the clicked input field
-        
-        // Get the position and size of the input field
-        const rect = inputField.getBoundingClientRect();
-        
-        // Find the tooltip div
-        const tooltip = document.getElementById('cal_div');
-        
-        // Position the tooltip to the right of the input field
-        tooltip.style.left = `${rect.right + 20}px`; // Add 5px gap
-        tooltip.style.top = `${rect.top}px`;
-        tooltip.style.display = 'block'; // Make the tooltip visible
-        tooltip.style.visibility = 'visible';
+            const inputField = event.target; // Get the clicked input field
+            
+            // Get the position and size of the input field
+            const rect = inputField.getBoundingClientRect();
+            
+            // Find the tooltip div
+            const tooltip = document.getElementById('cal_div');
+            
+            // Position the tooltip to the right of the input field
+            tooltip.style.left = `${rect.right + 20}px`; // Add 5px gap
+            tooltip.style.top = `${rect.top}px`;
+            tooltip.style.display = 'block'; // Make the tooltip visible
+            tooltip.style.visibility = 'visible';
+        });
+
+        document.getElementById('deliveryDate').addEventListener('blur', function (event) {
+            // Find the tooltip div
+            const tooltip = document.getElementById('cal_div');
+            tooltip.style.visibility = 'hidden';
         });
 
         function clearMessage() {

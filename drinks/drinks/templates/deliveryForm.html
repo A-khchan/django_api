@@ -19,38 +19,45 @@
                 <div>Create a delivery</div>
                 <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
                     <div class="contentVerticallyCenter">
-                        <span class="label">Delivery date:</span> <input class="textField" id="deliveryDate" name="deliveryDate" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">Delivery date:</span> <input class="textField" id="deliveryDate" name="deliveryDate" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label">Last name:</span> <input class="textField" name="lastname" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">Last name:</span> <input class="textField" name="lastname" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label">First name:</span> <input class="textField" name="firstname" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">First name:</span> <input class="textField" name="firstname" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label">Date of Birth:</span> <input class="textField" name="dateOfBirth" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">Date of Birth:</span> <input class="textField" name="dateOfBirth" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label">Self pickup:</span> <input class="textField" name="selfPickup" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">Self pickup:</span> 
+                        <div>
+                            <input type="radio" name="selfPickup" id="None" value="Yes" checked />
+                            <label for="Yes">Yes</label>
+                        </div>                        
+                        <div>
+                            <input type="radio" name="selfPickup" id="None" value="No" />
+                            <label for="No">No</label>
+                        </div>                        
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label">Delivery address:</span> <input class="textField" name="address" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">Delivery address:</span> <input class="textField" name="address" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label">Repeat frequency:</span> 
+                        <span class="label_long">Repeat frequency:</span> 
                         <div>
                             <input type="radio" name="repeatFreq" id="None" value="None" checked />
                             <label for="None">None</label>
                         </div>
                         <div>
-                            <input type="radio" name="repeatFreq" id="None" value="Monthly" checked />
+                            <input type="radio" name="repeatFreq" id="None" value="Monthly" />
                             <label for="Monthly">Monthly</label>
                         </div>
                         <div>
-                            <input type="radio" name="repeatFreq" id="None" value="Bi-Monthly" checked />
+                            <input type="radio" name="repeatFreq" id="None" value="Bi-Monthly" />
                             <label for="Bi-Monthly">Bi-Monthly</label>
                         </div>
-                        <input class="textField" name="repeatFreq" type="text" oninput="clearMessage()"><br>
                     </div>
                     <br>
                     <input class="button" type="submit" value="Create">

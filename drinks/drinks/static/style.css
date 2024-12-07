@@ -157,6 +157,20 @@ body {
 
 }
 
+.label_long {
+    display: flex;
+    width: 70px;
+    /* background-color:gray; */
+    text-align: left;
+    font-size: 12px;
+    /* border: 2px;
+    border-style: solid;
+    border-color: blueviolet; */
+    flex-grow: 1;
+    margin: 5px;
+
+}
+
 .textField {
     display: flex;
     margin: 5px;

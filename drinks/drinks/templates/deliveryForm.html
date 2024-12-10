@@ -79,7 +79,7 @@
 
     <script>
 
-        document.getElementById('deliveryDate').addEventListener('click', function (event) {
+        document.getElementById('deliveryDate').addEventListener('focus', function (event) {
             const inputField = event.target; // Get the clicked input field
             
             // Get the position and size of the input field
@@ -95,11 +95,13 @@
             tooltip.style.visibility = 'visible';
         });
 
-        document.getElementById('deliveryDate').addEventListener('blur', function (event) {
-            // Find the tooltip div
+        function hide_cal(event) {
             const tooltip = document.getElementById('cal_div');
             tooltip.style.visibility = 'hidden';
-        });
+        }
+
+        document.getElementById('lastname').addEventListener('focus', hide_cal(event) );
+        document.getElementById('firstname').addEventListener('focus', hide_cal(event) );
 
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message

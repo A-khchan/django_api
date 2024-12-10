@@ -25,10 +25,10 @@
                         <span class="label_long">Last name:</span> <input class="textField" id="lastname" name="lastname" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label_long">First name:</span> <input class="textField" name="firstname" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">First name:</span> <input class="textField" id="firstname" name="firstname" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label_long">Date of Birth:</span> <input class="textField" name="dateOfBirth" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">Date of Birth:</span> <input class="textField" id="dateOfBirth" name="dateOfBirth" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Self pickup:</span> 
@@ -79,9 +79,12 @@
 
     <script>
 
-        document.getElementById('deliveryDate').addEventListener('focus', function (event) {
+        activeDateObj = null
+
+        function show_cal(event) {
             const inputField = event.target; // Get the clicked input field
-            
+            activeDateObj = event.target
+
             // Get the position and size of the input field
             const rect = inputField.getBoundingClientRect();
             
@@ -93,7 +96,10 @@
             tooltip.style.top = `${rect.top}px`;
             tooltip.style.display = 'block'; // Make the tooltip visible
             tooltip.style.visibility = 'visible';
-        });
+        }
+
+        document.getElementById('deliveryDate').addEventListener('focus', show_cal);
+        document.getElementById('dateOfBirth').addEventListener('focus', show_cal);
 
         function hide_cal(event) {
             const tooltip = document.getElementById('cal_div');
@@ -101,12 +107,7 @@
         }
 
         document.getElementById('lastname').addEventListener('focus', hide_cal );
-        // document.getElementById('firstname').addEventListener('focus', hide_cal );
-
-        // document.getElementById('lastname').addEventListener('focus', function (event) {
-        //     const tooltip = document.getElementById('cal_div');
-        //     tooltip.style.visibility = 'hidden';
-        // })
+        document.getElementById('firstname').addEventListener('focus', hide_cal );
 
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message
@@ -127,7 +128,10 @@
           clickDay(event, self) {
             // console.log(self.selectedDates);
             selectedDate = self.selectedDates[0];
-            document.getElementById("deliveryDate").value = self.selectedDates[0]
+            // document.getElementById("deliveryDate").value = self.selectedDates[0]
+            if(activeDateObj) {
+                activeDateObj.value = self.selectedDates[0]
+            }
             // console.log("startDate: ", startDate);
             // console.log("endDate: ", endDate);
           },

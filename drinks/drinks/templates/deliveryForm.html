@@ -95,18 +95,18 @@
             tooltip.style.visibility = 'visible';
         });
 
-        // function hide_cal(event) {
-        //     const tooltip = document.getElementById('cal_div');
-        //     tooltip.style.visibility = 'hidden';
-        // }
-
-        // document.getElementById('lastname').addEventListener('focus', hide_cal );
-        // document.getElementById('firstname').addEventListener('focus', hide_cal );
-
-        document.getElementById('lastname').addEventListener('focus', function (event) {
+        function hide_cal(event) {
             const tooltip = document.getElementById('cal_div');
             tooltip.style.visibility = 'hidden';
-        })
+        }
+
+        document.getElementById('lastname').addEventListener('focus', hide_cal );
+        // document.getElementById('firstname').addEventListener('focus', hide_cal );
+
+        // document.getElementById('lastname').addEventListener('focus', function (event) {
+        //     const tooltip = document.getElementById('cal_div');
+        //     tooltip.style.visibility = 'hidden';
+        // })
 
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message

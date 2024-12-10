@@ -131,7 +131,7 @@
             // document.getElementById("deliveryDate").value = self.selectedDates[0]
             if(activeDateObj) {
                 aDate = new Date(self.selectedDates[0])
-                formatedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+                formatedDate = `${aDate.getMonth() + 1}/${aDate.getDate()}/${aDate.getFullYear()}`
                 activeDateObj.value = formatedDate
             }
             // console.log("startDate: ", startDate);

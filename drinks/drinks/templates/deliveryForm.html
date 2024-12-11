@@ -104,6 +104,8 @@
             deliveryDate = document.getElementById('deliveryDate').value
             regex = /\d\d\/\d\d\/\d{4}/
             if(regex.test(deliveryDate)) {
+                console.log("regex test ok")
+
                 mm = deliveryDate.substring(0,2)
                 dd = deliveryDate.substring(4,6)
                 yyyy = deliveryDate.substring(8,10)

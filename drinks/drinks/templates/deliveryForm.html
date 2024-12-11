@@ -110,7 +110,8 @@
                 mm = deliveryDate.substring(0,2)
                 dd = deliveryDate.substring(4,6)
                 yyyy = deliveryDate.substring(8,10)
-                inputDate = yyyy + "-" + mm + "-" + dd
+                // inputDate = yyyy + "-" + mm + "-" + dd
+                inputDate = new Date(yyyy, mm-1, dd)
                 calendar.settings.date = inputDate
                 calendar.update()
 

@@ -102,6 +102,7 @@
 
         function set_cal() {
             deliveryDate = document.getElementById('deliveryDate').value
+            console.log("deliveryDate is ", deliveryDate)
             regex = /\d\d\/\d\d\/\d{4}/
             if(regex.test(deliveryDate)) {
                 console.log("regex test ok")

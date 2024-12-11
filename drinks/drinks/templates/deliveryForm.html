@@ -113,7 +113,7 @@
                 inputDate = yyyy + "-" + mm + "-" + dd
                 calendar.settings.date = inputDate
                 calendar.update()
-                
+
                 // const options = {
                 //     type: "default", // Other values: "multiple",
                 //     months: 1,
@@ -188,8 +188,10 @@
         },
       };
 
+      calendar = null
+
       function initCalendar() {
-        const calendar = new VanillaCalendar("#calendar", options);
+        calendar = new VanillaCalendar("#calendar", options);
         calendar.init();
       }
 

@@ -103,7 +103,7 @@
         function set_cal() {
             deliveryDate = document.getElementById('deliveryDate').value
             regex = /\d\d\/\d\d\/\d{4}/
-            if(deliveryDate.test(regex)) {
+            if(regex.test(deliveryDate)) {
                 mm = deliveryDate.substring(0,2)
                 dd = deliveryDate.substring(4,6)
                 yyyy = deliveryDate.substring(8,10)

@@ -248,6 +248,10 @@
 
         // Join the formatted parts with slashes
         event.target.value = formattedParts.join('/');
+
+        if(event.target.value.length === 2 || event.target.value.length === 5) {
+            event.target.value = event.target.value + '/'
+        } 
       }
 
     </script>     

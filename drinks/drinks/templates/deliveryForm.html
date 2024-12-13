@@ -234,7 +234,7 @@
 
         parts.forEach((part, index) => {
             if (index === 0 || index === 1) { // Month or Day
-                if (part.length === 1 && part !== '0') {
+                if (part.length === 1) {
                     formattedParts.push(part); // Keep one digit as-is
                 } else if (part.length === 2) {
                     formattedParts.push(part); // Already valid

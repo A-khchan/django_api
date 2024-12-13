@@ -240,6 +240,8 @@
                     formattedParts.push(part); // Already valid
                 } else if (part.length === 1 && input.includes('/')) {
                     formattedParts.push('0' + part); // Add leading zero if single digit and followed by /
+                } else if (part.length === 0) {
+                    formattedParts.push(part); // Already valid
                 }
             } else if (index === 2) { // Year
             formattedParts.push(part.slice(0, 4)); // Keep up to 4 digits

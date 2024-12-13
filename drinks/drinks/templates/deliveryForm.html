@@ -204,6 +204,16 @@
       }
 
 
+        // Function to jump to a specific date
+        function jumpToDate(year, month, day) {
+            const targetDate = new Date(year, month - 1, day); // JavaScript months are 0-based
+            calendar.settings.date = targetDate; // Update the calendar's date setting
+            calendar.update(); // Refresh the calendar view
+        }
+
+        // Example: Jump to December 25, 2024
+        jumpToDate(2000, 12, 25);
+
     </script>     
 
     <link

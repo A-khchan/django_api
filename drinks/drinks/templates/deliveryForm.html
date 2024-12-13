@@ -21,7 +21,7 @@
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Delivery date:</span> 
                         <input class="textField" id="deliveryDate" name="deliveryDate" type="text" 
-                            oninput="set_cal()"><br>
+                            oninput="set_cal(event)"><br>
                     </div>
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Last name:</span> <input class="textField" id="lastname" name="lastname" type="text" oninput="clearMessage()"><br>
@@ -30,7 +30,9 @@
                         <span class="label_long">First name:</span> <input class="textField" id="firstname" name="firstname" type="text" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
-                        <span class="label_long">Date of Birth:</span> <input class="textField" id="dateOfBirth" name="dateOfBirth" type="text" oninput="clearMessage()"><br>
+                        <span class="label_long">Date of Birth:</span> 
+                        <input class="textField" id="dateOfBirth" name="dateOfBirth" type="text" 
+                            oninput="set_cal(event)"><br>
                     </div>
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Self pickup:</span> 
@@ -100,16 +102,17 @@
             tooltip.style.visibility = 'visible';
         }
 
-        function set_cal() {
-            deliveryDate = document.getElementById('deliveryDate').value
-            console.log("deliveryDate is ", deliveryDate)
+        function set_cal(event) {
+            // deliveryDate = document.getElementById('deliveryDate').value
+            theDate = event.target.value
+            console.log("theDate is ", theDate)
             regex = /\d\d\/\d\d\/\d{4}/
-            if(regex.test(deliveryDate)) {
+            if(regex.test(theDate)) {
                 console.log("regex test ok")
 
-                mm = deliveryDate.substring(0,2)
-                dd = deliveryDate.substring(3,5)
-                yyyy = deliveryDate.substring(6,10)
+                mm = theDate.substring(0,2)
+                dd = theDate.substring(3,5)
+                yyyy = theDate.substring(6,10)
                 inputDate = yyyy + "-" + mm + "-" + dd
                 console.log('inputDate is: ', inputDate)
                 // inputDate = new Date(yyyy, mm-1, dd)

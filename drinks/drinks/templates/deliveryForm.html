@@ -210,7 +210,13 @@
         // Function to jump to a specific date
       function jumpToDate(year, month, day) {
         const targetDate = new Date(year, month - 1, day); // JavaScript months are 0-based
-        calendar.settings.date = targetDate; // Update the calendar's date setting
+        // Update the calendar's internal state
+        calendar.date = targetDate;
+
+        // If there's a method to set the active date
+        if (calendar.setDate) {
+        calendar.setDate(targetDate); // Update the internal date
+        }
         calendar.update(); // Refresh the calendar view
       }
 

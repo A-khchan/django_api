@@ -199,6 +199,7 @@
       function initCalendar() {
         calendar = new VanillaCalendar("#calendar", options);
         calendar.init();
+        calendar.date.min = '1910-01-01';
         calendar.settings.range.min = '1910-01-01';
         calendar.update();
         console.log(calendar)

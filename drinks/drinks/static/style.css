@@ -303,5 +303,5 @@ body {
     border-width: 2px;
     border-color: darkcyan;
     border-radius: 5px;
-    /* visibility: hidden; */
+    visibility: hidden;
 }

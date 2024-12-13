@@ -110,9 +110,14 @@
                 mm = deliveryDate.substring(0,2)
                 dd = deliveryDate.substring(4,6)
                 yyyy = deliveryDate.substring(8,10)
-                // inputDate = yyyy + "-" + mm + "-" + dd
-                inputDate = new Date(yyyy, mm-1, dd)
-                calendar.settings.date = inputDate
+                inputDate = yyyy + "-" + mm + "-" + dd
+                // inputDate = new Date(yyyy, mm-1, dd)
+                // calendar.settings.date = inputDate
+
+                calendar.selectedDates = [inputDate];
+                calendar.date.today = new Date(yyyy,mm-1,dd);
+                calendar.selectedMonth = mm-1;
+                calendar.selectedYear = yyyy;
                 calendar.update()
 
                 // const options = {
@@ -202,10 +207,10 @@
         calendar.jumpToSelectedDate = true;
         calendar.date.min = '1910-01-01';
         calendar.settings.range.min = '1910-01-01';
-        calendar.selectedDates = ['1999-01-01'];
-        calendar.date.today = new Date(1998,0,1);
-        calendar.selectedMonth = 0;
-        calendar.selectedYear = 1998;
+        // calendar.selectedDates = ['1999-01-01'];
+        // calendar.date.today = new Date(1998,0,1);
+        // calendar.selectedMonth = 0;
+        // calendar.selectedYear = 1998;
         calendar.update();
         console.log(calendar)
       }

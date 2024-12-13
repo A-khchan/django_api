@@ -209,11 +209,13 @@
 
         // Function to jump to a specific date
       function jumpToDate(year, month, day) {
+        console.log(calendar)
+
+
         const targetDate = new Date(year, month - 1, day); // JavaScript months are 0-based
         // Directly update the calendar's date settings if available
         calendar.set({ date: targetDate });   
   
-        console.log(calendar)
       }
 
 

@@ -210,6 +210,8 @@
             if (index === 0 || index === 1) { // Month or Day
                 if (part.length === 1 && lastChar === '/') {
                     formattedParts.push('0' + part); // Add leading zero if single digit and followed by /
+                } else if (part.length === 1) {
+                    formattedParts.push(part); // Already valid
                 } else if (part.length === 2) {
                     formattedParts.push(part); // Already valid
                 }

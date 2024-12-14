@@ -30,9 +30,13 @@
             deliveryList = document.getElementById("deliveryList")
 
             for(const element of delivery_json) {
+                deliverDateDiv = document.createElement("div")
+                deliverDateDiv.innerText = element.deliverDate
+
                 child = document.createElement("div")
                 child.className = "delivery_box"
                 child.id = element.id
+                child.appendChild(deliverDateDiv)
                 child.innerText = element.lastName + ", " + element.firstName
 
                 deliveryList.appendChild(child)

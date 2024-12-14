@@ -287,11 +287,13 @@ body {
 }
 
 .delivery_box {
+    display: flex;
     border-width: 1px;
     border-radius: 3px;
     border-color: black;
     border-style: dotted;
     margin: 2px;
+    padding: 3px;
 }
 
 .calendar {

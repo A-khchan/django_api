@@ -1172,6 +1172,7 @@ def deliveryList(request):
         deliveryArray = []
         for i in range(0, len(deliveryAll), 1):
             deliveryArray.append({
+                "id": deliveryAll[i].id,
                 "deliveryDate": deliveryAll[i].deliveryDate,
                 "lastName": deliveryAll[i].lastName,
                 "firstName": deliveryAll[i].firstName,

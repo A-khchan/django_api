@@ -33,11 +33,14 @@
                 deliveryDateDiv = document.createElement("div")
                 deliveryDateDiv.innerText = element.deliveryDate
 
+                nameDiv = document.createElement("div")
+                nameDiv.innerText = element.lastName + ", " + element.firstName
+
                 child = document.createElement("div")
                 child.className = "delivery_box"
                 child.id = element.id
                 child.appendChild(deliveryDateDiv)
-                // child.innerText = element.lastName + ", " + element.firstName
+                child.appendChild(nameDiv)
 
                 deliveryList.appendChild(child)
             }

@@ -195,6 +195,7 @@
 
       function formatToDate(event) {
         let input = event.target.value;
+        let lastChar = input.charAt(input.length - 1)
         // Remove all non-digit and non-slash characters
         console.log('before input: ', input)
         input = input.replace(/[^\d/]/g, '');
@@ -207,17 +208,13 @@
 
         parts.forEach((part, index) => {
             if (index === 0 || index === 1) { // Month or Day
-                if (part.length === 1) {
-                    formattedParts.push(part); // Keep one digit as-is
-                } else if (part.length === 2) {
-                    formattedParts.push(part); // Already valid
-                } else if (part.length === 1 && input.includes('/')) {
+                if (part.length === 1 && lastChar === '/') {
                     formattedParts.push('0' + part); // Add leading zero if single digit and followed by /
-                } else if (part.length === 0) {
+                } else if (part.length === 2) {
                     formattedParts.push(part); // Already valid
                 }
             } else if (index === 2) { // Year
-            formattedParts.push(part.slice(0, 4)); // Keep up to 4 digits
+                formattedParts.push(part.slice(0, 4)); // Keep up to 4 digits
             }
         });
 

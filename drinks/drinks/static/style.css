@@ -307,3 +307,11 @@ body {
     border-radius: 5px;
     visibility: hidden;
 }
+
+.deliveryDateDiv {
+    padding: 3px;
+}
+
+.nameDiv {
+    padding: 3px;
+}

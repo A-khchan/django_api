@@ -46,6 +46,12 @@
                 child.appendChild(nameDiv)
 
                 deliveryList.appendChild(child)
+
+                dropTarget = document.createElement("div")
+                dropTarget.className = "dropTarget"
+                dropTarget.addEventListener('drop', handleDrop);
+
+                deliveryList.appendChild(dropTarget)
             }
         }
 

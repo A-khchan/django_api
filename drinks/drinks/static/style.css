@@ -327,3 +327,8 @@ body {
 .nameDiv {
     padding: 3px;
 }
+
+.dropTarget {
+    height: 2px;
+    background-color: aqua;
+}

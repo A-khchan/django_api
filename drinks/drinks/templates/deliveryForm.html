@@ -190,6 +190,13 @@
             console.log("date is ", date)
             result = true
 
+            console.log("dateString.substring(0,2)", dateString.substring(0,2))
+            console.log("date.getUTCMonth+1", date.getUTCMonth+1)
+            console.log("dateString.substring(3,5)", dateString.substring(3,5))
+            console.log("date.getUTCDate", date.getUTCDate)
+            console.log("dateString.substring(6,10)", dateString.substring(6,10))
+            console.log("date.getUTCFullYear", date.getUTCFullYear)
+
             if(!isNaN(date.getTime())) {
                 if(dateString.substring(0,2) == date.getUTCMonth+1 && 
                    dateString.substring(3,5) == date.getUTCDate &&

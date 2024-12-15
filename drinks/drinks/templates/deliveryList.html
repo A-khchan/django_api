@@ -29,6 +29,11 @@
             console.log('Dropped:', event.dataTransfer.getData('text/plain')); 
         }
 
+        function dragOverHandler(event) {
+            event.preventDefault();
+            event.target.style.backgroundColor = "red"
+        }
+
         function fill() {
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             console.log("Last name is: " + delivery_json[0].lastName)
@@ -56,6 +61,7 @@
                 dropTarget = document.createElement("div")
                 dropTarget.className = "dropTarget"
                 dropTarget.addEventListener('drop', handleDrop);
+                dropTarget.addEventListener('dragOver', dragOverHandler);
                 dropTarget.innerText = "drop target"
 
                 deliveryList.appendChild(dropTarget)

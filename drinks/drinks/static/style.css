@@ -329,6 +329,6 @@ body {
 }
 
 .dropTarget {
-    height: 2px;
+    width: 100%;
     background-color: aqua;
 }

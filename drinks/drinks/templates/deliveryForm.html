@@ -186,7 +186,7 @@
         };
 
         function isValidDate(dateString) {
-            const date = new Date(dateString.substring(6,10) + dateString.substring(0,2) + dateString.substring(3,5) + "Z");
+            const date = new Date(Date.UTC(dateString.substring(6,10), dateString.substring(0,2), dateString.substring(3,5)));
             console.log("date is ", date)
             result = true
 

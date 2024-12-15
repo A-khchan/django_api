@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <br>
-                    <input class="button" type="submit" value="Create">
+                    <input id="create" class="button" type="submit" value="Create">
                 </form>
                 <div class="err_msg">
                     <span id="message">{{ errMsg }}</span>
@@ -133,6 +133,13 @@
                 event.target.style.backgroundColor = "white"
             } else {
                 event.target.style.backgroundColor = "red"
+            }
+
+            if(isValidDate(document.getElementById("deliveryDate").value) && 
+               isValidDate(document.getElementById("dateOfBirth").value)) {
+                document.getElementById("create").disabled = false
+            } else {
+                document.getElementById("create").disabled = false
             }
         }
 

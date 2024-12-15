@@ -294,6 +294,8 @@ body {
     border-style: dotted;
     margin: 2px;
     padding: 3px;
+    width: 100%;
+    max-width: 600px;
 }
 
 .calendar {
@@ -310,8 +312,6 @@ body {
 
 .deliveryDateDiv {
     padding: 3px;
-    width: 100%;
-    max-width: 600px;
 }
 
 .nameDiv {

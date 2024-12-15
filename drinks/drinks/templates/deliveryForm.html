@@ -241,6 +241,10 @@
 
             parts.forEach((part, index) => {
                 if (index === 0 || index === 1) { // Month or Day
+                    if(part.length > 2) {
+                        part = part.substring(part.length - 2, part.length)
+                    }
+
                     if (part.length === 1 && (lastChar === '/' || parts.length == 3)) {
                         formattedParts.push('0' + part); // Add leading zero if single digit and followed by /
                     } else if (part.length === 1) {

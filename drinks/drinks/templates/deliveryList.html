@@ -34,6 +34,11 @@
             event.target.style.backgroundColor = "red"
         }
 
+        function dragLeaveHandler(event) {
+            event.preventDefault();
+            event.target.style.backgroundColor = "white"
+        }
+
         function fill() {
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             console.log("Last name is: " + delivery_json[0].lastName)
@@ -62,6 +67,7 @@
                 dropTarget.className = "dropTarget"
                 dropTarget.addEventListener('drop', handleDrop);
                 dropTarget.addEventListener('dragover', dragOverHandler);
+                dropTarget.addEventListener('dragleave', dragLeaveHandler);
                 dropTarget.innerText = "drop target"
 
                 deliveryList.appendChild(dropTarget)

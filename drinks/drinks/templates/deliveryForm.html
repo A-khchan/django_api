@@ -186,14 +186,14 @@
         };
 
         function isValidDate(dateString) {
-            const date = new Date(Date.UTC(dateString.substring(6,10), dateString.substring(0,2), dateString.substring(3,5)));
+            const date = new Date(Date.UTC(dateString.substring(6,10), dateString.substring(0,2)-1, dateString.substring(3,5)));
             console.log("date is ", date)
             result = true
 
             if(!isNaN(date.getTime())) {
-                if(dateString.substring(0,2) === date.getMonth+1 && 
-                   dateString.substring(3,5) === date.getDate &&
-                   dateString.substring(6,10) === date.getFullYear) {
+                if(dateString.substring(0,2) == date.getMonth+1 && 
+                   dateString.substring(3,5) == date.getDate &&
+                   dateString.substring(6,10) == date.getFullYear) {
                     result = true
                 } else {
                     result = false

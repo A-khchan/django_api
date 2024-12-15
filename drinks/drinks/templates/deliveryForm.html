@@ -185,9 +185,9 @@
             },
         };
 
-        function isValidDate(date) {
-            const parsedDate = new Date(date);
-            return !isNaN(parsedDate);
+        function isValidDate(dateString) {
+            const date = new Date(dateString);
+            return !isNaN(date.getTime());
         }
 
         function initCalendar() {

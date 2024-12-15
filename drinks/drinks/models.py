@@ -55,7 +55,7 @@ class Delivery(models.Model):
     status = models.CharField(max_length=10)
     log = models.CharField(max_length=200, blank=True, null=True)
     comments = models.CharField(max_length=300, blank=True, null=True)
-    seq = models.FloatField()
+    seq = models.FloatField(default=0.0)
 
 class DeliveryItems(models.Model):
     deliveryID = models.IntegerField()

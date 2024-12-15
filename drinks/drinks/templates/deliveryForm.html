@@ -186,7 +186,7 @@
         };
 
         function isValidDate(dateString) {
-            const date = new Date(dateString);
+            const date = new Date(dateString + "Z");
             result = true
 
             if(!isNaN(date.getTime())) {

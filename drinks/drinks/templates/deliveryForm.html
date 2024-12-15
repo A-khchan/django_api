@@ -191,9 +191,9 @@
             result = true
 
             if(!isNaN(date.getTime())) {
-                if(dateString.substring(0,2) == date.getMonth+1 && 
-                   dateString.substring(3,5) == date.getDate &&
-                   dateString.substring(6,10) == date.getFullYear) {
+                if(dateString.substring(0,2) == date.getUTCMonth+1 && 
+                   dateString.substring(3,5) == date.getUTCDate &&
+                   dateString.substring(6,10) == date.getUTCFullYear) {
                     result = true
                 } else {
                     result = false

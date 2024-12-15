@@ -76,6 +76,7 @@
                 dropTarget.addEventListener('drop', handleDrop);
                 dropTarget.addEventListener('dragover', dragOverHandler);
                 dropTarget.addEventListener('dragleave', dragLeaveHandler);
+                dropTarget.seq = element.seq
                 // dropTarget.innerText = "drop target"
 
                 deliveryList.appendChild(dropTarget)

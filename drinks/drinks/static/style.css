@@ -296,6 +296,7 @@ body {
     padding: 3px;
     width: 100%;
     max-width: 1000px;
+    flex-grow: 1;
 }
 
 .calendar {

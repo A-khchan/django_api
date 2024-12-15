@@ -272,6 +272,15 @@ body {
     align-items: center;
 }
 
+.delivery_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    flex-grow: 1;
+}
+
 .post_img {
     width: 100%;
 }

@@ -156,8 +156,8 @@
 
         document.getElementById('lastName').addEventListener('focus', hide_cal );
         document.getElementById('firstName').addEventListener('focus', hide_cal );
-        document.getElementById('selfY').addEventListener('focus', hide_cal );
-        document.getElementById('selfN').addEventListener('focus', hide_cal );
+        document.getElementByName('selfPickup')[0].addEventListener('focus', hide_cal );
+        document.getElementByName('selfPickup')[1].addEventListener('focus', hide_cal );
         document.getElementById('address').addEventListener('focus', hide_cal );
 
         function clearMessage() {

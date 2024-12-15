@@ -187,7 +187,21 @@
 
         function isValidDate(dateString) {
             const date = new Date(dateString);
-            return !isNaN(date.getTime());
+            result = true
+
+            if(!isNaN(date.getTime())) {
+                if(dateString.substring(0,2) === date.getMonth+1 && 
+                   dateString.substring(3,5) === date.getDate &&
+                   dateString.substring(6,10) === date.getFullYear) {
+                    result = true
+                } else {
+                    result = false
+                }
+            } else {
+                result = false
+            }
+
+            return result;
         }
 
         function initCalendar() {

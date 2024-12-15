@@ -26,17 +26,24 @@
         function handleDrop(event) {
             event.preventDefault(); // Prevents default behavior (e.g., opening a dropped file)
             // Handle the drop event here (e.g., get data from the dragged element)
+            // event.target is the element being dropped.
             console.log('Dropped:', event.dataTransfer.getData('text/plain')); 
+            console.log('element being dropped: ', event.target.seq)
+            console.log('dropped on: ', toBeDropSeq)
         }
+
+        toBeDropSeq = 0.0
 
         function dragOverHandler(event) {
             event.preventDefault();
             event.target.style.backgroundColor = "red"
+            toBeDropSeq = event.target.seq
         }
 
         function dragLeaveHandler(event) {
             event.preventDefault();
             event.target.style.backgroundColor = "white"
+            toBeDropSeq = 0.0
         }
 
         function fill() {
@@ -57,6 +64,7 @@
                 child = document.createElement("div")
                 child.className = "delivery_box"
                 child.id = element.id
+                child.seq = element.seq
                 child.setAttribute("draggable", "true")
                 child.appendChild(deliveryDateDiv)
                 child.appendChild(nameDiv)

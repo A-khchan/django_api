@@ -1171,11 +1171,15 @@ def deliveryList(request):
         deliveryAll = Delivery.objects.all()
         deliveryArray = []
         for i in range(0, len(deliveryAll), 1):
+            if deliveryAll[i].seq == 0.0: 
+                seq = deliveryAll[i].id + 0.0
+
             deliveryArray.append({
                 "id": deliveryAll[i].id,
                 "deliveryDate": deliveryAll[i].deliveryDate,
                 "lastName": deliveryAll[i].lastName,
                 "firstName": deliveryAll[i].firstName,
+                "seq": seq,
                                  })
 
         delivery_json = json.dumps(deliveryArray)

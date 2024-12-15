@@ -23,6 +23,12 @@
             document.getElementById('message').innerText = ''; // Clear the message
         }
 
+        function handleDrop(event) {
+            event.preventDefault(); // Prevents default behavior (e.g., opening a dropped file)
+            // Handle the drop event here (e.g., get data from the dragged element)
+            console.log('Dropped:', event.dataTransfer.getData('text/plain')); 
+        }
+
         function fill() {
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             console.log("Last name is: " + delivery_json[0].lastName)

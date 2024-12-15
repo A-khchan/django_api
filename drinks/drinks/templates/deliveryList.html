@@ -55,7 +55,7 @@
             for(const element of delivery_json) {
                 deliveryDateDiv = document.createElement("div")
                 deliveryDateDiv.className = "deliveryDateDiv"
-                deliveryDateDiv.innerText = element.deliveryDate
+                deliveryDateDiv.innerText = element.id + " " + element.deliveryDate
 
                 nameDiv = document.createElement("div")
                 nameDiv.className = "nameDiv"

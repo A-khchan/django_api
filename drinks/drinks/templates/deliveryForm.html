@@ -132,16 +132,16 @@
                 }
             }
 
-            checkDate(event)
-        }
-
-        function checkDate(event) {
             if(isValidDate(event.target.value)) {
                 event.target.style.backgroundColor = "white"
             } else {
                 event.target.style.backgroundColor = "red"
             }
 
+            checkDate()
+        }
+
+        function checkDate() {
             if(isValidDate(document.getElementById("deliveryDate").value) && 
                isValidDate(document.getElementById("dateOfBirth").value)) {
                 document.getElementById("create").disabled = false
@@ -201,6 +201,7 @@
                         } else {
                             activeDateObj.style.backgroundColor = "red"
                         }
+                        checkDate()
                     }
                     // console.log("startDate: ", startDate);
                     // console.log("endDate: ", endDate);

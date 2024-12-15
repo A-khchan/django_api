@@ -1133,14 +1133,14 @@ def deliveryAdd(request):
     else:
         if request.method == 'POST':    
             deliveryObj = Delivery.objects.create(
-                        lastName = request.POST['lastname'],
-                        firstName = request.POST['firstname'],
-                        dateOfBirth = '01/01/2000',
-                        deliveryDate = '01/01/2024',
-                        address = '',
-                        selfPickup = 'N',
+                        lastName = request.POST['lastName'],
+                        firstName = request.POST['firstName'],
+                        dateOfBirth = request.POST['dateOfBirth'],
+                        deliveryDate = request.POST['deliveryDate'],
+                        address = request.POST['address'],
+                        selfPickup = request.POST['selfPickup'],
                         parentID = 0,
-                        repeatFreq = 'Monthly',
+                        repeatFreq = request.POST['repeatFreq'],
                         eligible = 'N',
                         ticketNo = 0,
                         leaveAtDoor = 'Y',

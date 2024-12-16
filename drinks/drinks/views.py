@@ -1211,9 +1211,9 @@ def deliverySeqUpdate(request):
         }
     else:
         if request.method == 'POST':  
-            deliveryObj = Delivery.objects.filter(seq=request.POST['seq'])
+            deliveryObj = Delivery.objects.filter(seq=request.POST['from'])
             if deliveryObj is None:
-                deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(request.POST['seq']))))
+                deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(request.POST['from']))))
 
             if deliveryObj is None:
                 data = {
@@ -1223,7 +1223,7 @@ def deliverySeqUpdate(request):
                 data = {
                     'Msg': 'Seq updated'
                 }              
-                deliveryObj.seq = float(request.POST['seq'])
+                deliveryObj.seq = float(request.POST['to'])
                 deliveryObj.save()
         else:
             data = {

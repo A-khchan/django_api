@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
     {% include "heading.html" %}
@@ -43,9 +44,13 @@
         function updateSeq(from, to) {
             const django_server = "https://www.roboosoft.com/"
 
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                           'X-CSRFToken': csrfToken  
+                         },
                 body: JSON.stringify({ 'from': from, 
                                        'to': to,
                                      })

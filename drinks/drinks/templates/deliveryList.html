@@ -51,8 +51,8 @@
                 headers: { 'Content-Type': 'application/json',
                            'X-CSRFToken': csrfToken  
                          },
-                body: JSON.stringify({ 'fromSeq': fromSeq, 
-                                       'toSeq': toSeq,
+                body: JSON.stringify({ 'fromSeq': fromSeq.toString(), 
+                                       'toSeq': toSeq.toString(),
                                      })
             }
             console.log("Before fetch ")

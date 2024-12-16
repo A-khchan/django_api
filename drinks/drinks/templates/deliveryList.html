@@ -51,7 +51,7 @@
                                      })
             }
             console.log("Before fetch ")
-            fetch(django_server + "account/deliverySeqUpdate", requestOptions)
+            fetch(django_server + "account/deliverySeqUpdate/", requestOptions)
             .then((response) => {
                 console.log("Before response.json() ", response)
                 response.json()

@@ -50,11 +50,15 @@
                                        'to': to,
                                      })
             }
-            console.log("Before fetch ", data.Msg)
+            console.log("Before fetch ")
             fetch(django_server + "account/deliverySeqUpdate", requestOptions)
-            .then((response) => response.json())
+            .then((response) => {
+                console.log("Before response.json() ")
+                response.json()
+                })
             .then((data) => {
                                 //data.id
+                                console.log("Before Msg ")
                                 console.log("Msg: ", data.Msg)
                             })
         }

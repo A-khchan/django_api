@@ -1212,6 +1212,7 @@ def deliverySeqUpdate(request):
     else:
         if request.method == 'POST':  
             data = json.loads(request.body)
+            print("data is ", data)
             fromSeq = data.fromSeq
             toSeq = data.toSeq
             print("request.POST['from'] is ", fromSeq)

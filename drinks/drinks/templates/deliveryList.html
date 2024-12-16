@@ -53,12 +53,12 @@
             console.log("Before fetch ")
             fetch(django_server + "account/deliverySeqUpdate", requestOptions)
             .then((response) => {
-                console.log("Before response.json() ")
+                console.log("Before response.json() ", response)
                 response.json()
                 })
             .then((data) => {
                                 //data.id
-                                console.log("Before Msg ")
+                                console.log("Before Msg ", data)
                                 console.log("Msg: ", data.Msg)
                             })
         }

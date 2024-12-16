@@ -41,7 +41,7 @@
             reDisplay()
         }
 
-        function updateSeq(from, to) {
+        function updateSeq(fromSeq, toSeq) {
             const django_server = "https://www.roboosoft.com/"
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content
@@ -51,8 +51,8 @@
                 headers: { 'Content-Type': 'application/json',
                            'X-CSRFToken': csrfToken  
                          },
-                body: JSON.stringify({ 'from': from, 
-                                       'to': to,
+                body: JSON.stringify({ 'fromSeq': fromSeq, 
+                                       'toSeq': toSeq,
                                      })
             }
             console.log("Before fetch ")

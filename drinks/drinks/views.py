@@ -1211,10 +1211,13 @@ def deliverySeqUpdate(request):
         }
     else:
         if request.method == 'POST':  
-            print("request.POST['from'] is ", request.POST['from'])
-            deliveryObj = Delivery.objects.filter(seq=float(request.POST['from']))
+            data = json.loads(request.body)
+            fromSeq = data.fromSeq
+            toSeq = data.toSeq
+            print("request.POST['from'] is ", fromSeq)
+            deliveryObj = Delivery.objects.filter(seq=float(fromSeq))
             if deliveryObj is None:
-                deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(request.POST['from']))))
+                deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(fromSeq))))
 
             if deliveryObj is None:
                 data = {
@@ -1224,7 +1227,7 @@ def deliverySeqUpdate(request):
                 data = {
                     'Msg': 'Seq updated'
                 }              
-                deliveryObj.seq = float(request.POST['to'])
+                deliveryObj.seq = float(toSeq)
                 deliveryObj.save()
         else:
             data = {

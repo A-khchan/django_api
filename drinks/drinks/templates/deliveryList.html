@@ -35,6 +35,27 @@
             // console.log('Dropped:', event.dataTransfer.getData('text/plain')); 
             console.log('element being dropped: ', event.dataTransfer.getData('text/plain'))
             console.log('dropped on: ', event.target.seq)
+            updateSeq(event.target.seq, parseFloat(event.dataTransfer.getData('text/plain')) - 0.001)
+            event.target.seq = parseFloat(event.dataTransfer.getData('text/plain')) - 0.001
+            reDisplay()
+        }
+
+        function updateSeq(from, to) {
+            const django_server = "https://www.roboosoft.com/"
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 'from': from, 
+                                       'to': to,
+                                     })
+            }
+            fetch(django_server + "account/deliverySeqUpdate", requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                                //data.id
+                                console.log("Msg: ", data.Msg)
+                            })
         }
 
         function dragOverHandler(event) {
@@ -47,11 +68,24 @@
             event.target.style.backgroundColor = "white"
         }
 
+        function reDisplay() {
+            deliveryList = document.getElementById("deliveryList")
+            const items = Array.from(deliveryList.querySelectorAll("div"))
+            items.sort((a, b) => {
+                return parseFloat(a.seq) - parseFloat(b.seq)
+            })
+            items.forEach(item => deliveryList.appendChild(item));
+        }
+
         function fill() {
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             console.log("Last name is: " + delivery_json[0].lastName)
 
             deliveryList = document.getElementById("deliveryList")
+
+            delivery_json.sort((a, b) => {
+                return parseFloat(a.seq) - parseFloat(b.seq)
+            })
 
             for(const element of delivery_json) {
                 deliveryDateDiv = document.createElement("div")

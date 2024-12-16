@@ -39,6 +39,7 @@ import re
 
 import random
 import string
+import math
 
 from datetime import datetime as dt
 
@@ -1198,3 +1199,31 @@ def deliveryList(request):
         response = HttpResponse(template.render(context, request))        
 
     return response
+
+
+def deliverySeqUpdate(request):
+    
+    userName = request.session.get('userName')
+
+    if userName is None:
+        data = {
+            'Msg': 'Please login'
+        }
+    else:
+        if request.method == 'POST':  
+            deliveryObj = Delivery.objects.filter(seq=request.POST['seq'])
+            if deliveryObj is None:
+                deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(request.POST['seq']))))
+                if deliveryObj is None:
+                    data = {
+                        'Msg': 'Error founding record'
+                    }
+                else:
+                    data = {
+                        'Msg': 'Seq updated'
+                    }              
+                    deliveryObj.seq = float(request.POST['seq'])
+                    deliveryObj.save()
+
+    
+    return JsonResponse(data, safe=False)

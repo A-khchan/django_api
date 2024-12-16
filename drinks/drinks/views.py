@@ -1211,7 +1211,8 @@ def deliverySeqUpdate(request):
         }
     else:
         if request.method == 'POST':  
-            deliveryObj = Delivery.objects.filter(seq=request.POST['from'])
+            print("request.POST['from'] is ", request.POST['from'])
+            deliveryObj = Delivery.objects.filter(seq=float(request.POST['from']))
             if deliveryObj is None:
                 deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(request.POST['from']))))
 
@@ -1230,4 +1231,4 @@ def deliverySeqUpdate(request):
                         'Msg': 'Not a POST'
                     } 
     
-    return JsonResponse(data)
+    return JsonResponse(data, safe=False)

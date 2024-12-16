@@ -1226,4 +1226,4 @@ def deliverySeqUpdate(request):
                     deliveryObj.save()
 
     
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data)

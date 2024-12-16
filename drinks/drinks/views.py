@@ -1214,16 +1214,20 @@ def deliverySeqUpdate(request):
             deliveryObj = Delivery.objects.filter(seq=request.POST['seq'])
             if deliveryObj is None:
                 deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(request.POST['seq']))))
-                if deliveryObj is None:
-                    data = {
-                        'Msg': 'Error founding record'
-                    }
-                else:
-                    data = {
-                        'Msg': 'Seq updated'
-                    }              
-                    deliveryObj.seq = float(request.POST['seq'])
-                    deliveryObj.save()
 
+            if deliveryObj is None:
+                data = {
+                    'Msg': 'Error founding record'
+                }
+            else:
+                data = {
+                    'Msg': 'Seq updated'
+                }              
+                deliveryObj.seq = float(request.POST['seq'])
+                deliveryObj.save()
+        else:
+            data = {
+                        'Msg': 'Not a POST'
+                    } 
     
     return JsonResponse(data)

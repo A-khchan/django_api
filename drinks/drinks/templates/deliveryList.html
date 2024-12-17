@@ -93,14 +93,14 @@
 
             deliveryList = document.getElementById("deliveryList")
 
-            delivery_json.sort((a, b) => {
+            delivery_sorted = delivery_json.sort((a, b) => {
                 return parseFloat(a.seq) - parseFloat(b.seq)
             })
 
-            for(const element of delivery_json) {
+            for(const element of delivery_sorted) {
                 deliveryDateDiv = document.createElement("div")
                 deliveryDateDiv.className = "deliveryDateDiv"
-                deliveryDateDiv.innerText = element.id + " " + element.deliveryDate
+                deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
 
                 nameDiv = document.createElement("div")
                 nameDiv.className = "nameDiv"

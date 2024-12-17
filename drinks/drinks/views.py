@@ -1174,6 +1174,8 @@ def deliveryList(request):
         for i in range(0, len(deliveryAll), 1):
             if deliveryAll[i].seq == 0.0: 
                 seq = deliveryAll[i].id + 0.0
+            else:
+                seq = deliveryAll[i].seq
 
             deliveryArray.append({
                 "id": deliveryAll[i].id,

@@ -1220,7 +1220,7 @@ def deliverySeqUpdate(request):
             print("request.POST['from'] is ", fromSeq)
             deliveryObj = Delivery.objects.filter(seq=float(fromSeq)).first()
             if deliveryObj is None:
-                deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(fromSeq)))).first()
+                deliveryObj = Delivery.objects.filter(id=int(math.ceil(float(fromSeq)))).first()
 
             if deliveryObj is None:
                 data = {

@@ -90,7 +90,7 @@
         delivery_sorted = []
 
         function fill() {
-            if(delivery_sorted == null) {
+            if(delivery_sorted == []) {
                 const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
                 // console.log("Last name is: " + delivery_json[0].lastName)
                 delivery_sorted = delivery_json.sort((a, b) => {

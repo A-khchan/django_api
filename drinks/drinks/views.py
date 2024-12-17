@@ -1218,7 +1218,7 @@ def deliverySeqUpdate(request):
             fromSeq = data.get("fromSeq")
             toSeq = data.get("toSeq")
             print("request.POST['from'] is ", fromSeq)
-            deliveryObj = Delivery.objects.filter(seq=float(fromSeq))
+            deliveryObj = Delivery.objects.filter(seq=float(fromSeq)).first()
             if deliveryObj is None:
                 deliveryObj = Delivery.objects.filter(seq=int(math.ceil(float(fromSeq)))).first()
 

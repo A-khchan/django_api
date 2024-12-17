@@ -24,9 +24,11 @@
             document.getElementById('message').innerText = ''; // Clear the message
         }
 
+        draggedElement = null
         function dragstartHandler(event) {
             // event.target is the element being dragged
             event.dataTransfer.setData('text/plain', event.target.seq);
+            draggedElement = event.target
         }
 
         function handleDrop(event) {
@@ -37,8 +39,8 @@
             console.log('element being dropped: ', event.dataTransfer.getData('text/plain'))
             console.log('dropped on: ', event.target.seq)
             updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq))
-            event.target.seq = parseFloat(event.dataTransfer.getData('text/plain'))
-            // reDisplay()
+            draggedElement.seq = parseFloat(event.target.seq)
+            reDisplay()
         }
 
         function updateSeq(fromSeq, toSeq) {
@@ -84,10 +86,11 @@
             items_sorted = items.sort((a, b) => {
                 return parseFloat(a.seq) - parseFloat(b.seq)
             })
-            items_sorted.forEach(item => deliveryList.appendChild(item));
+            // items_sorted.forEach(item => deliveryList.appendChild(item));
+            deliveryList.replaceChildren(items_sorted)
         }
 
-        delivery_sorted = []
+        // delivery_sorted = []
 
         function fill() {
             // if(delivery_sorted == []) {

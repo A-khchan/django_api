@@ -36,7 +36,7 @@
             // console.log('Dropped:', event.dataTransfer.getData('text/plain')); 
             console.log('element being dropped: ', event.dataTransfer.getData('text/plain'))
             console.log('dropped on: ', event.target.seq)
-            updateSeq(event.target.seq, parseFloat(event.dataTransfer.getData('text/plain')) - 0.001)
+            updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq) - 0.001)
             event.target.seq = parseFloat(event.dataTransfer.getData('text/plain')) - 0.001
             reDisplay()
         }
@@ -81,10 +81,10 @@
         function reDisplay() {
             deliveryList = document.getElementById("deliveryList")
             const items = Array.from(deliveryList.querySelectorAll("div"))
-            items.sort((a, b) => {
+            items_sorted = items.sort((a, b) => {
                 return parseFloat(a.seq) - parseFloat(b.seq)
             })
-            items.forEach(item => deliveryList.appendChild(item));
+            items_sorted.forEach(item => deliveryList.appendChild(item));
         }
 
         function fill() {

@@ -87,7 +87,7 @@
                 return parseFloat(a.seq) - parseFloat(b.seq)
             })
             // items_sorted.forEach(item => deliveryList.appendChild(item));
-            deliveryList.replaceChildren(items_sorted)
+            deliveryList.replaceChildren(...items_sorted)
         }
 
         // delivery_sorted = []

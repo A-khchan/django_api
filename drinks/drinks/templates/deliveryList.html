@@ -82,12 +82,12 @@
 
         function reDisplay() {
             deliveryList = document.getElementById("deliveryList")
-            const items = Array.from(deliveryList.querySelectorAll("div"))
+            const items = Array.from(deliveryList.querySelectorAll(".delivery_box"))
             items_sorted = items.sort((a, b) => {
                 return parseFloat(a.seq) - parseFloat(b.seq)
             })
-            // items_sorted.forEach(item => deliveryList.appendChild(item));
-            deliveryList.replaceChildren(...items_sorted)
+            items_sorted.forEach(item => deliveryList.appendChild(item));
+            // deliveryList.replaceChildren(...items_sorted)
         }
 
         // delivery_sorted = []

@@ -36,8 +36,8 @@
             // console.log('Dropped:', event.dataTransfer.getData('text/plain')); 
             console.log('element being dropped: ', event.dataTransfer.getData('text/plain'))
             console.log('dropped on: ', event.target.seq)
-            updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq) - 0.001)
-            event.target.seq = parseFloat(event.dataTransfer.getData('text/plain')) - 0.001
+            updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq) + 0.001)
+            event.target.seq = parseFloat(event.dataTransfer.getData('text/plain')) + 0.001
             reDisplay()
         }
 

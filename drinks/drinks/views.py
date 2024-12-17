@@ -1215,8 +1215,8 @@ def deliverySeqUpdate(request):
         if request.method == 'POST':  
             data = json.loads(request.body)
             print("data is ", data)
-            fromSeq = data["fromSeq"]
-            toSeq = data["toSeq"]
+            fromSeq = data.get("fromSeq")
+            toSeq = data.get("toSeq")
             print("request.POST['from'] is ", fromSeq)
             deliveryObj = Delivery.objects.filter(seq=float(fromSeq))
             if deliveryObj is None:

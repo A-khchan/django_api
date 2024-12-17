@@ -1205,6 +1205,8 @@ def deliverySeqUpdate(request):
     
     userName = request.session.get('userName')
 
+    print("request: ", request)
+
     if userName is None:
         data = {
             'Msg': 'Please login'

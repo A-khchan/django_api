@@ -111,9 +111,9 @@
                 dropTarget.addEventListener('drop', handleDrop);
                 dropTarget.addEventListener('dragover', dragOverHandler);
                 dropTarget.addEventListener('dragleave', dragLeaveHandler);
-                dropTarget.seq = (currentSeq + float(element.seq))/2.0
+                dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
                 deliveryList.appendChild(dropTarget)
-                currentSeq = float(element.seq)
+                currentSeq = parseFloat(element.seq)
 
                 deliveryDateDiv = document.createElement("div")
                 deliveryDateDiv.className = "deliveryDateDiv"

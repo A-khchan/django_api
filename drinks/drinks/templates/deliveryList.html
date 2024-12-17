@@ -36,9 +36,9 @@
             // console.log('Dropped:', event.dataTransfer.getData('text/plain')); 
             console.log('element being dropped: ', event.dataTransfer.getData('text/plain'))
             console.log('dropped on: ', event.target.seq)
-            updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq) + 0.001)
-            event.target.seq = parseFloat(event.dataTransfer.getData('text/plain')) + 0.001
-            reDisplay()
+            updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq))
+            event.target.seq = parseFloat(event.dataTransfer.getData('text/plain'))
+            // reDisplay()
         }
 
         function updateSeq(fromSeq, toSeq) {
@@ -87,17 +87,34 @@
             items_sorted.forEach(item => deliveryList.appendChild(item));
         }
 
+        delivery_sorted = []
+
         function fill() {
-            const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
-            console.log("Last name is: " + delivery_json[0].lastName)
+            if(delivery_sorted == null) {
+                const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
+                // console.log("Last name is: " + delivery_json[0].lastName)
+                delivery_sorted = delivery_json.sort((a, b) => {
+                    return parseFloat(a.seq) - parseFloat(b.seq)
+                })
+            } else {
+                delivery_sorted = delivery_sorted.sort((a, b) => {
+                    return parseFloat(a.seq) - parseFloat(b.seq)
+                })
+            }
 
             deliveryList = document.getElementById("deliveryList")
 
-            delivery_sorted = delivery_json.sort((a, b) => {
-                return parseFloat(a.seq) - parseFloat(b.seq)
-            })
-
+            currentSeq = 0.0 //initially this is set to zero
             for(const element of delivery_sorted) {
+                dropTarget = document.createElement("div")
+                dropTarget.className = "dropTarget"
+                dropTarget.addEventListener('drop', handleDrop);
+                dropTarget.addEventListener('dragover', dragOverHandler);
+                dropTarget.addEventListener('dragleave', dragLeaveHandler);
+                dropTarget.seq = (currentSeq + float(element.seq))/2.0
+                deliveryList.appendChild(dropTarget)
+                currentSeq = float(element.seq)
+
                 deliveryDateDiv = document.createElement("div")
                 deliveryDateDiv.className = "deliveryDateDiv"
                 deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
@@ -117,16 +134,15 @@
 
                 deliveryList.appendChild(child)
 
-                dropTarget = document.createElement("div")
-                dropTarget.className = "dropTarget"
-                dropTarget.addEventListener('drop', handleDrop);
-                dropTarget.addEventListener('dragover', dragOverHandler);
-                dropTarget.addEventListener('dragleave', dragLeaveHandler);
-                dropTarget.seq = element.seq
-                // dropTarget.innerText = "drop target"
-
-                deliveryList.appendChild(dropTarget)
             }
+            dropTarget = document.createElement("div")
+            dropTarget.className = "dropTarget"
+            dropTarget.addEventListener('drop', handleDrop);
+            dropTarget.addEventListener('dragover', dragOverHandler);
+            dropTarget.addEventListener('dragleave', dragLeaveHandler);
+            dropTarget.seq = currentSeq + 1.0
+            deliveryList.appendChild(dropTarget)
+
         }
 
         fill()

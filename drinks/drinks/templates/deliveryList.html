@@ -113,20 +113,11 @@
             deliveryList.replaceChildren(...temp_deliveryList)
         }
 
-        // delivery_sorted = []
-
         function fill() {
-            // if(delivery_sorted == []) {
-                const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
-                // console.log("Last name is: " + delivery_json[0].lastName)
-                delivery_sorted = delivery_json.sort((a, b) => {
-                    return parseFloat(a.seq) - parseFloat(b.seq)
-                })
-            // } else {
-            //     delivery_sorted = delivery_sorted.sort((a, b) => {
-            //         return parseFloat(a.seq) - parseFloat(b.seq)
-            //     })
-            // }
+            const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
+            delivery_sorted = delivery_json.sort((a, b) => {
+                return parseFloat(a.seq) - parseFloat(b.seq)
+            })
 
             deliveryList = document.getElementById("deliveryList")
 
@@ -149,6 +140,9 @@
                 nameDiv.className = "nameDiv"
                 nameDiv.innerText = element.lastName + ", " + element.firstName
 
+                addressDiv = document.createElement("div")
+                addressDiv.innerText = element.address
+
                 child = document.createElement("div")
                 child.className = "delivery_box"
                 child.id = element.id
@@ -157,6 +151,7 @@
                 child.addEventListener("dragstart", dragstartHandler)
                 child.appendChild(deliveryDateDiv)
                 child.appendChild(nameDiv)
+                child.appendChild(addressDiv)
 
                 deliveryList.appendChild(child)
 

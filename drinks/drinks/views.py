@@ -1182,6 +1182,7 @@ def deliveryList(request):
                 "deliveryDate": deliveryAll[i].deliveryDate,
                 "lastName": deliveryAll[i].lastName,
                 "firstName": deliveryAll[i].firstName,
+                "address": deliveryAll[i].address,
                 "seq": seq,
                                  })
 

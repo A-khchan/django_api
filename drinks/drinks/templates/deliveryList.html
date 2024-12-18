@@ -107,7 +107,7 @@
             dropTarget.addEventListener('drop', handleDrop);
             dropTarget.addEventListener('dragover', dragOverHandler);
             dropTarget.addEventListener('dragleave', dragLeaveHandler);
-            dropTarget.seq = currentSeq + 0.5
+            dropTarget.seq = currentSeq + 0.01
             temp_deliveryList.push(dropTarget)
 
             deliveryList.replaceChildren(...temp_deliveryList)
@@ -166,7 +166,7 @@
             dropTarget.addEventListener('drop', handleDrop);
             dropTarget.addEventListener('dragover', dragOverHandler);
             dropTarget.addEventListener('dragleave', dragLeaveHandler);
-            dropTarget.seq = currentSeq + 0.5
+            dropTarget.seq = currentSeq + 0.01
             deliveryList.appendChild(dropTarget)
 
         }

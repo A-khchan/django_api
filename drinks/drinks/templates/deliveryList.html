@@ -97,10 +97,10 @@
                 dropTarget.addEventListener('dragover', dragOverHandler);
                 dropTarget.addEventListener('dragleave', dragLeaveHandler);
                 dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
-                temp_deliveryList.appendChild(dropTarget)
+                temp_deliveryList.push(dropTarget)
                 currentSeq = parseFloat(element.seq)
 
-                temp_deliveryList.appendChild(element)
+                temp_deliveryList.push(element)
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"
@@ -108,7 +108,7 @@
             dropTarget.addEventListener('dragover', dragOverHandler);
             dropTarget.addEventListener('dragleave', dragLeaveHandler);
             dropTarget.seq = currentSeq + 1.0
-            temp_deliveryList.appendChild(dropTarget)
+            temp_deliveryList.push(dropTarget)
 
             deliveryList.replaceChildren(...temp_deliveryList)
         }

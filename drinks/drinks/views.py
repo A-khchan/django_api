@@ -1187,9 +1187,20 @@ def deliveryList(request):
                 "deliveryDate": deliveryAll[i].deliveryDate,
                 "lastName": deliveryAll[i].lastName,
                 "firstName": deliveryAll[i].firstName,
+                "dateOfBirth": deliveryAll[i].dateOfBirth,
                 "address": deliveryAll[i].address,
+                "selfPickup": deliveryAll[i].selfPickup,
+                "parentID": deliveryAll[i].parentID,
+                "repeatFreq": deliveryAll[i].repeatFreq,
+                "eligible": deliveryAll[i].eligible,
+                "ticketNo": deliveryAll[i].ticketNo,
+                "leaveAtDoor": deliveryAll[i].leaveAtDoor,
+                "phoneForPic": deliveryAll[i].phoneForPic,
+                "status": deliveryAll[i].status,
+                "log": deliveryAll[i].log,
+                "comments": deliveryAll[i].comments,
                 "seq": seq,
-                                 })
+            })
 
         delivery_json = json.dumps(deliveryArray)
 

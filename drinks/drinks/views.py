@@ -1139,6 +1139,11 @@ def deliveryAdd(request):
             else:
                 parentID = -1
 
+            if request.POST['ticketNo'] == '':
+                ticketNo = 0
+            else:
+                ticketNo = int(request.POST['ticketNo'])
+
             deliveryObj = Delivery.objects.create(
                         lastName = request.POST['lastName'],
                         firstName = request.POST['firstName'],
@@ -1149,7 +1154,7 @@ def deliveryAdd(request):
                         parentID = parentID,
                         repeatFreq = request.POST['repeatFreq'],
                         eligible = request.POST['eligible'],
-                        ticketNo = request.POST['ticketNo'],
+                        ticketNo = ticketNo,
                         leaveAtDoor = 'Y',
                         phoneForPic = '123-456-7890',
                         status = 'Planned',

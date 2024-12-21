@@ -49,7 +49,7 @@ class Delivery(models.Model):
     parentID = models.IntegerField()
     repeatFreq = models.CharField(max_length=50)
     eligible = models.CharField(max_length=1)
-    ticketNo = models.IntegerField()
+    ticketNo = models.IntegerField(default=0)
     leaveAtDoor = models.CharField(max_length=1)
     phoneForPic = models.CharField(max_length=20, blank=True, null=True)
     status = models.CharField(max_length=10)

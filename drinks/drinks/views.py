@@ -21,7 +21,6 @@ from django.shortcuts import render
 from drinks.ff import multiSearch
 import json
 from datetime import timedelta, date
-import datetime
 import pytz
 
 import bcrypt
@@ -1165,7 +1164,7 @@ def deliveryAdd(request):
             if not request.POST['repeatFreq'] == "None":
                 date_string = request.POST['deliveryDate']
                 date_format = "%m/%d/%Y"
-                dateObj = datetime.strptime(date_string, date_format)
+                dateObj = dt.strptime(date_string, date_format)
 
                 # mm = request.POST['deliveryDate'][0:2]
                 # dd = request.POST['deliveryDate'][3:5]

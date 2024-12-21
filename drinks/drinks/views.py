@@ -21,6 +21,7 @@ from django.shortcuts import render
 from drinks.ff import multiSearch
 import json
 from datetime import timedelta, date
+import datetime
 import pytz
 
 import bcrypt
@@ -1155,9 +1156,22 @@ def deliveryAdd(request):
                         log = '',
                         comments = None)
             deliveryObj.save()
+
+            if not request.POST['repeatFreq'] == "None":
+                date_string = request.POST['deliveryDate']
+                date_format = "%m/%d/%Y"
+                dateObj = datetime.strptime(date_string, date_format)
+
+                # mm = request.POST['deliveryDate'][0:2]
+                # dd = request.POST['deliveryDate'][3:5]
+                # yyyy = request.POST['deliveryDate'][6:10]
+                # dateObj = datetime.date(yyyy, mm, dd)
+                dayOfWeek = dateObj.weekday()
+                weekOfMonth = math.ceil(dateObj.day/7) #round up
+
             template = loader.get_template('deliveryForm.html')
             context = {
-                'errMsg': 'A delivery is created'
+                'errMsg': 'A delivery is created. ' + "datOfWeek: " + str(dayOfWeek) + "weekOfMonth: " + str(weekOfMonth) 
             }
             response = HttpResponse(template.render(context, request))         
         else:

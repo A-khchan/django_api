@@ -1133,6 +1133,11 @@ def deliveryAdd(request):
         response = HttpResponse(template.render(context, request))
     else:
         if request.method == 'POST':    
+            if request.POST['repeatFreq'] == 'None':
+                parentID = 0
+            else:
+                parentID = -1
+
             deliveryObj = Delivery.objects.create(
                         lastName = request.POST['lastName'],
                         firstName = request.POST['firstName'],
@@ -1140,10 +1145,10 @@ def deliveryAdd(request):
                         deliveryDate = request.POST['deliveryDate'],
                         address = request.POST['address'],
                         selfPickup = request.POST['selfPickup'],
-                        parentID = 0,
+                        parentID = parentID,
                         repeatFreq = request.POST['repeatFreq'],
-                        eligible = 'N',
-                        ticketNo = 0,
+                        eligible = request.POST['eligible'],
+                        ticketNo = request.POST['ticketNo'],
                         leaveAtDoor = 'Y',
                         phoneForPic = '123-456-7890',
                         status = 'Planned',

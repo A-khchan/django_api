@@ -143,6 +143,14 @@
                 addressDiv = document.createElement("div")
                 addressDiv.innerText = element.address
 
+                eligibleDiv = document.createElement("div")
+                if(element.eligible == "P")
+                    eligibleDiv.innerText = "Eligible: " + "Pending"
+                else if(element.eligible == "Y")
+                    eligibleDiv.innerText = "Eligible: " + "Yes"
+                else if(element.eligible == "N")
+                    eligibleDiv.innerText = "Eligible: " + "No"
+
                 child = document.createElement("div")
                 child.className = "delivery_box"
                 child.id = element.id
@@ -152,6 +160,7 @@
                 child.appendChild(deliveryDateDiv)
                 child.appendChild(nameDiv)
                 child.appendChild(addressDiv)
+                child.appendChild(eligibleDiv)
 
                 deliveryList.appendChild(child)
 

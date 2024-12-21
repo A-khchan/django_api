@@ -68,6 +68,27 @@
                             </div>
                         </div>
                     </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label_long">Eligibile:</span> 
+                        <div class="radio_group">
+                            <div>
+                                <input type="radio" name="eligible" id="None" value="P" checked />
+                                <label for="P">Pending</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="eligible" id="None" value="Y" />
+                                <label for="Y">Yes</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="eligible" id="None" value="N" />
+                                <label for="N">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label_long">Ticket No.:</span> <input class="textField" id="ticketNo" name="ticketNo" type="number" oninput="clearMessage()"><br>
+                    </div>
+
                     <br>
                     <input id="create" class="button" type="submit" value="Create">
                 </form>

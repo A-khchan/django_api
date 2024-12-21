@@ -1175,7 +1175,7 @@ def deliveryAdd(request):
 
             template = loader.get_template('deliveryForm.html')
             context = {
-                'errMsg': 'A delivery is created. ' + "datOfWeek: " + str(dayOfWeek) + "weekOfMonth: " + str(weekOfMonth) 
+                'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + str(weekOfMonth) 
             }
             response = HttpResponse(template.render(context, request))         
         else:

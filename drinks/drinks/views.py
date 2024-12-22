@@ -42,6 +42,7 @@ import string
 import math
 
 from datetime import datetime as dt
+from dateutil.relativedelta import relativedelta
 
 from google.cloud import storage  # need: pip install google-cloud-storage 
 
@@ -1173,9 +1174,12 @@ def deliveryAdd(request):
                 dayOfWeek = dateObj.weekday()
                 weekOfMonth = math.ceil(dateObj.day/7) #round up
 
+                nextMonth = dateObj + relativedelta(months = 1)
+                nextMonth1st = nextMonth.replace(day=1)
+
             template = loader.get_template('deliveryForm.html')
             context = {
-                'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + str(weekOfMonth) 
+                'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + str(weekOfMonth) + ", nextMonth1st: " + nextMonth1st
             }
             response = HttpResponse(template.render(context, request))         
         else:

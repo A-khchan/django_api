@@ -1176,10 +1176,17 @@ def deliveryAdd(request):
 
                 nextMonth = dateObj + relativedelta(months = 1)
                 nextMonth1st = nextMonth.replace(day=1)
+                if nextMonth1st.weekday() > dayOfWeek:
+                    daysToAdd = 7 - (nextMonth1st.weekday() - dayOfWeek)
+                else:
+                    daysToAdd = dayOfWeek - nextMonth1st.weekday()
+                nextDeliveryDate = dateObj + relativedelta(days = 7*(weekOfMonth-1) + daysToAdd)
+
 
             template = loader.get_template('deliveryForm.html')
             context = {
-                'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + str(weekOfMonth) + ", nextMonth1st: " + nextMonth1st.strftime("%Y-%m-%d")
+                'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
+                str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d")
             }
             response = HttpResponse(template.render(context, request))         
         else:

@@ -1180,7 +1180,7 @@ def deliveryAdd(request):
                     daysToAdd = 7 - (nextMonth1st.weekday() - dayOfWeek)
                 else:
                     daysToAdd = dayOfWeek - nextMonth1st.weekday()
-                nextDeliveryDate = dateObj + relativedelta(days = 7*(weekOfMonth-1) + daysToAdd)
+                nextDeliveryDate = nextMonth1st + relativedelta(days = 7*(weekOfMonth-1) + daysToAdd)
 
 
             template = loader.get_template('deliveryForm.html')

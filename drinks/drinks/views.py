@@ -1174,13 +1174,41 @@ def deliveryAdd(request):
                 dayOfWeek = dateObj.weekday()
                 weekOfMonth = math.ceil(dateObj.day/7) #round up
 
-                nextMonth = dateObj + relativedelta(months = 1)
-                nextMonth1st = nextMonth.replace(day=1)
-                if nextMonth1st.weekday() > dayOfWeek:
-                    daysToAdd = 7 - (nextMonth1st.weekday() - dayOfWeek)
+                if request.POST['repeatFreq'] == "Monthly":
+                    count = 12
                 else:
-                    daysToAdd = dayOfWeek - nextMonth1st.weekday()
-                nextDeliveryDate = nextMonth1st + relativedelta(days = 7*(weekOfMonth-1) + daysToAdd)
+                    count = 6
+
+                parentID = deliveryObj.id
+                lastDeliveryDate = dateObj
+                for i in range(0, count, 1):
+                    
+                    nextMonth = lastDeliveryDate + relativedelta(months = 1)
+                    nextMonth1st = nextMonth.replace(day=1)
+                    if nextMonth1st.weekday() > dayOfWeek:
+                        daysToAdd = 7 - (nextMonth1st.weekday() - dayOfWeek)
+                    else:
+                        daysToAdd = dayOfWeek - nextMonth1st.weekday()
+                    nextDeliveryDate = nextMonth1st + relativedelta(days = 7*(weekOfMonth-1) + daysToAdd)
+
+                    deliveryObj = Delivery.objects.create(
+                                lastName = request.POST['lastName'],
+                                firstName = request.POST['firstName'],
+                                dateOfBirth = request.POST['dateOfBirth'],
+                                deliveryDate = nextDeliveryDate,
+                                address = request.POST['address'],
+                                selfPickup = request.POST['selfPickup'],
+                                parentID = parentID,
+                                repeatFreq = request.POST['repeatFreq'],
+                                eligible = 'P',
+                                ticketNo = 0,
+                                leaveAtDoor = 'Y',
+                                phoneForPic = '123-456-7890',
+                                status = 'Planned',
+                                log = '',
+                                comments = None)
+                    deliveryObj.save()
+                    lastDeliveryDate = nextDeliveryDate
 
 
             template = loader.get_template('deliveryForm.html')

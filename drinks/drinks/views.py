@@ -1195,7 +1195,7 @@ def deliveryAdd(request):
                                 lastName = request.POST['lastName'],
                                 firstName = request.POST['firstName'],
                                 dateOfBirth = request.POST['dateOfBirth'],
-                                deliveryDate = nextDeliveryDate,
+                                deliveryDate = nextDeliveryDate.strftime("%m/%d/%Y"),
                                 address = request.POST['address'],
                                 selfPickup = request.POST['selfPickup'],
                                 parentID = parentID,

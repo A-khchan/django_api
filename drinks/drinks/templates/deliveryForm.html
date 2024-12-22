@@ -127,6 +127,8 @@
         }
 
         function set_cal(event) {
+            calendar.selectedDates = [];
+
             if(event.inputType != 'deleteContentBackward') {
                 formatToDate(event)
                 // deliveryDate = document.getElementById('deliveryDate').value

@@ -1187,7 +1187,7 @@ def deliveryAdd(request):
             context = {
                 'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
                 str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
-                ", deliveryObj.id = " + deliveryObj.id
+                ", deliveryObj.id = " + str(deliveryObj.id)
             }
             response = HttpResponse(template.render(context, request))         
         else:

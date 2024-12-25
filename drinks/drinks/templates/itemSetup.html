@@ -36,8 +36,18 @@
         const django_server = "https://www.roboosoft.com/"
 
         async function fillItem() {
-            prom = await fetch(django_server + "itemList/");
-            jsonObj = await prom.json();
+            try {
+                prom = await fetch(django_server + "itemList/");
+            } catch(err) {
+                console.log("fetch error: ", err.message)
+            }
+
+            try {
+                jsonObj = await prom.json();
+            } catch(err) {
+                console.log("json error: ", err.message)
+            }
+
 
             childArray = []
             for (const element of jsonObj) {

@@ -16,8 +16,10 @@
     <div class="flex_row_middle_up">
         <div class="contentVerticallyCenter">
             <div class="flex_column">
+                <div><h3>Item Setup</h3></div>
+                <div><span>Item Code</span><span>Item Desc</span><span>Bags?</span><span>Bags per box</span><span>Price per bag</span></div>
                 <div id="itemDetail"></div>
-
+                <button onclick="addRow()">Add a row</button>
                 <div class="err_msg">
                     <span id="message">{{ errMsg }}</span>
                 </div>
@@ -78,13 +80,38 @@
                     child.appendChild(bags)
                     child.appendChild(bagPrice)
 
-                    childArray.unshift(child)
+                    childArray.push(child)
                 }
 
                 div = document.getElementById("itemDetail")
                 div.replaceChildren(...childArray)
 
             })
+
+        }
+
+        function addRow() {
+            child = document.createElement("div")
+            child.id = ""
+
+            itemCode = document.createElement("input")
+
+            itemDesc = document.createElement("input")
+
+            Q2Flag = document.createElement("input")
+
+            bags = document.createElement("input")
+
+            bagPrice = document.createElement("input")
+
+            child.appendChild(itemCode)
+            child.appendChild(itemDesc)
+            child.appendChild(Q2Flag)
+            child.appendChild(bags)
+            child.appendChild(bagPrice)
+
+            div = document.getElementById("itemDetail")
+            div.appendChild(child)
 
         }
 

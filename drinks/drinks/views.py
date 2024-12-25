@@ -1355,7 +1355,7 @@ def itemList(request):
                 "itemDesc": itemSetupAll[i].itemDesc,
                 "quantity2Flag": itemSetupAll[i].quantity2Flag,
                 "bags": itemSetupAll[i].bags,
-                "bagsPrice": itemSetupAll[i].bagPrice,
+                "bagPrice": itemSetupAll[i].bagPrice,
             })
 
         print(itemArray)

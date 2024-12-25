@@ -1162,6 +1162,7 @@ def deliveryAdd(request):
                         comments = None)
             deliveryObj.save()
 
+            repeatMsg = ""
             if not request.POST['repeatFreq'] == "None":
                 date_string = request.POST['deliveryDate']
                 date_format = "%m/%d/%Y"
@@ -1176,12 +1177,14 @@ def deliveryAdd(request):
 
                 if request.POST['repeatFreq'] == "Monthly":
                     count = 12
+                    step = 1
                 else:
                     count = 6
+                    step = 2
 
                 parentID = deliveryObj.id
                 lastDeliveryDate = dateObj
-                for i in range(0, count, 1):
+                for i in range(0, count, step):
                     
                     nextMonth = lastDeliveryDate + relativedelta(months = 1)
                     nextMonth1st = nextMonth.replace(day=1)
@@ -1210,12 +1213,14 @@ def deliveryAdd(request):
                     deliveryObj.save()
                     lastDeliveryDate = nextDeliveryDate
 
+                repeatMsg = str(count) + " repeated events created."
 
             template = loader.get_template('deliveryForm.html')
             context = {
-                'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
-                str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
-                ", deliveryObj.id = " + str(deliveryObj.id)
+                # 'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
+                # str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
+                # ", deliveryObj.id = " + str(deliveryObj.id)
+                'errMsg': 'A delivery is created. ' + repeatMsg
             }
             response = HttpResponse(template.render(context, request))         
         else:

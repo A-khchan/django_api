@@ -1366,4 +1366,4 @@ def itemList(request):
         }
         itemSetup_json = json.dumps(data)
 
-    return JsonResponse(itemSetup_json, safe=False)
+    return JsonResponse(itemArray, safe=False)

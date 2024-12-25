@@ -39,7 +39,8 @@ sqlite> select * from drinks_user;
 To see the field name of a table. After this command, select stmt will show headers.
 sqlite> .headers on
 
-
+To insert records with auto-gen id, provide the columns names too:
+sqlite> insert into drinks_itemsetup (itemCode, itemDesc, quantity2Flag, bags,bagPrice) values ('23020','Medium Pullup', 'Y', 4, 18.5);
 
 To exit, control-D
 

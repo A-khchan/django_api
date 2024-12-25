@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Item Setup</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    {% include "heading.html" %}
+
+    <div class="flex_row_middle_up">
+        <div class="contentVerticallyCenter">
+            <div class="flex_column">
+                <div id="itemDetail"></div>
+
+                <div class="err_msg">
+                    <span id="message">{{ errMsg }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="separator">
+        </div>
+
+    </div>   
+
+    <script>
+        function clearMessage() {
+            document.getElementById('message').innerText = ''; // Clear the message
+        }
+
+        async function fillItem() {
+            prom = await fetch(django_server + "itemList/");
+            jsonObj = await prom.json();
+
+            childArray = []
+            for (const element of jsonObj) {
+                child = document.createElement("div")
+                child.id = element.id
+
+                itemCode = document.createElement("input")
+                itemCode.value = element.itemCode
+
+                itemDesc = document.createElement("input")
+                itemDesc.value = element.itemDesc
+
+                Q2Flag = document.createElement("input")
+                Q2Flag.value = element.quantity2Flag
+
+                bags = document.createElement("input")
+                bags.value = element.bags
+
+                bagPrice = document.createElement("input")
+                bagPrice.value = element.bagPrice
+
+                child.appendChild(itemCode)
+                child.appendChild(itemDesc)
+                child.appendChild(Q2Flag)
+                child.appendChild(bags)
+                child.appendChild(bagPrice)
+
+                childArray.unshift(child)
+            }
+
+            div = document.getElementById("itemDetail")
+            div.replaceChildren(...childArray)
+
+        }
+
+        fillItem()
+    </script> 
+</body>
+</html>
+
+

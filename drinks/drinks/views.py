@@ -6,6 +6,7 @@ from .models import Post
 from .models import User
 from .models import Delivery
 from .models import DeliveryItems
+from .models import ItemSetup
 from .serializers import DrinkSerializer
 from .serializers import TargetSerializer
 from .serializers import FlightSerializer
@@ -1320,3 +1321,49 @@ def deliverySeqUpdate(request):
                     } 
     
     return JsonResponse(data, safe=False)
+
+def itemSetup(request):
+    
+    userName = request.session.get('userName')
+
+    print("request: ", request)
+
+    if userName is None:
+        data = {
+            'Msg': 'Please login'
+        }
+    else:
+        template = loader.get_template('itemSetup.html')
+        context = {
+            'placeholder': 'test',
+        }
+        response = HttpResponse(template.render(context, request))   
+
+    return response
+
+def itemList(request):
+    
+    userName = request.session.get('userName')
+
+    if userName:
+        itemSetupAll = ItemSetup.objects.all()
+        itemArray = []
+        for i in range(0, len(itemSetupAll), 1):
+            itemArray.append({
+                "id": itemSetupAll[i].id,
+                "itemCode": itemSetupAll[i].itemCode,
+                "itemDesc": itemSetupAll[i].itemDesc,
+                "quantity2Flag": itemSetupAll[i].quantity2Flag,
+                "bags": itemSetupAll[i].bags,
+                "bagsPrice": itemSetupAll[i].bagsPrice,
+            })
+
+        itemSetup_json = json.dumps(itemArray)
+
+    else:
+        data = {
+            'errMsg': 'Please login to view item setup'
+        }
+        itemSetup_json = json.dumps(data)
+
+    return JsonResponse(itemSetup_json, safe=False)

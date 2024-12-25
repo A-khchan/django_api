@@ -35,51 +35,56 @@
 
         const django_server = "https://www.roboosoft.com/"
 
-        async function fillItem() {
-            try {
-                prom = await fetch(django_server + "itemList/");
-            } catch(err) {
-                console.log("fetch error: ", err.message)
-            }
+        function fillItem() {
+            fetch(django_server + "itemList/")
+                .then(response => response.json())
+                .then(data => {
 
-            try {
-                jsonObj = await prom.json();
-            } catch(err) {
-                console.log("json error: ", err.message)
-            }
+                // try {
+                //     prom = await fetch(django_server + "itemList/");
+                // } catch(err) {
+                //     console.log("fetch error: ", err.message)
+                // }
 
+                // try {
+                //     jsonObj = await prom.json();
+                // } catch(err) {
+                //     console.log("json error: ", err.message)
+                // }
 
-            childArray = []
-            for (const element of jsonObj) {
-                child = document.createElement("div")
-                child.id = element.id
+                childArray = []
+                for (const element of data) {
+                    child = document.createElement("div")
+                    child.id = element.id
 
-                itemCode = document.createElement("input")
-                itemCode.value = element.itemCode
+                    itemCode = document.createElement("input")
+                    itemCode.value = element.itemCode
 
-                itemDesc = document.createElement("input")
-                itemDesc.value = element.itemDesc
+                    itemDesc = document.createElement("input")
+                    itemDesc.value = element.itemDesc
 
-                Q2Flag = document.createElement("input")
-                Q2Flag.value = element.quantity2Flag
+                    Q2Flag = document.createElement("input")
+                    Q2Flag.value = element.quantity2Flag
 
-                bags = document.createElement("input")
-                bags.value = element.bags
+                    bags = document.createElement("input")
+                    bags.value = element.bags
 
-                bagPrice = document.createElement("input")
-                bagPrice.value = element.bagPrice
+                    bagPrice = document.createElement("input")
+                    bagPrice.value = element.bagPrice
 
-                child.appendChild(itemCode)
-                child.appendChild(itemDesc)
-                child.appendChild(Q2Flag)
-                child.appendChild(bags)
-                child.appendChild(bagPrice)
+                    child.appendChild(itemCode)
+                    child.appendChild(itemDesc)
+                    child.appendChild(Q2Flag)
+                    child.appendChild(bags)
+                    child.appendChild(bagPrice)
 
-                childArray.unshift(child)
-            }
+                    childArray.unshift(child)
+                }
 
-            div = document.getElementById("itemDetail")
-            div.replaceChildren(...childArray)
+                div = document.getElementById("itemDetail")
+                div.replaceChildren(...childArray)
+
+            })
 
         }
 

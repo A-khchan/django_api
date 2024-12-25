@@ -1177,16 +1177,16 @@ def deliveryAdd(request):
 
                 if request.POST['repeatFreq'] == "Monthly":
                     count = 12
-                    step = 1
+                    addMonth = 1
                 else:
                     count = 6
-                    step = 2
+                    addMonth = 2
 
                 parentID = deliveryObj.id
                 lastDeliveryDate = dateObj
-                for i in range(0, count, step):
+                for i in range(0, count, 1):
                     
-                    nextMonth = lastDeliveryDate + relativedelta(months = 1)
+                    nextMonth = lastDeliveryDate + relativedelta(months = addMonth)
                     nextMonth1st = nextMonth.replace(day=1)
                     if nextMonth1st.weekday() > dayOfWeek:
                         daysToAdd = 7 - (nextMonth1st.weekday() - dayOfWeek)

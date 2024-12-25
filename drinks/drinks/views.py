@@ -1358,6 +1358,7 @@ def itemList(request):
                 "bagsPrice": itemSetupAll[i].bagPrice,
             })
 
+        print(itemArray)
         itemSetup_json = json.dumps(itemArray)
 
     else:
@@ -1371,4 +1372,4 @@ def itemList(request):
     }
     itemSetup_json = json.dumps(data)
 
-    return JsonResponse(itemSetup_json, safe=False)
+    return JsonResponse(itemArray, safe=False)

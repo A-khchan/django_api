@@ -17,7 +17,7 @@
         <div class="contentVerticallyCenter">
             <div class="flex_column">
                 <div><h3>Item Setup</h3></div>
-                <div><span>Item Code</span><span>Item Desc</span><span>Bags?</span><span>Bags per box</span><span>Price per bag</span></div>
+                <div><input readonly>Item Code</input><input>Item Desc</input><input>Bags?</input><input>Bags per box</input><input>Price per bag</input></div>
                 <div id="itemDetail"></div>
                 <button onclick="addRow()">Add a row</button>
                 <div class="err_msg">
@@ -90,9 +90,11 @@
 
         }
 
+        newRowID = 1
         function addRow() {
             child = document.createElement("div")
-            child.id = ""
+            child.id = "new" + newRowID
+            newRowID += 1
 
             itemCode = document.createElement("input")
 

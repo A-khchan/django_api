@@ -1372,4 +1372,8 @@ def itemList(request):
     }
     itemSetup_json = json.dumps(data)
 
+    print("before itemArray")
+    print(itemArray)
+
+
     return JsonResponse(itemArray, safe=False)

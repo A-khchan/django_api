@@ -1369,6 +1369,6 @@ def itemList(request):
     data = {
         'errMsg': 'Please login to view item setup'
     }
+    itemSetup_json = json.dumps(data)
 
-
-    return JsonResponse(data, safe=False)
+    return JsonResponse(itemSetup_json, safe=False)

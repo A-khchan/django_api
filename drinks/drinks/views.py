@@ -1359,21 +1359,26 @@ def itemList(request):
             })
 
         print(itemArray)
-        itemSetup_json = json.dumps(itemArray)
+        # itemSetup_json = json.dumps(itemArray)
 
     else:
-        data = {
+        itemArray = {
             'errMsg': 'Please login to view item setup'
         }
-        itemSetup_json = json.dumps(data)
+        # itemSetup_json = json.dumps(data)
 
-    data = {
-        'errMsg': 'Please login to view item setup'
-    }
-    itemSetup_json = json.dumps(data)
+    # data = {
+    #     'errMsg': 'Please login to view item setup'
+    # }
+    # itemSetup_json = json.dumps(data)
 
-    print("before itemArray")
-    print(itemArray)
+    # print("before itemArray")
+    # print(itemArray)
 
+    # data = [
+    #     {"id": 1, "name": "John Doe", "age": 28},
+    #     {"id": 2, "name": "Jane Smith", "age": 34},
+    #     {"id": 3, "name": "Alice Brown", "age": 24}
+    # ]
 
     return JsonResponse(itemArray, safe=False)

@@ -36,7 +36,7 @@
         const django_server = "https://www.roboosoft.com/"
 
         function fillItem() {
-            fetch(django_server + "itemList/")
+            fetch(django_server + "account/itemList/")
                 .then(response => response.json())
                 .then(data => {
 

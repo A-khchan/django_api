@@ -33,6 +33,8 @@
             document.getElementById('message').innerText = ''; // Clear the message
         }
 
+        const django_server = "https://www.roboosoft.com/"
+
         async function fillItem() {
             prom = await fetch(django_server + "itemList/");
             jsonObj = await prom.json();

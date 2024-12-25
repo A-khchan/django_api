@@ -72,6 +72,6 @@ class DeliveredItems(models.Model):
 class ItemSetup(models.Model):
     itemCode = models.CharField(max_length=20)
     itemDesc = models.CharField(max_length=100)
-    quantity2Flag = models.CharField(max_length=1)
+    # quantity2Flag = models.CharField(max_length=1)
     bags = models.IntegerField(default=1)
     bagPrice = models.FloatField(default=0.0)

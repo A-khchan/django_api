@@ -1355,7 +1355,7 @@ def itemList(request):
                 "itemDesc": itemSetupAll[i].itemDesc,
                 "quantity2Flag": itemSetupAll[i].quantity2Flag,
                 "bags": itemSetupAll[i].bags,
-                "bagsPrice": itemSetupAll[i].bagsPrice,
+                "bagsPrice": itemSetupAll[i].bagPrice,
             })
 
         itemSetup_json = json.dumps(itemArray)
@@ -1366,4 +1366,4 @@ def itemList(request):
         }
         itemSetup_json = json.dumps(data)
 
-    return JsonResponse(itemArray, safe=False)
+    return JsonResponse(itemSetup_json, safe=False)

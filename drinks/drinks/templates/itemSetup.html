@@ -95,9 +95,8 @@
 
             itemCode = document.createElement("input")
             itemCode.id = "itemCode"
-            itemCode.addEventListener("input", function() {
-                addOrUpdate(child.id)
-                console.log("child.id is: ", child.id)
+            itemCode.addEventListener("input", function(event) {
+                console.log("parent id is: ", event.target.parentElement.id)
             })
 
             itemDesc = document.createElement("input")

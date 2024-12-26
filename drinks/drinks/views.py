@@ -1353,7 +1353,6 @@ def itemList(request):
                 "id": itemSetupAll[i].id,
                 "itemCode": itemSetupAll[i].itemCode,
                 "itemDesc": itemSetupAll[i].itemDesc,
-                "quantity2Flag": itemSetupAll[i].quantity2Flag,
                 "bags": itemSetupAll[i].bags,
                 "bagPrice": itemSetupAll[i].bagPrice,
             })

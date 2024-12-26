@@ -18,8 +18,7 @@
             <div class="flex_column">
                 <div><h3>Item Setup</h3></div>
                 <div><input value="Item Code" readonly><input value="Item Desc" readonly>
-                        <input value="Bags?" readonly><input value="Bags per box" readonly>
-                        <input value="Price per bag" readonly>
+                        <input value="Unit per box" readonly><input value="Unit Price" readonly>
                 <div id="itemDetail"></div>
                 <button onclick="addRow()">Add a row</button>
                 <div class="err_msg">
@@ -67,9 +66,6 @@
                     itemDesc = document.createElement("input")
                     itemDesc.value = element.itemDesc
 
-                    Q2Flag = document.createElement("input")
-                    Q2Flag.value = element.quantity2Flag
-
                     bags = document.createElement("input")
                     bags.value = element.bags
 
@@ -78,7 +74,6 @@
 
                     child.appendChild(itemCode)
                     child.appendChild(itemDesc)
-                    child.appendChild(Q2Flag)
                     child.appendChild(bags)
                     child.appendChild(bagPrice)
 
@@ -99,23 +94,32 @@
             newRowID += 1
 
             itemCode = document.createElement("input")
+            itemCode.id = "itemCode"
+            itemCode.addEventListener("onchange", function() {
+                addOrUpdate(child.id)
+                console.log("child.id is: ", child.id)
+            })
 
             itemDesc = document.createElement("input")
-
-            Q2Flag = document.createElement("input")
+            itemDesc.id = "itemDesc"
 
             bags = document.createElement("input")
+            bags.id = "bags"
 
             bagPrice = document.createElement("input")
+            bagPrice.id = "bagPrice"
 
             child.appendChild(itemCode)
             child.appendChild(itemDesc)
-            child.appendChild(Q2Flag)
             child.appendChild(bags)
             child.appendChild(bagPrice)
 
             div = document.getElementById("itemDetail")
             div.appendChild(child)
+
+        }
+
+        function addOrUpdate(elementId) {
 
         }
 

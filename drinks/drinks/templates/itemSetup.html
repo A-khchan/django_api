@@ -95,7 +95,7 @@
 
             itemCode = document.createElement("input")
             itemCode.id = "itemCode"
-            itemCode.addEventListener("onchange", function() {
+            itemCode.addEventListener("input", function() {
                 addOrUpdate(child.id)
                 console.log("child.id is: ", child.id)
             })

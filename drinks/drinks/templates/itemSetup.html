@@ -95,9 +95,7 @@
 
             itemCode = document.createElement("input")
             itemCode.id = "itemCode"
-            itemCode.addEventListener("input", function(event) {
-                console.log("parent id is: ", event.target.parentElement.id)
-            })
+            itemCode.addEventListener("input", addOrUpdate(event))
 
             itemDesc = document.createElement("input")
             itemDesc.id = "itemDesc"
@@ -118,8 +116,8 @@
 
         }
 
-        function addOrUpdate(elementId) {
-
+        function addOrUpdate(event) {
+            console.log("parent id is: ", event.target.parentElement.id)
         }
 
         fillItem()

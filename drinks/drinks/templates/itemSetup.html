@@ -99,12 +99,15 @@
 
             itemDesc = document.createElement("input")
             itemDesc.id = "itemDesc"
+            itemDesc.addEventListener("input", addOrUpdate)
 
             bags = document.createElement("input")
             bags.id = "bags"
+            bags.addEventListener("input", addOrUpdate)
 
             bagPrice = document.createElement("input")
             bagPrice.id = "bagPrice"
+            bagPrice.addEventListener("input", addOrUpdate)
 
             child.appendChild(itemCode)
             child.appendChild(itemDesc)
@@ -118,6 +121,47 @@
 
         function addOrUpdate(event) {
             console.log("parent id is: ", event.target.parentElement.id)
+            // check if all the fields are valid
+            parent = event.target.parentElement
+
+            itemCode = parent.querySelector("#itemCode")
+            itemDesc = parent.querySelector("#itemDesc")
+            bags = parent.querySelector("#bags")
+            bagPrice = parent.querySelector("#bagPrice")
+
+            if(checkStr(itemCode.value)) {
+                itemCode.style.backgroundColor = "white"
+                if(checkStr(itemDesc.value)) {
+                    itemDesc.style.backgroundColor = "white"
+                    if(parseInt(bags.value)) {
+                        bags.style.backgroundColor = "white"
+                        if(parseFloat(bagPrice.value)) {
+                            bagPrice.style.backgroundColor = "white"
+                            //all fields are valid
+                            console.log("all fields are ok")
+                            if(event.target.parentElement.id.length > 3) {
+                                if(event.target.parentElement.id.substring(0,3) == "new") {
+
+                                }
+                            }
+                        } else {
+                            bagPrice.style.backgroundColor = "red"
+                        }
+                    } else {
+                        bags.style.backgroundColor = "red"
+                    }
+                } else {
+                    itemDesc.style.backgroundColor = "red"
+                }
+            } else {
+                itemCode.style.backgroundColor = "red"
+            }
+
+        }
+
+        function checkStr(aString) {
+            trimmed = aString.trim()
+            return trimmed.length > 0
         }
 
         fillItem()

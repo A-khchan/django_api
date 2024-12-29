@@ -96,12 +96,13 @@
                         <div class="item_column">
                             <div class="flex_column" id="itemList">
                                 <div id="itemRow">
-                                    <select id="itemCode" name="itemCode"></select><input class="quantity" 
-                                    type="number" id="box" value="1"><input class="quantity" type="number" 
-                                    id="bag" value="0">
+                                    <select id="itemCode" name="itemCode" onchange="calCost()"></select><input class="quantity" 
+                                    type="number" id="box" value="1" oninput="calCost()"><input class="quantity" 
+                                    type="number" id="bag" value="0" oninput="calCost()">
                                 </div>
                             </div>
                             <button type="button" onclick="addItemRow()">Add</button>
+                            <div id="cost"></div>
                         </div>
                     </div>
 
@@ -330,7 +331,10 @@
         }
 
         itemCodeArray = []
+        itemDict = {}
         function getItemCode() {
+            itemCodeArray = []
+            itemDict = {}
             const django_server = "https://www.roboosoft.com/"
             fetch(django_server + "account/itemList/")
             .then((response) => {
@@ -341,6 +345,7 @@
                 selectDiv = document.getElementById("itemCode")
                 data.forEach(element => {
                     selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
+                    itemDict[element.itemCode] = [element.bags, element.bagPrice]
                 })
             })
         }
@@ -372,6 +377,21 @@
 
             itemListDiv = document.getElementById("itemList")
             itemListDiv.appendChild(rowDiv)
+        }
+
+        function calCost() {
+            allRow = document.querySelectorAll("#itemRow")
+            totalCost = 0.0
+            allRow.forEach(element => {
+                itemCode = element.querySelector("#itemCode").value
+                bags = itemDict[itemCode][0]
+                price = itemDict[itemCode][1]
+                numOfBoxes = parseInt(element.querySelector("#box").value)
+                numOfBags = parseInt(element.querySelector("#bag").value)
+                cost = (numOfBoxes * bags + numOfBags) * price
+                totalCost += cost
+            })
+            document.getElementById("cost").value = "Total cost is $" + totalCost
         }
 
         getItemCode()

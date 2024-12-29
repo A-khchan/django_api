@@ -96,9 +96,9 @@
                         <div class="item_column">
                             <div class="flex_column" id="itemList">
                                 <div id="itemRow">
-                                    <select id="itemCode" name="itemCode" onchange="calCost(event)"></select><input class="quantity" 
-                                    type="number" id="box" value="1" oninput="calCost(event)"><input class="quantity" 
-                                    type="number" id="bag" value="0" oninput="calCost(event)">
+                                    <select id="itemCode" name="itemCode1" onchange="calCost(event)"></select><input class="quantity" 
+                                    type="number" id="box" name="box1" value="1" oninput="calCost(event)"><input class="quantity" 
+                                    type="number" id="bag" name="bag1" value="0" oninput="calCost(event)">
                                 </div>
                             </div>
                             <button type="button" onclick="addItemRow()">Add</button>
@@ -350,10 +350,13 @@
             })
         }
 
+        rowNum = 1
         function addItemRow() {
+            rowNum += 1
             selectDiv = document.createElement("select")
             selectDiv.id = "itemCode"
             selectDiv.addEventListener("change", calCost)
+            selectDiv.name = "itemCode" + rowNum
             itemCodeArray.forEach(element => {
                     selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
                 })
@@ -368,6 +371,7 @@
             boxInput.className = "quantity"
             boxInput.value = 1
             boxInput.addEventListener("input", calCost)
+            boxInput.name = "box" + rowNum
 
             bagInput = document.createElement("input")
             bagInput.type = "number"
@@ -375,6 +379,7 @@
             bagInput.className = "quantity"
             bagInput.value = 0
             bagInput.addEventListener("input", calCost)
+            bagInput.name = "bag" + rowNum
 
             rowDiv.appendChild(boxInput)
             rowDiv.appendChild(bagInput)

@@ -1162,6 +1162,7 @@ def deliveryAdd(request):
                         log = '',
                         comments = None)
             deliveryObj.save()
+            addItem(request, deliveryObj)
 
             repeatMsg = ""
             if not request.POST['repeatFreq'] == "None":
@@ -1213,6 +1214,7 @@ def deliveryAdd(request):
                                 comments = None)
                     deliveryObj.save()
                     lastDeliveryDate = nextDeliveryDate
+                    addItem(request, deliveryObj)
 
                 repeatMsg = str(count) + " repeated events created."
 
@@ -1410,3 +1412,20 @@ def itemAddUpdate(request):
     }
 
     return JsonResponse(data, safe=False)
+
+
+def addItem(request, deliveryObj):
+    rowNum = 1
+    itemCodeName = "itemCode" + str(rowNum)
+    while(request.POST[itemCodeName]):
+        boxName = "box" + str(rowNum)
+        bagName = "bag" + str(rowNum)
+        itemObj = DeliveryItems.objects.create(
+            deliveryID = deliveryObj.id,
+            item = request.POST[itemCodeName],
+            quantity1 = request.POST[boxName],
+            quantity2 = request.POST[bagName],
+        )
+        itemObj.save()
+        rowNum = rowNum + 1
+        itemCodeName = "itemCode" + str(rowNum)    

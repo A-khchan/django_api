@@ -169,11 +169,7 @@
                             bagPrice.style.backgroundColor = "white"
                             //all fields are valid
                             console.log("all fields are ok")
-                            if(event.target.parentElement.id.length > 3) {
-                                if(event.target.parentElement.id.substring(0,3) == "new") {
-
-                                }
-                            }
+                            addUpdateRecord(parent, itemCode.value, itemDesc.value, bags.value, bagPrice.value)
                         } else {
                             if(event.target === bagPrice)
                                 bagPrice.style.backgroundColor = "red"
@@ -206,6 +202,48 @@
         function leaveInput(event) {
             event.target.style.zIndex = 1
             event.target.parentElement.style.zIndex = 1
+        }
+
+        function addUpdateRecord(parent, itemCode, itemDesc, bags, bagPrice) {
+            //suppose all inputs are string
+            const django_server = "https://www.roboosoft.com/"
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+
+            id = parent.id
+            if(parent.id.length > 3) {
+                if(parent.id.substring(0,3) == "new") {
+                    id = "new"
+                }
+            }
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json',
+                           'X-CSRFToken': csrfToken  
+                         },
+                body: JSON.stringify({ 'id': id,
+                                       'itemCode': itemCode, 
+                                       'itemDesc': itemDesc,
+                                       'bags': bags,
+                                       'bagPrice': bagPrice
+                                     })
+            }
+            console.log("Before fetch ")
+            fetch(django_server + "account/itemAddUpdate/", requestOptions)
+            .then((response) => {
+                    console.log("Before response.json() ", response)
+                    return response.json()
+                })
+            .then((data) => {
+                                //data.id
+                                console.log("Before Msg, data: ", data)
+                                console.log("Msg: ", data.Msg)
+                                if(data.Msg == "Success") {
+                                    parent.id = data.id
+                                    console.log("record add/update success, id is: ", data.id)
+                                }
+                            })            
         }
 
         fillItem()

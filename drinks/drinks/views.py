@@ -1365,3 +1365,42 @@ def itemList(request):
         }
 
     return JsonResponse(itemArray, safe=False)
+
+def itemAddUpdate(request):
+    userName = request.session.get('userName')
+
+    if userName is None:
+        result = "Please login to setup Item"
+    else:
+        if request.method == 'POST':
+            id = request.POST['id']
+            if(id == "new"):
+                newItem = ItemSetup.objects.create(
+                    itemCode = request.POST['itemCode'],
+                    itemDesc = request.POST['itemDesc'],
+                    bags = int(request.POST['bags']),
+                    bagPrice = float(request.POST['bagPrice'])
+                )
+                newItem.save()
+                id = newItem.id
+                result = "Success"
+            else:
+                oldItem = ItemSetup.objects.filter(id=int(request.POST['id'])).first()
+                if(oldItem):
+                    oldItem.itemCode = request.POST['itemCode']
+                    oldItem.itemDesc = request.POST['itemDesc']
+                    oldItem.bags = int(request.POST['bags'])
+                    oldItem.bagPrice = float(request.POST['bagPrice'])
+                    oldItem.save()
+                    result = "Success"
+                else:
+                    result = "Record not found for update"
+        else:
+            result = "Not a POST"
+
+    data = {
+        'Msg': result,
+        'id': id
+    }
+
+    return JsonResponse(data, safe=False)

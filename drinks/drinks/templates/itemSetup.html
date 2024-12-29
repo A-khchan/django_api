@@ -212,9 +212,14 @@
             itemDetailDiv = document.getElementById("itemDetail")
             list = itemDetailDiv.querySelectorAll("div")
             console.log("list is: ", list)
+            console.log("id is: ", id)
+            console.log("code is: ", code)
             result = true
             list.forEach(element => {
                 if(element.id != id && element.querySelector("#itemCode").value == code) {
+                    console.log("element.id is: ", element.id)
+                    console.log("element.querySelector('#itemCode').value is: ", element.querySelector("#itemCode").value)
+
                     result = false
                     msgDiv = document.getElementById("message")
                     msgDiv.innerText = "Item code must be unique"

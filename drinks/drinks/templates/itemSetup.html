@@ -99,24 +99,28 @@
             itemCode.id = "itemCode"
             itemCode.addEventListener("input", addOrUpdate)
             itemCode.addEventListener("blur", leaveInput)
+            itemCode.style.position = "relative"
             itemCode.style.zIndex = 1
 
             itemDesc = document.createElement("input")
             itemDesc.id = "itemDesc"
             itemDesc.addEventListener("input", addOrUpdate)
             itemDesc.addEventListener("blur", leaveInput)
+            itemDesc.style.position = "relative"
             itemDesc.style.zIndex = 1
 
             bags = document.createElement("input")
             bags.id = "bags"
             bags.addEventListener("input", addOrUpdate)
             bags.addEventListener("blur", leaveInput)
+            bags.style.position = "relative"
             bags.style.zIndex = 1
 
             bagPrice = document.createElement("input")
             bagPrice.id = "bagPrice"
             bagPrice.addEventListener("input", addOrUpdate)
             bagPrice.addEventListener("blur", leaveInput)
+            bagPrice.style.position = "relative"
             bagPrice.style.zIndex = 1
 
             child.appendChild(itemCode)

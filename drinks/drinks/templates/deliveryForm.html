@@ -397,7 +397,8 @@
                 cost = (numOfBoxes * bags + numOfBags) * price
                 totalCost += cost
             })
-            document.getElementById("cost").innerText = "Total cost is $" + totalCost.toFixed(2)
+            if(parseFloat(totalCost))
+                document.getElementById("cost").innerText = "Total cost is $" + totalCost.toFixed(2)
         }
 
         getItemCode()

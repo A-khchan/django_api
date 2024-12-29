@@ -97,8 +97,8 @@
                             <div class="flex_column" id="itemList">
                                 <div id="itemRow">
                                     <select id="itemCode" name="itemCode" onchange="calCost(event)"></select><input class="quantity" 
-                                    type="number" id="box" value="1" onchange="calCost(event)"><input class="quantity" 
-                                    type="number" id="bag" value="0" onchange="calCost(event)">
+                                    type="number" id="box" value="1" oninput="calCost(event)"><input class="quantity" 
+                                    type="number" id="bag" value="0" oninput="calCost(event)">
                                 </div>
                             </div>
                             <button type="button" onclick="addItemRow()">Add</button>

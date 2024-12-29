@@ -88,6 +88,10 @@
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Ticket No.:</span> <input class="textField" id="ticketNo" name="ticketNo" type="number" oninput="clearMessage()"><br>
                     </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label_long">Items:</span> 
+                        <select id="itemCode" name="itemCode"></select><br>
+                    </div>
 
                     <br>
                     <input id="create" class="button" type="submit" value="Create">
@@ -313,6 +317,23 @@
             } 
         }
 
+        itemCodeArray = []
+        function getItemCode() {
+            const django_server = "https://www.roboosoft.com/"
+            fetch(django_server + "account/itemCodeList/")
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                itemCodeArray = [...data]
+                selectDiv = document.getElementById("itemCode")
+                data.forEach(element => {
+                    selectDiv.options.add(new Option(element.itemCode, element.itemCode))
+                })
+            })
+        }
+
+        getItemCode()
     </script>     
 
     <link

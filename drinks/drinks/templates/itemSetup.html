@@ -210,7 +210,7 @@
 
         function isUnique(code) {
             itemDetailDiv = document.getElementById("itemDetail")
-            list = itemDetailDiv.querySelector("div")
+            list = itemDetailDiv.querySelectorAll("div")
             console.log("list is: ", list)
             result = true
             list.forEach(element => {

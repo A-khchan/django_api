@@ -96,18 +96,22 @@
             itemCode = document.createElement("input")
             itemCode.id = "itemCode"
             itemCode.addEventListener("input", addOrUpdate)
+            itemCode.addEventListener("blur", leaveInput)
 
             itemDesc = document.createElement("input")
             itemDesc.id = "itemDesc"
             itemDesc.addEventListener("input", addOrUpdate)
+            itemDesc.addEventListener("blur", leaveInput)
 
             bags = document.createElement("input")
             bags.id = "bags"
             bags.addEventListener("input", addOrUpdate)
+            bags.addEventListener("blur", leaveInput)
 
             bagPrice = document.createElement("input")
             bagPrice.id = "bagPrice"
             bagPrice.addEventListener("input", addOrUpdate)
+            bagPrice.addEventListener("blur", leaveInput)
 
             child.appendChild(itemCode)
             child.appendChild(itemDesc)
@@ -121,6 +125,7 @@
 
         function addOrUpdate(event) {
             console.log("parent id is: ", event.target.parentElement.id)
+            event.target.style.zIndex = "1"
             console.log("zIndex is: ", event.target.style.zIndex)
             // check if all the fields are valid
             parent = event.target.parentElement
@@ -167,6 +172,10 @@
         function checkStr(aString) {
             trimmed = aString.trim()
             return trimmed.length > 0
+        }
+
+        function leaveInput(event) {
+            event.target.style.zIndex = ""
         }
 
         fillItem()

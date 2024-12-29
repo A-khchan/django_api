@@ -1239,6 +1239,8 @@ def deliveryList(request):
     
     userName = request.session.get('userName')
 
+    print("deliveryList")
+
     if userName:
         deliveryAll = Delivery.objects.all()
         deliveryArray = []

@@ -1417,7 +1417,7 @@ def itemAddUpdate(request):
 def addItem(request, deliveryObj):
     rowNum = 1
     itemCodeName = "itemCode" + str(rowNum)
-    while(request.POST[itemCodeName]):
+    while(request.POST.get(itemCodeName)):
         boxName = "box" + str(rowNum)
         bagName = "bag" + str(rowNum)
         itemObj = DeliveryItems.objects.create(

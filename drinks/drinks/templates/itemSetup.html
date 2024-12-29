@@ -211,6 +211,7 @@
         function isUnique(code) {
             itemDetailDiv = document.getElementById("itemDetail")
             list = itemDetailDiv.querySelectorAll("*")
+            console.log("list is: ", list)
             result = true
             list.forEach(element => {
                 if(element.querySelector("#itemCode").value == code) {

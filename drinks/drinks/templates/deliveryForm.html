@@ -409,7 +409,7 @@
             box = parseInt(parent.querySelector("#box").value)
             bag = parseInt(parent.querySelector("#bag").value)
 
-            if(box && bag) {
+            if(Number.isInteger(box) && Number.isInteger(bag)) {
                 bags = itemDict[itemCode][0]
                 console.log("bag is:" , bag)
                 console.log("bags is:" , bags)

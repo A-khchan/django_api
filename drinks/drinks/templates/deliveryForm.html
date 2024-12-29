@@ -328,7 +328,7 @@
                 itemCodeArray = [...data]
                 selectDiv = document.getElementById("itemCode")
                 data.forEach(element => {
-                    selectDiv.options.add(new Option(element.itemCode, element.itemCode))
+                    selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
                 })
             })
         }

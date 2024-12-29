@@ -383,7 +383,9 @@
             itemListDiv.appendChild(rowDiv)
         }
 
-        function calCost() {
+        function calCost(event) {
+            validateQuantity(event)
+
             console.log("calCost ...")
             allRow = document.querySelectorAll("#itemRow")
             console.log("allRow: ", allRow)
@@ -399,6 +401,34 @@
             })
             if(parseFloat(totalCost))
                 document.getElementById("cost").innerText = "Total cost is $" + totalCost.toFixed(2)
+        }
+
+        function validateQuantity(event) {
+            parent = event.target.parent
+            itemCode = parent.querySelector("#itemCode").value
+            box = parseInt(parent.querySelector("#box").value)
+            bag = parseInt(parent.querySelector("#bag").value)
+
+            if(box && bag) {
+                bags = itemDict[itemCode][0]
+                while(bag > bags) {
+                    bag -= bags
+                    box += 1
+                }
+                while(bag < 0 && box > 0) {
+                    bag += bags
+                    box -= 1
+                }
+                if(box < 0)
+                    parent.querySelector("#box").value = 0
+                else
+                    parent.querySelector("#box").value = box
+
+                if(bag < 0)
+                    parent.querySelector("#bag").value = 0
+                else
+                    parent.querySelector("#bag").value = bag
+            }
         }
 
         getItemCode()

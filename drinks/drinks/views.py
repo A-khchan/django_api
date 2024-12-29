@@ -1373,24 +1373,25 @@ def itemAddUpdate(request):
         result = "Please login to setup Item"
     else:
         if request.method == 'POST':
-            id = request.POST['id']
+            data = json.loads(request.body)            
+            id = data.get('id')
             if(id == "new"):
                 newItem = ItemSetup.objects.create(
-                    itemCode = request.POST['itemCode'],
-                    itemDesc = request.POST['itemDesc'],
-                    bags = int(request.POST['bags']),
-                    bagPrice = float(request.POST['bagPrice'])
+                    itemCode = data.get('itemCode'),
+                    itemDesc = data.get('itemDesc'),
+                    bags = int(data.get('bags')),
+                    bagPrice = float(data.get('bagPrice'))
                 )
                 newItem.save()
                 id = newItem.id
                 result = "Success"
             else:
-                oldItem = ItemSetup.objects.filter(id=int(request.POST['id'])).first()
+                oldItem = ItemSetup.objects.filter(id=int(data.get('id'))).first()
                 if(oldItem):
-                    oldItem.itemCode = request.POST['itemCode']
-                    oldItem.itemDesc = request.POST['itemDesc']
-                    oldItem.bags = int(request.POST['bags'])
-                    oldItem.bagPrice = float(request.POST['bagPrice'])
+                    oldItem.itemCode = data.get('itemCode')
+                    oldItem.itemDesc = data.get('itemDesc')
+                    oldItem.bags = int(data.get('bags'))
+                    oldItem.bagPrice = float(data.get('bagPrice'))
                     oldItem.save()
                     result = "Success"
                 else:

@@ -353,6 +353,7 @@
         function addItemRow() {
             selectDiv = document.createElement("select")
             selectDiv.id = "itemCode"
+            selectDiv.addEventListener("change", calCost)
             itemCodeArray.forEach(element => {
                     selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
                 })
@@ -366,12 +367,14 @@
             boxInput.id = "box"
             boxInput.className = "quantity"
             boxInput.value = 1
+            boxInput.addEventListener("input", calCost)
 
             bagInput = document.createElement("input")
             bagInput.type = "number"
             bagInput.id = "bag"
             bagInput.className = "quantity"
             bagInput.value = 0
+            bagInput.addEventListener("input", calCost)
 
             rowDiv.appendChild(boxInput)
             rowDiv.appendChild(bagInput)
@@ -394,7 +397,7 @@
                 cost = (numOfBoxes * bags + numOfBags) * price
                 totalCost += cost
             })
-            document.getElementById("cost").innerText = "Total cost is $" + totalCost
+            document.getElementById("cost").innerText = "Total cost is $" + totalCost.toFixed(2)
         }
 
         getItemCode()

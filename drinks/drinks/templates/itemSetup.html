@@ -61,33 +61,38 @@
                     child.style.position = "relative"
                     child.id = element.id
 
-                    itemCode = document.createElement("input")
-                    itemCode.addEventListener("input", addOrUpdate)
-                    itemCode.addEventListener("focus", getFocus)
-                    itemCode.addEventListener("blur", leaveInput)
-                    itemCode.style.position = "relative"
-                    itemCode.value = element.itemCode
+                    itemCode = makeInputElement("itemCode", element.itemCode)
+                    itemDesc = makeInputElement("itemDesc", element.itemDesc)
+                    bags = makeInputElement("bags", element.bags)
+                    bagPrice = makeInputElement("bagPrice", element.bagPrice)
 
-                    itemDesc = document.createElement("input")
-                    itemDesc.addEventListener("input", addOrUpdate)
-                    itemDesc.addEventListener("focus", getFocus)
-                    itemDesc.addEventListener("blur", leaveInput)
-                    itemDesc.style.position = "relative"
-                    itemDesc.value = element.itemDesc
+                    // itemCode = document.createElement("input")
+                    // itemCode.addEventListener("input", addOrUpdate)
+                    // itemCode.addEventListener("focus", getFocus)
+                    // itemCode.addEventListener("blur", leaveInput)
+                    // itemCode.style.position = "relative"
+                    // itemCode.value = element.itemCode
 
-                    bags = document.createElement("input")
-                    bags.addEventListener("input", addOrUpdate)
-                    bags.addEventListener("focus", getFocus)
-                    bags.addEventListener("blur", leaveInput)
-                    bags.style.position = "relative"
-                    bags.value = element.bags
+                    // itemDesc = document.createElement("input")
+                    // itemDesc.addEventListener("input", addOrUpdate)
+                    // itemDesc.addEventListener("focus", getFocus)
+                    // itemDesc.addEventListener("blur", leaveInput)
+                    // itemDesc.style.position = "relative"
+                    // itemDesc.value = element.itemDesc
 
-                    bagPrice = document.createElement("input")
-                    bagPrice.addEventListener("input", addOrUpdate)
-                    bagPrice.addEventListener("focus", getFocus)
-                    bagPrice.addEventListener("blur", leaveInput)
-                    bagPrice.style.position = "relative"
-                    bagPrice.value = element.bagPrice
+                    // bags = document.createElement("input")
+                    // bags.addEventListener("input", addOrUpdate)
+                    // bags.addEventListener("focus", getFocus)
+                    // bags.addEventListener("blur", leaveInput)
+                    // bags.style.position = "relative"
+                    // bags.value = element.bags
+
+                    // bagPrice = document.createElement("input")
+                    // bagPrice.addEventListener("input", addOrUpdate)
+                    // bagPrice.addEventListener("focus", getFocus)
+                    // bagPrice.addEventListener("blur", leaveInput)
+                    // bagPrice.style.position = "relative"
+                    // bagPrice.value = element.bagPrice
 
                     child.appendChild(itemCode)
                     child.appendChild(itemDesc)
@@ -112,33 +117,37 @@
             child.style.zIndex = 1
             newRowID += 1
 
-            itemCode = document.createElement("input")
-            itemCode.id = "itemCode"
-            itemCode.addEventListener("input", addOrUpdate)
-            itemCode.addEventListener("focus", getFocus)
-            itemCode.addEventListener("blur", leaveInput)
-            itemCode.style.position = "relative"
+            // itemCode = document.createElement("input")
+            // itemCode.id = "itemCode"
+            // itemCode.addEventListener("input", addOrUpdate)
+            // itemCode.addEventListener("focus", getFocus)
+            // itemCode.addEventListener("blur", leaveInput)
+            // itemCode.style.position = "relative"
+            itemCode = makeInputElement("itemCode", "")
+            itemDesc = makeInputElement("itemDesc", "")
+            bags = makeInputElement("bags", "")
+            bagPrice = makeInputElement("bagPrice", "")
 
-            itemDesc = document.createElement("input")
-            itemDesc.id = "itemDesc"
-            itemDesc.addEventListener("input", addOrUpdate)
-            itemDesc.addEventListener("focus", getFocus)
-            itemDesc.addEventListener("blur", leaveInput)
-            itemDesc.style.position = "relative"
+            // itemDesc = document.createElement("input")
+            // itemDesc.id = "itemDesc"
+            // itemDesc.addEventListener("input", addOrUpdate)
+            // itemDesc.addEventListener("focus", getFocus)
+            // itemDesc.addEventListener("blur", leaveInput)
+            // itemDesc.style.position = "relative"
 
-            bags = document.createElement("input")
-            bags.id = "bags"
-            bags.addEventListener("input", addOrUpdate)
-            bags.addEventListener("focus", getFocus)
-            bags.addEventListener("blur", leaveInput)
-            bags.style.position = "relative"
+            // bags = document.createElement("input")
+            // bags.id = "bags"
+            // bags.addEventListener("input", addOrUpdate)
+            // bags.addEventListener("focus", getFocus)
+            // bags.addEventListener("blur", leaveInput)
+            // bags.style.position = "relative"
 
-            bagPrice = document.createElement("input")
-            bagPrice.id = "bagPrice"
-            bagPrice.addEventListener("input", addOrUpdate)
-            bagPrice.addEventListener("focus", getFocus)
-            bagPrice.addEventListener("blur", leaveInput)
-            bagPrice.style.position = "relative"
+            // bagPrice = document.createElement("input")
+            // bagPrice.id = "bagPrice"
+            // bagPrice.addEventListener("input", addOrUpdate)
+            // bagPrice.addEventListener("focus", getFocus)
+            // bagPrice.addEventListener("blur", leaveInput)
+            // bagPrice.style.position = "relative"
 
             child.appendChild(itemCode)
             child.appendChild(itemDesc)
@@ -148,6 +157,17 @@
             div = document.getElementById("itemDetail")
             div.appendChild(child)
 
+        }
+
+        function makeInputElement(elementID, value) {
+            element = document.createElement("input")
+            element.id = elementID
+            element.addEventListener("input", addOrUpdate)
+            element.addEventListener("focus", getFocus)
+            element.addEventListener("blur", leaveInput)
+            element.style.position = "relative"    
+            element.value = value 
+            return element       
         }
 
         function addOrUpdate(event) {

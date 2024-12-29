@@ -160,6 +160,7 @@
         function leaveInput(event) {
             event.target.style.zIndex = 1
             event.target.parentElement.style.zIndex = 1
+            clearMessage()
         }
 
         function addUpdateRecord(parent, itemCode, itemDesc, bags, bagPrice) {

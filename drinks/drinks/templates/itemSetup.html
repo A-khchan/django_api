@@ -98,30 +98,30 @@
             itemCode = document.createElement("input")
             itemCode.id = "itemCode"
             itemCode.addEventListener("input", addOrUpdate)
+            itemCode.addEventListener("focus", getFocus)
             itemCode.addEventListener("blur", leaveInput)
             itemCode.style.position = "relative"
-            itemCode.style.zIndex = 1
 
             itemDesc = document.createElement("input")
             itemDesc.id = "itemDesc"
             itemDesc.addEventListener("input", addOrUpdate)
+            itemDesc.addEventListener("focus", getFocus)
             itemDesc.addEventListener("blur", leaveInput)
             itemDesc.style.position = "relative"
-            itemDesc.style.zIndex = 1
 
             bags = document.createElement("input")
             bags.id = "bags"
             bags.addEventListener("input", addOrUpdate)
+            bags.addEventListener("focus", getFocus)
             bags.addEventListener("blur", leaveInput)
             bags.style.position = "relative"
-            bags.style.zIndex = 1
 
             bagPrice = document.createElement("input")
             bagPrice.id = "bagPrice"
             bagPrice.addEventListener("input", addOrUpdate)
+            bagPrice.addEventListener("focus", getFocus)
             bagPrice.addEventListener("blur", leaveInput)
             bagPrice.style.position = "relative"
-            bagPrice.style.zIndex = 1
 
             child.appendChild(itemCode)
             child.appendChild(itemDesc)
@@ -183,6 +183,11 @@
         function checkStr(aString) {
             trimmed = aString.trim()
             return trimmed.length > 0
+        }
+
+        function getFocus(event) {
+            event.target.style.zIndex = 2
+            event.target.parentElement.style.zIndex = 2
         }
 
         function leaveInput(event) {

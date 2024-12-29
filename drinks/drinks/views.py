@@ -1248,6 +1248,15 @@ def deliveryList(request):
             else:
                 seq = deliveryAll[i].seq
 
+            itemAll = DeliveryItems.objects.filter(id=deliveryAll[i].id)
+            itemArray = []
+            for j in range(0, len(itemAll), 1):
+                itemArray.append({
+                    "itemCode": itemAll[j].item,
+                    "box": itemAll[j].quantity1,
+                    "bag": itemAll[j].quantity2
+                })
+
             deliveryArray.append({
                 "id": deliveryAll[i].id,
                 "deliveryDate": deliveryAll[i].deliveryDate,
@@ -1266,6 +1275,7 @@ def deliveryList(request):
                 "log": deliveryAll[i].log,
                 "comments": deliveryAll[i].comments,
                 "seq": seq,
+                "itemList": itemArray,
             })
 
         delivery_json = json.dumps(deliveryArray)

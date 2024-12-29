@@ -151,6 +151,7 @@
                 else if(element.eligible == "N")
                     eligibleDiv.innerText = "Eligible: " + "No"
 
+
                 child = document.createElement("div")
                 child.className = "delivery_box"
                 child.id = element.id
@@ -161,6 +162,12 @@
                 child.appendChild(nameDiv)
                 child.appendChild(addressDiv)
                 child.appendChild(eligibleDiv)
+
+                for(const item of element.itemList) {
+                    itemDiv = document.createElement("div")
+                    itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
+                    child.appendChild(itemDiv)
+                }
 
                 deliveryList.appendChild(child)
 

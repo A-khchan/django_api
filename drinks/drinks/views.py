@@ -1257,6 +1257,8 @@ def deliveryList(request):
                     "bag": itemAll[j].quantity2
                 })
 
+            print("itemArray: ", itemArray)
+
             deliveryArray.append({
                 "id": deliveryAll[i].id,
                 "deliveryDate": deliveryAll[i].deliveryDate,

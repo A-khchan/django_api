@@ -125,7 +125,7 @@
 
         function addOrUpdate(event) {
             console.log("parent id is: ", event.target.parentElement.id)
-            event.target.style.zIndex = "1"
+            event.target.parentElement.style.zIndex = "1"
             console.log("zIndex is: ", event.target.style.zIndex)
             // check if all the fields are valid
             parent = event.target.parentElement
@@ -175,7 +175,7 @@
         }
 
         function leaveInput(event) {
-            event.target.style.zIndex = ""
+            event.target.parentElement.style.zIndex = ""
         }
 
         fillItem()

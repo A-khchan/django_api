@@ -115,7 +115,7 @@
             bags = parent.querySelector("#bags")
             bagPrice = parent.querySelector("#bagPrice")
 
-            if(checkStr(itemCode.value) && isUnique(event.target.id, itemCode.value)) {
+            if(checkStr(itemCode.value) && isUnique(parent.id, itemCode.value)) {
                 itemCode.style.backgroundColor = "white"
                 if(checkStr(itemDesc.value)) {
                     itemDesc.style.backgroundColor = "white"

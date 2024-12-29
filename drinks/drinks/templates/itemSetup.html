@@ -58,18 +58,31 @@
                 childArray = []
                 for (const element of data) {
                     child = document.createElement("div")
+                    child.style.position = "relative"
                     child.id = element.id
 
                     itemCode = document.createElement("input")
+                    itemCode.addEventListener("focus", getFocus)
+                    itemCode.addEventListener("blur", leaveInput)
+                    itemCode.style.position = "relative"
                     itemCode.value = element.itemCode
 
                     itemDesc = document.createElement("input")
+                    itemDesc.addEventListener("focus", getFocus)
+                    itemDesc.addEventListener("blur", leaveInput)
+                    itemDesc.style.position = "relative"
                     itemDesc.value = element.itemDesc
 
                     bags = document.createElement("input")
+                    bags.addEventListener("focus", getFocus)
+                    bags.addEventListener("blur", leaveInput)
+                    bags.style.position = "relative"
                     bags.value = element.bags
 
                     bagPrice = document.createElement("input")
+                    bagPrice.addEventListener("focus", getFocus)
+                    bagPrice.addEventListener("blur", leaveInput)
+                    bagPrice.style.position = "relative"
                     bagPrice.value = element.bagPrice
 
                     child.appendChild(itemCode)

@@ -115,7 +115,7 @@
             bags = parent.querySelector("#bags")
             bagPrice = parent.querySelector("#bagPrice")
 
-            if(checkStr(itemCode.value) && isUnique(event.target, itemCode.value)) {
+            if(checkStr(itemCode.value) && isUnique(event.target.id, itemCode.value)) {
                 itemCode.style.backgroundColor = "white"
                 if(checkStr(itemDesc.value)) {
                     itemDesc.style.backgroundColor = "white"
@@ -208,13 +208,13 @@
                             })            
         }
 
-        function isUnique(target, code) {
+        function isUnique(id, code) {
             itemDetailDiv = document.getElementById("itemDetail")
             list = itemDetailDiv.querySelectorAll("div")
             console.log("list is: ", list)
             result = true
             list.forEach(element => {
-                if(element != target && element.querySelector("#itemCode").value == code) {
+                if(element.id != id && element.querySelector("#itemCode").value == code) {
                     result = false
                     msgDiv = document.getElementById("message")
                     msgDiv.innerText = "Item code must be unique"

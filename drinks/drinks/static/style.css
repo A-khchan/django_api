@@ -340,5 +340,5 @@ body {
 }
 
 .quantity {
-    width: 20px;
+    max-width: 30px;
 }

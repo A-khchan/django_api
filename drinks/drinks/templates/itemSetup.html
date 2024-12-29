@@ -145,16 +145,20 @@
                                 }
                             }
                         } else {
-                            bagPrice.style.backgroundColor = "red"
+                            if(event.target === bagPrice)
+                                bagPrice.style.backgroundColor = "red"
                         }
                     } else {
-                        bags.style.backgroundColor = "red"
+                        if(event.target === bags)
+                            bags.style.backgroundColor = "red"
                     }
                 } else {
-                    itemDesc.style.backgroundColor = "red"
+                    if(event.target === itemDesc)
+                        itemDesc.style.backgroundColor = "red"
                 }
             } else {
-                itemCode.style.backgroundColor = "red"
+                if(event.target === itemCode)
+                    itemCode.style.backgroundColor = "red"
             }
 
         }

@@ -1375,27 +1375,32 @@ def itemAddUpdate(request):
         if request.method == 'POST':
             data = json.loads(request.body)            
             id = data.get('id')
-            if(id == "new"):
-                newItem = ItemSetup.objects.create(
-                    itemCode = data.get('itemCode'),
-                    itemDesc = data.get('itemDesc'),
-                    bags = int(data.get('bags')),
-                    bagPrice = float(data.get('bagPrice'))
-                )
-                newItem.save()
-                id = newItem.id
-                result = "Success"
-            else:
-                oldItem = ItemSetup.objects.filter(id=int(data.get('id'))).first()
-                if(oldItem):
-                    oldItem.itemCode = data.get('itemCode')
-                    oldItem.itemDesc = data.get('itemDesc')
-                    oldItem.bags = int(data.get('bags'))
-                    oldItem.bagPrice = float(data.get('bagPrice'))
-                    oldItem.save()
+            # check if itemCode already exist
+            existItem = ItemSetup.objects.filter(itemCode=data.get('itemCode')).first()
+            if(existItem):
+                result = "Item Code must be unique"
+            else: 
+                if(id == "new"):
+                    newItem = ItemSetup.objects.create(
+                        itemCode = data.get('itemCode'),
+                        itemDesc = data.get('itemDesc'),
+                        bags = int(data.get('bags')),
+                        bagPrice = float(data.get('bagPrice'))
+                    )
+                    newItem.save()
+                    id = newItem.id
                     result = "Success"
                 else:
-                    result = "Record not found for update"
+                    oldItem = ItemSetup.objects.filter(id=int(data.get('id'))).first()
+                    if(oldItem):
+                        oldItem.itemCode = data.get('itemCode')
+                        oldItem.itemDesc = data.get('itemDesc')
+                        oldItem.bags = int(data.get('bags'))
+                        oldItem.bagPrice = float(data.get('bagPrice'))
+                        oldItem.save()
+                        result = "Success"
+                    else:
+                        result = "Record not found for update"
         else:
             result = "Not a POST"
 

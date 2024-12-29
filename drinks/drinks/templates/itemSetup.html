@@ -197,9 +197,13 @@
                                 //data.id
                                 console.log("Before Msg, data: ", data)
                                 console.log("Msg: ", data.Msg)
+                                msgDiv = document.getElementById("message")
                                 if(data.Msg == "Success") {
                                     parent.id = data.id
                                     console.log("record add/update success, id is: ", data.id)
+                                    msgDiv.innerText = ""
+                                } else {
+                                    msgDiv.innerText = data.Msg
                                 }
                             })            
         }

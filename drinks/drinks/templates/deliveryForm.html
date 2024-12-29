@@ -90,14 +90,14 @@
                     </div>
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Items:</span> 
-                        <div class="contentVerticallyCenter" id="itemList">
-                            <div id="itemRow">
-                                <select id="itemCode" name="itemCode"></select>
-                                <input type="number" id="box">
-                                <input type="number" id="bag">
+                        <div class="flex_column">
+                            <div class="flex_column" id="itemList">
+                                <div id="itemRow">
+                                    <select id="itemCode" name="itemCode"></select><input class="quantity" type="number" id="box"><input class="quantity" type="number" id="bag">
+                                </div>
                             </div>
+                            <button type="button" onclick="addItemRow()">Add</button>
                         </div>
-                        <button type="button" onclick="addItemRow()">Add</button>
                     </div>
 
                     <br>
@@ -353,9 +353,11 @@
             boxInput = document.createElement("input")
             boxInput.type = "number"
             boxInput.id = "box"
+            boxInput.className = "quantity"
             bagInput = document.createElement("input")
             bagInput.type = "number"
             bagInput.id = "bag"
+            bagInput.className = "quantity"
 
             rowDiv.appendChild(boxInput)
             rowDiv.appendChild(bagInput)

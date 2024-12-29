@@ -338,3 +338,7 @@ body {
     width: 105%;
     height: 3px;
 }
+
+.quantity {
+    width: 20px;
+}

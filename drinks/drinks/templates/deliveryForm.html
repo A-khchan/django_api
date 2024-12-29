@@ -90,7 +90,14 @@
                     </div>
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Items:</span> 
-                        <select id="itemCode" name="itemCode"></select><br>
+                        <div class="contentVerticallyCenter" id="itemList">
+                            <div id="itemRow">
+                                <select id="itemCode" name="itemCode"></select>
+                                <input type="number" id="box">
+                                <input type="number" id="bag">
+                            </div>
+                        </div>
+                        <button onclick="addItemRow()">Add</button>
                     </div>
 
                     <br>
@@ -331,6 +338,30 @@
                     selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
                 })
             })
+        }
+
+        function addItemRow() {
+            selectDiv = document.createElement("select")
+            itemCodeArray.forEach(element => {
+                    selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
+                })
+
+            rowDiv = document.createElement("div")
+            rowDiv.id = "itemRow"
+            rowDiv.appendChild(selectDiv)
+
+            boxInput = document.createElement("input")
+            boxInput.type = "number"
+            boxInput.id = "box"
+            bagInput = document.createElement("input")
+            bagInput.type = "number"
+            bagInput.id = "bag"
+
+            rowDiv.appendChild(boxInput)
+            rowDiv.appendChild(bagInput)
+
+            itemListDiv = document.getElementById("itemList")
+            itemListDiv.appendChild(rowDiv)
         }
 
         getItemCode()

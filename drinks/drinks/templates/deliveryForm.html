@@ -93,7 +93,9 @@
                         <div class="item_column">
                             <div class="flex_column" id="itemList">
                                 <div id="itemRow">
-                                    <select id="itemCode" name="itemCode"></select><input class="quantity" type="number" id="box"><input class="quantity" type="number" id="bag">
+                                    <select id="itemCode" name="itemCode"></select><input class="quantity" 
+                                    type="number" id="box" value="1"><input class="quantity" type="number" 
+                                    id="bag" value="0">
                                 </div>
                             </div>
                             <button type="button" onclick="addItemRow()">Add</button>
@@ -354,10 +356,13 @@
             boxInput.type = "number"
             boxInput.id = "box"
             boxInput.className = "quantity"
+            boxInput.value = 1
+
             bagInput = document.createElement("input")
             bagInput.type = "number"
             bagInput.id = "bag"
             bagInput.className = "quantity"
+            bagInput.value = 0
 
             rowDiv.appendChild(boxInput)
             rowDiv.appendChild(bagInput)

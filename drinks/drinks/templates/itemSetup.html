@@ -115,7 +115,7 @@
             bags = parent.querySelector("#bags")
             bagPrice = parent.querySelector("#bagPrice")
 
-            if(checkStr(itemCode.value)) {
+            if(checkStr(itemCode.value) && isUnique(itemCode.value)) {
                 itemCode.style.backgroundColor = "white"
                 if(checkStr(itemDesc.value)) {
                     itemDesc.style.backgroundColor = "white"
@@ -206,6 +206,19 @@
                                     msgDiv.innerText = data.Msg
                                 }
                             })            
+        }
+
+        function isUnique(code) {
+            list = document.getElementById("itemDetail")
+            result = true
+            list.forEach(element => {
+                if(element.querySelector("#itemCode").value == code) {
+                    result = false
+                    msgDiv = document.getElementById("message")
+                    msgDiv.innerText = "Item code must be unique"
+                }
+            });
+            return result
         }
 
         fillItem()

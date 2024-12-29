@@ -96,9 +96,9 @@
                         <div class="item_column">
                             <div class="flex_column" id="itemList">
                                 <div id="itemRow">
-                                    <select id="itemCode" name="itemCode" onchange="calCost()"></select><input class="quantity" 
-                                    type="number" id="box" value="1" oninput="calCost()"><input class="quantity" 
-                                    type="number" id="bag" value="0" oninput="calCost()">
+                                    <select id="itemCode" name="itemCode" onchange="calCost(event)"></select><input class="quantity" 
+                                    type="number" id="box" value="1" onchange="calCost(event)"><input class="quantity" 
+                                    type="number" id="bag" value="0" onchange="calCost(event)">
                                 </div>
                             </div>
                             <button type="button" onclick="addItemRow()">Add</button>
@@ -404,7 +404,7 @@
         }
 
         function validateQuantity(event) {
-            parent = event.target.parent
+            parent = event.target.parentElement
             itemCode = parent.querySelector("#itemCode").value
             box = parseInt(parent.querySelector("#box").value)
             bag = parseInt(parent.querySelector("#bag").value)

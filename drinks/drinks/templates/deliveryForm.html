@@ -352,6 +352,7 @@
 
         function addItemRow() {
             selectDiv = document.createElement("select")
+            selectDiv.id = "itemCode"
             itemCodeArray.forEach(element => {
                     selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
                 })

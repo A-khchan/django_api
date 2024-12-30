@@ -1250,7 +1250,7 @@ def deliveryList(request):
             else:
                 seq = deliveryAll[i].seq
 
-            itemAll = DeliveryItems.objects.filter(id=deliveryAll[i].id)
+            itemAll = DeliveryItems.objects.filter(deliveryID=deliveryAll[i].id)
             itemArray = []
             for j in range(0, len(itemAll), 1):
                 itemArray.append({

@@ -160,6 +160,7 @@
                 child.addEventListener("dragstart", dragstartHandler)
 
                 dot = document.createElement("div")
+                dot.className = "dot"
                 dot.innerText = "✷"
 
                 basic = document.createElement("div")
@@ -167,9 +168,9 @@
                 basic.appendChild(deliveryDateDiv)
                 basic.appendChild(dot)
                 basic.appendChild(nameDiv)
-                basic.appendChild(dot)
+                basic.appendChild(dot.cloneNode(true))
                 basic.appendChild(addressDiv)
-                basic.appendChild(dot)
+                basic.appendChild(dot.cloneNode(true))
                 basic.appendChild(eligibleDiv)
 
                 child.appendChild(basic)

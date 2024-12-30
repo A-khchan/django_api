@@ -232,11 +232,13 @@
                 return response.json()
             })
             .then((data) => {
+                console.log("data is: ", data)
                 data.forEach(element => {
                     itemDict[element.itemCode] = [element.bags, element.bagPrice]
                 })
             })
 
+            console.log("itemDict is: ", itemDict)
             return itemDict
         }
 

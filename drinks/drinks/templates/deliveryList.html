@@ -158,18 +158,27 @@
                 child.seq = element.seq
                 child.setAttribute("draggable", "true")
                 child.addEventListener("dragstart", dragstartHandler)
-                child.appendChild(deliveryDateDiv)
-                child.appendChild(nameDiv)
-                child.appendChild(addressDiv)
-                child.appendChild(eligibleDiv)
+
+                basic = document.createElement("div")
+                basic.className = "basic"
+                basic.appendChild(deliveryDateDiv)
+                basic.appendChild(nameDiv)
+                basic.appendChild(addressDiv)
+                basic.appendChild(eligibleDiv)
+
+                child.appendChild(basic)
 
                 console.log("element.itemList: ", element.itemList)
+
+                itemList = document.createElement("div")
+                itemList.className = "basic"
                 for(const item of element.itemList) {
                     itemDiv = document.createElement("div")
                     itemDiv.className = "itemDiv"
                     itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
-                    child.appendChild(itemDiv)
+                    itemList.appendChild(itemDiv)
                 }
+                child.appendChild(itemList)
 
                 deliveryList.appendChild(child)
 

@@ -114,7 +114,7 @@
         }
 
         itemSummary = {}
-        function fill() {
+        async function fill() {
             itemSummary = {}
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             delivery_sorted = delivery_json.sort((a, b) => {
@@ -210,6 +210,7 @@
             deliveryList.appendChild(dropTarget)
 
             //Add a summary
+            await getItemCode()
             for([key, value] in itemSummary) {
                 [bags, price] = itemDict[key]
                 while(value[1] >= bags) {
@@ -237,8 +238,6 @@
             })
         }
 
-        await getItemCode()
-        console.log("itemDict: ", itemDict)
         fill()
     </script>     
 </body>

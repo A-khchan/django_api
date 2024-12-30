@@ -166,6 +166,7 @@
                 console.log("element.itemList: ", element.itemList)
                 for(const item of element.itemList) {
                     itemDiv = document.createElement("div")
+                    itemDiv.className = "itemDiv"
                     itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
                     child.appendChild(itemDiv)
                 }

@@ -342,6 +342,15 @@ body {
 
 }
 
+.itemDiv {
+    padding: 3px;
+    width: 110px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: red;
+    border-radius: 5px;
+}
+
 .dropTarget {
     width: 105%;
     height: 3px;

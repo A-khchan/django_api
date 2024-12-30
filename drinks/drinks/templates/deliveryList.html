@@ -214,6 +214,9 @@
             console.log("itemDict 2 is: ", itemDict)
             console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
             console.log("itemSummary: ", itemSummary)
+            summaryRow = document.createElement("div")
+            summaryRow.innerText = "Summary:"
+            deliveryList.appendChild(summaryRow)
             for(const key in itemSummary) {
                 value = itemSummary[key]
                 bagAndPrice = itemDict[key]
@@ -222,7 +225,7 @@
                     value[1] -= bagAndPrice[0]
                 }
                 summaryRow = document.createElement("div")
-                summaryRow.innerText = key + " | " + value[0] + " | " + value[1]
+                summaryRow.innerText = key + " x " + value[0] + " box " + value[1] + " bag"
                 deliveryList.appendChild(summaryRow)
             }
         }

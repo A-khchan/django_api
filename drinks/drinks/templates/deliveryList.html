@@ -210,7 +210,7 @@
             deliveryList.appendChild(dropTarget)
 
             //Add a summary
-            await getItemCode()
+            itemDict = await getItemCode()
             for([key, value] in itemSummary) {
                 [bags, price] = itemDict[key]
                 while(value[1] >= bags) {
@@ -223,8 +223,8 @@
             }
         }
 
-        itemDict = {}
         async function getItemCode() {
+            itemDict = {}
             const django_server = "https://www.roboosoft.com/"
             await fetch(django_server + "account/itemList/")
             .then((response) => {
@@ -236,6 +236,8 @@
                     itemDict[element.itemCode] = [element.bags, element.bagPrice]
                 })
             })
+
+            return itemDict
         }
 
         fill()

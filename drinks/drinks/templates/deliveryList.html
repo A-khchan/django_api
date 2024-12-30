@@ -211,6 +211,7 @@
 
             //Add a summary
             itemDict = await getItemCode()
+            console.log("itemDict 2 is: ", itemDict)
             for([key, value] in itemSummary) {
                 [bags, price] = itemDict[key]
                 while(value[1] >= bags) {

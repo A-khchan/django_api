@@ -1434,12 +1434,13 @@ def addItem(request, deliveryObj):
     while(request.POST.get(itemCodeName)):
         boxName = "box" + str(rowNum)
         bagName = "bag" + str(rowNum)
-        itemObj = DeliveryItems.objects.create(
-            deliveryID = deliveryObj.id,
-            item = request.POST[itemCodeName],
-            quantity1 = request.POST[boxName],
-            quantity2 = request.POST[bagName],
-        )
-        itemObj.save()
+        if(not request.POST[boxName] == 0 or not request.POST[bagName] == 0):
+            itemObj = DeliveryItems.objects.create(
+                deliveryID = deliveryObj.id,
+                item = request.POST[itemCodeName],
+                quantity1 = request.POST[boxName],
+                quantity2 = request.POST[bagName],
+            )
+            itemObj.save()
         rowNum = rowNum + 1
         itemCodeName = "itemCode" + str(rowNum)    

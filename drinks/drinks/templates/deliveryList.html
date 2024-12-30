@@ -159,11 +159,17 @@
                 child.setAttribute("draggable", "true")
                 child.addEventListener("dragstart", dragstartHandler)
 
+                dot = document.createElement("div")
+                dot.innerText = "✷"
+
                 basic = document.createElement("div")
                 basic.className = "basic"
                 basic.appendChild(deliveryDateDiv)
+                basic.appendChild(dot)
                 basic.appendChild(nameDiv)
+                basic.appendChild(dot)
                 basic.appendChild(addressDiv)
+                basic.appendChild(dot)
                 basic.appendChild(eligibleDiv)
 
                 child.appendChild(basic)

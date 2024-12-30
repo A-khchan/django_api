@@ -224,7 +224,6 @@
 
         itemDict = {}
         function getItemCode() {
-            itemDict = {}
             const django_server = "https://www.roboosoft.com/"
             fetch(django_server + "account/itemList/")
             .then((response) => {

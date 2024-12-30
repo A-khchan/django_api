@@ -227,6 +227,7 @@
             const django_server = "https://www.roboosoft.com/"
             fetch(django_server + "account/itemList/")
             .then((response) => {
+                console.log("response is: ", response)
                 return response.json()
             })
             .then((data) => {

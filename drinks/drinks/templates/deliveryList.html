@@ -223,9 +223,9 @@
         }
 
         itemDict = {}
-        function getItemCode() {
+        async function getItemCode() {
             const django_server = "https://www.roboosoft.com/"
-            fetch(django_server + "account/itemList/")
+            await fetch(django_server + "account/itemList/")
             .then((response) => {
                 console.log("response is: ", response)
                 return response.json()
@@ -237,7 +237,7 @@
             })
         }
 
-        getItemCode()
+        await getItemCode()
         console.log("itemDict: ", itemDict)
         fill()
     </script>     

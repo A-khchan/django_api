@@ -113,7 +113,9 @@
             deliveryList.replaceChildren(...temp_deliveryList)
         }
 
+        itemSummary = {}
         function fill() {
+            itemSummary = {}
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             delivery_sorted = delivery_json.sort((a, b) => {
                 return parseFloat(a.seq) - parseFloat(b.seq)
@@ -186,6 +188,13 @@
                     itemDiv.className = "itemDiv"
                     itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
                     itemList.appendChild(itemDiv)
+
+                    if(!(item.itemCode in itemSummary)) {
+                        itemSummary[item.itemCode] = [0, 0]
+                    }
+                    itemSummary[item.itemCode][0] += item.box
+                    itemSummary[item.itemCode][1] += item.bag
+
                 }
                 child.appendChild(itemList)
 
@@ -200,8 +209,35 @@
             dropTarget.seq = currentSeq + 0.01
             deliveryList.appendChild(dropTarget)
 
+            //Add a summary
+            for([key, value] in itemSummary) {
+                [bags, price] = itemDict[key]
+                while(value[1] >= bags) {
+                    value[0] += 1
+                    value[1] -= bags
+                }
+                summaryRow = document.createElement("div")
+                summaryRow.innerText = key + " | " + value[0] + " | " + value[1]
+                deliveryList.appendChild(summaryRow)
+            }
         }
 
+        itemDict = {}
+        function getItemCode() {
+            itemDict = {}
+            const django_server = "https://www.roboosoft.com/"
+            fetch(django_server + "account/itemList/")
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                data.forEach(element => {
+                    itemDict[element.itemCode] = [element.bags, element.bagPrice]
+                })
+            })
+        }
+
+        getItemCode()
         fill()
     </script>     
 </body>

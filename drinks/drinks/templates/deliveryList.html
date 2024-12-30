@@ -214,9 +214,8 @@
             console.log("itemDict 2 is: ", itemDict)
             console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
             console.log("itemSummary: ", itemSummary)
-            for([key, value] in itemSummary) {
-                console.log("key: ", key)                
-                console.log("value: ", value) 
+            for(const key in itemSummary) {
+                value = itemSummary[key]
                 bagAndPrice = itemDict[key]
                 while(value[1] >= bagAndPrice[0]) {
                     value[0] += 1

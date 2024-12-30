@@ -216,10 +216,10 @@
             for([key, value] in itemSummary) {
                 console.log("key: ", key)                
                 console.log("value: ", value) 
-                [bags, price] = itemDict[key]
-                while(value[1] >= bags) {
+                bagAndPrice = itemDict[key]
+                while(value[1] >= bagAndPrice[0]) {
                     value[0] += 1
-                    value[1] -= bags
+                    value[1] -= bagAndPrice[0]
                 }
                 summaryRow = document.createElement("div")
                 summaryRow.innerText = key + " | " + value[0] + " | " + value[1]

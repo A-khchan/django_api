@@ -212,7 +212,10 @@
             //Add a summary
             itemDict = await getItemCode()
             console.log("itemDict 2 is: ", itemDict)
+            console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
             for([key, value] in itemSummary) {
+                console.log("key: ", key)                
+                console.log("value: ", value) 
                 [bags, price] = itemDict[key]
                 while(value[1] >= bags) {
                     value[0] += 1

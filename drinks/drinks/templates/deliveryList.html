@@ -141,15 +141,17 @@
                 nameDiv.innerText = element.lastName + ", " + element.firstName
 
                 addressDiv = document.createElement("div")
+                addressDiv.className = "deliveryDateDiv"
                 addressDiv.innerText = element.address
 
                 eligibleDiv = document.createElement("div")
+                eligibleDiv.className = "deliveryDateDiv"
                 if(element.eligible == "P")
-                    eligibleDiv.innerText = "Eligible: " + "Pending"
+                    eligibleDiv.innerText = "Eligibility: " + "Pending"
                 else if(element.eligible == "Y")
-                    eligibleDiv.innerText = "Eligible: " + "Yes"
+                    eligibleDiv.innerText = "Eligibility: " + "Yes"
                 else if(element.eligible == "N")
-                    eligibleDiv.innerText = "Eligible: " + "No"
+                    eligibleDiv.innerText = "Eligibility: " + "No"
 
 
                 child = document.createElement("div")

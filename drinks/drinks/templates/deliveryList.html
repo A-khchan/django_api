@@ -241,8 +241,10 @@
         }
 
         function shouldShow(element) {
+            console.log("shouldShow, element.deliveryDate: ", element.deliveryDate)
             result = false
             filterDeliveryDate = document.getElementById("deliveryDate").value
+            console.log("filterDeliveryDate: ", filterDeliveryDate)
             if(isValidDate(filterDeliveryDate)) {
                 if(element.deliveryDate == filterDeliveryDate)
                     result = true

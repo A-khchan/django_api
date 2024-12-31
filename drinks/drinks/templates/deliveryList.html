@@ -30,8 +30,11 @@
     
     <script>
         function hide_cal(event) {
-            const tooltip = document.getElementById('cal_div');
-            tooltip.style.visibility = 'hidden';
+            const deliveryDate = document.getElementById('deliveryDate')
+            if(event.target != deliveryDate) {
+                const tooltip = document.getElementById('cal_div');
+                tooltip.style.visibility = 'hidden';
+            }
         }
 
         function clearMessage() {

@@ -367,8 +367,32 @@
             return result;
         }
 
+        function initCalendar() {
+            calendar = new VanillaCalendar("#calendar", options);
+            calendar.init();
+            calendar.jumpToSelectedDate = true;
+            calendar.date.min = '1910-01-01';
+            calendar.settings.range.min = '1910-01-01';
+            // calendar.selectedDates = ['1999-01-01'];
+            // calendar.date.today = new Date(1998,0,1);
+            // calendar.selectedMonth = 0;
+            // calendar.selectedYear = 1998;
+            calendar.update();
+            console.log(calendar)
+        }
 
     </script>     
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/vanilla-calendar.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/vanilla-calendar.min.js"
+      async
+      defer
+      onload="initCalendar()"
+    ></script>
 </body>
 </html>
 

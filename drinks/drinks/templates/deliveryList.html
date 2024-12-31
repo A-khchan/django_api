@@ -120,6 +120,11 @@
                     //accumulate items
                     const itemList = element.querySelectorAll("#itemList")
                     for(const item of itemList) {
+                        console.log("reDisplay")
+                        console.log("item.itemCode: ", item.itemCode)
+                        console.log("item.box: ", item.box)
+                        console.log("item.bag: ", item.bag)
+
                         if(!(item.itemCode in itemSummary)) {
                             itemSummary[item.itemCode] = [0, 0]
                         }

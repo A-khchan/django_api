@@ -147,6 +147,7 @@
 
                 deliveryDateDiv = document.createElement("div")
                 deliveryDateDiv.className = "deliveryDateDiv"
+                deliveryDateDiv.id = "deliveryDate"
                 deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
 
                 nameDiv = document.createElement("div")
@@ -241,13 +242,15 @@
         }
 
         function shouldShow(element) {
+            const basic = element.getElementById("basic")
+            const deliveryDateDiv = basic.getElementById("deliveryDate")
             console.log("shouldShow, element.deliveryDate: ", element.deliveryDate)
             var result = false
             filterDeliveryDate = document.getElementById("deliveryDate").value
             console.log("filterDeliveryDate: ", filterDeliveryDate)
             if(isValidDate(filterDeliveryDate)) {
                 console.log("isValidDate true")
-                if(element.deliveryDate == filterDeliveryDate) {
+                if(deliveryDateDiv.value == filterDeliveryDate) {
                     console.log("date are the same")
                     result = true
                 }

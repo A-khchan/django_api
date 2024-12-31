@@ -246,12 +246,17 @@
             filterDeliveryDate = document.getElementById("deliveryDate").value
             console.log("filterDeliveryDate: ", filterDeliveryDate)
             if(isValidDate(filterDeliveryDate)) {
-                if(element.deliveryDate == filterDeliveryDate)
+                console.log("isValidDate true")
+                if(element.deliveryDate == filterDeliveryDate) {
+                    console.log("date are the same")
                     result = true
+                }
             } else { //if date is invalid, just don't filter
                 result = true
                 console.log("date is invalid, result: ", result)
             }
+
+            console.log("result is: ", result)
             return result
         }
 

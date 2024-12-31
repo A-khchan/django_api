@@ -104,6 +104,7 @@
             // deliveryList.replaceChildren(...items_sorted)
             currentSeq = 0.0 //initially this is set to zero
             temp_deliveryList = []
+            itemSummary = {}
             for(const element of items_sorted) {
                 console.log("element is: ", element)
                 if(shouldShow(element)) {
@@ -115,6 +116,17 @@
                     dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
                     temp_deliveryList.push(dropTarget)
                     currentSeq = parseFloat(element.seq)
+
+                    //accumulate items
+                    const delivery_box = element.querySelector(".delivery_box")
+                    const itemDiv = delivery_box.querySelectorAll(".itemDiv")
+                    for(const item of itemDiv) {
+                        if(!(item.itemCode in itemSummary)) {
+                            itemSummary[item.itemCode] = [0, 0]
+                        }
+                        itemSummary[item.itemCode][0] += item.box
+                        itemSummary[item.itemCode][1] += item.bag
+                    }
 
                     temp_deliveryList.push(element)
                 }
@@ -128,9 +140,12 @@
             temp_deliveryList.push(dropTarget)
 
             deliveryList.replaceChildren(...temp_deliveryList)
+
+            addSummary(itemSummary)
         }
 
         itemSummary = {}
+        itemDict = {}
         async function fill() {
             itemSummary = {}
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
@@ -205,6 +220,9 @@
                     itemDiv = document.createElement("div")
                     itemDiv.className = "itemDiv"
                     itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
+                    itemDiv.itemCode = item.itemCode
+                    itemDiv.box = item.box
+                    itemDiv.bag = item.bag
                     itemList.appendChild(itemDiv)
 
                     if(!(item.itemCode in itemSummary)) {
@@ -230,11 +248,16 @@
 
             //Add a summary
             itemDict = await getItemCode()
-            console.log("itemDict 2 is: ", itemDict)
-            console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
-            console.log("itemSummary: ", itemSummary)
+            // console.log("itemDict 2 is: ", itemDict)
+            // console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
+            // console.log("itemSummary: ", itemSummary)
+            addSummary(itemSummary)
+        }
+
+        function addSummary(itemSummary) {
             summaryRow = document.createElement("div")
             summaryRow.innerText = "Summary:"
+            deliveryList = document.getElementById("deliveryList")
             deliveryList.appendChild(summaryRow)
             for(const key in itemSummary) {
                 value = itemSummary[key]
@@ -247,6 +270,7 @@
                 summaryRow.innerText = key + " x " + value[0] + " box " + value[1] + " bag"
                 deliveryList.appendChild(summaryRow)
             }
+
         }
 
         function shouldShow(element) {

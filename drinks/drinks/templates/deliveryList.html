@@ -189,7 +189,7 @@
 
                     child.appendChild(basic)
 
-                    console.log("element.itemList: ", element.itemList)
+                    // console.log("element.itemList: ", element.itemList)
 
                     itemList = document.createElement("div")
                     itemList.className = "basic"
@@ -303,7 +303,7 @@
                 formatToDate(event)
                 // deliveryDate = document.getElementById('deliveryDate').value
                 theDate = event.target.value
-                console.log("theDate is ", theDate)
+                // console.log("theDate is ", theDate)
                 regex = /\d\d\/\d\d\/\d{4}/
                 if(regex.test(theDate)) {
                     console.log("regex test ok")
@@ -337,12 +337,13 @@
         function checkDate() {
             if(isValidDate(document.getElementById("deliveryDate").value)) {
                 fill()
+                console.log("fill is called")
             }
         }
 
         function isValidDate(dateString) {
             const date = new Date(Date.UTC(dateString.substring(6,10), dateString.substring(0,2)-1, dateString.substring(3,5)));
-            console.log("date is ", date)
+            // console.log("date is ", date)
             result = true
 
             // console.log("dateString.substring(0,2)", dateString.substring(0,2))

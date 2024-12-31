@@ -242,8 +242,8 @@
         }
 
         function shouldShow(element) {
-            const basic = element.getElementById("basic")
-            const deliveryDateDiv = basic.getElementById("deliveryDate")
+            const basic = element.querySelector("#basic")
+            const deliveryDateDiv = basic.querySelector("#deliveryDate")
             console.log("shouldShow, element.deliveryDate: ", element.deliveryDate)
             var result = false
             filterDeliveryDate = document.getElementById("deliveryDate").value

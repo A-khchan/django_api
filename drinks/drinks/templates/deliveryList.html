@@ -100,16 +100,18 @@
             currentSeq = 0.0 //initially this is set to zero
             temp_deliveryList = []
             for(const element of items_sorted) {
-                dropTarget = document.createElement("div")
-                dropTarget.className = "dropTarget"
-                dropTarget.addEventListener('drop', handleDrop);
-                dropTarget.addEventListener('dragover', dragOverHandler);
-                dropTarget.addEventListener('dragleave', dragLeaveHandler);
-                dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
-                temp_deliveryList.push(dropTarget)
-                currentSeq = parseFloat(element.seq)
+                if(shouldShow(element)) {
+                    dropTarget = document.createElement("div")
+                    dropTarget.className = "dropTarget"
+                    dropTarget.addEventListener('drop', handleDrop);
+                    dropTarget.addEventListener('dragover', dragOverHandler);
+                    dropTarget.addEventListener('dragleave', dragLeaveHandler);
+                    dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
+                    temp_deliveryList.push(dropTarget)
+                    currentSeq = parseFloat(element.seq)
 
-                temp_deliveryList.push(element)
+                    temp_deliveryList.push(element)
+                }
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"
@@ -134,82 +136,80 @@
 
             currentSeq = 0.0 //initially this is set to zero
             for(const element of delivery_sorted) {
-                if(shouldShow(element)) {
-                    dropTarget = document.createElement("div")
-                    dropTarget.className = "dropTarget"
-                    dropTarget.addEventListener('drop', handleDrop);
-                    dropTarget.addEventListener('dragover', dragOverHandler);
-                    dropTarget.addEventListener('dragleave', dragLeaveHandler);
-                    dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
-                    deliveryList.appendChild(dropTarget)
-                    currentSeq = parseFloat(element.seq)
+                dropTarget = document.createElement("div")
+                dropTarget.className = "dropTarget"
+                dropTarget.addEventListener('drop', handleDrop);
+                dropTarget.addEventListener('dragover', dragOverHandler);
+                dropTarget.addEventListener('dragleave', dragLeaveHandler);
+                dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
+                deliveryList.appendChild(dropTarget)
+                currentSeq = parseFloat(element.seq)
 
-                    deliveryDateDiv = document.createElement("div")
-                    deliveryDateDiv.className = "deliveryDateDiv"
-                    deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
+                deliveryDateDiv = document.createElement("div")
+                deliveryDateDiv.className = "deliveryDateDiv"
+                deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
 
-                    nameDiv = document.createElement("div")
-                    nameDiv.className = "nameDiv"
-                    nameDiv.innerText = element.lastName + ", " + element.firstName
+                nameDiv = document.createElement("div")
+                nameDiv.className = "nameDiv"
+                nameDiv.innerText = element.lastName + ", " + element.firstName
 
-                    addressDiv = document.createElement("div")
-                    addressDiv.className = "deliveryDateDiv"
-                    addressDiv.innerText = element.address
+                addressDiv = document.createElement("div")
+                addressDiv.className = "deliveryDateDiv"
+                addressDiv.innerText = element.address
 
-                    eligibleDiv = document.createElement("div")
-                    eligibleDiv.className = "deliveryDateDiv"
-                    if(element.eligible == "P")
-                        eligibleDiv.innerText = "Eligibility: " + "Pending"
-                    else if(element.eligible == "Y")
-                        eligibleDiv.innerText = "Eligibility: " + "Yes"
-                    else if(element.eligible == "N")
-                        eligibleDiv.innerText = "Eligibility: " + "No"
+                eligibleDiv = document.createElement("div")
+                eligibleDiv.className = "deliveryDateDiv"
+                if(element.eligible == "P")
+                    eligibleDiv.innerText = "Eligibility: " + "Pending"
+                else if(element.eligible == "Y")
+                    eligibleDiv.innerText = "Eligibility: " + "Yes"
+                else if(element.eligible == "N")
+                    eligibleDiv.innerText = "Eligibility: " + "No"
 
 
-                    child = document.createElement("div")
-                    child.className = "delivery_box"
-                    child.id = element.id
-                    child.seq = element.seq
-                    child.setAttribute("draggable", "true")
-                    child.addEventListener("dragstart", dragstartHandler)
+                child = document.createElement("div")
+                child.className = "delivery_box"
+                child.id = element.id
+                child.seq = element.seq
+                child.setAttribute("draggable", "true")
+                child.addEventListener("dragstart", dragstartHandler)
 
-                    dot = document.createElement("div")
-                    dot.className = "dot"
-                    dot.innerText = "✷"
+                dot = document.createElement("div")
+                dot.className = "dot"
+                dot.innerText = "✷"
 
-                    basic = document.createElement("div")
-                    basic.className = "basic"
-                    basic.appendChild(deliveryDateDiv)
-                    basic.appendChild(dot)
-                    basic.appendChild(nameDiv)
-                    basic.appendChild(dot.cloneNode(true))
-                    basic.appendChild(addressDiv)
-                    basic.appendChild(dot.cloneNode(true))
-                    basic.appendChild(eligibleDiv)
+                basic = document.createElement("div")
+                basic.className = "basic"
+                basic.appendChild(deliveryDateDiv)
+                basic.appendChild(dot)
+                basic.appendChild(nameDiv)
+                basic.appendChild(dot.cloneNode(true))
+                basic.appendChild(addressDiv)
+                basic.appendChild(dot.cloneNode(true))
+                basic.appendChild(eligibleDiv)
 
-                    child.appendChild(basic)
+                child.appendChild(basic)
 
-                    // console.log("element.itemList: ", element.itemList)
+                // console.log("element.itemList: ", element.itemList)
 
-                    itemList = document.createElement("div")
-                    itemList.className = "basic"
-                    for(const item of element.itemList) {
-                        itemDiv = document.createElement("div")
-                        itemDiv.className = "itemDiv"
-                        itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
-                        itemList.appendChild(itemDiv)
+                itemList = document.createElement("div")
+                itemList.className = "basic"
+                for(const item of element.itemList) {
+                    itemDiv = document.createElement("div")
+                    itemDiv.className = "itemDiv"
+                    itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
+                    itemList.appendChild(itemDiv)
 
-                        if(!(item.itemCode in itemSummary)) {
-                            itemSummary[item.itemCode] = [0, 0]
-                        }
-                        itemSummary[item.itemCode][0] += item.box
-                        itemSummary[item.itemCode][1] += item.bag
-
+                    if(!(item.itemCode in itemSummary)) {
+                        itemSummary[item.itemCode] = [0, 0]
                     }
-                    child.appendChild(itemList)
+                    itemSummary[item.itemCode][0] += item.box
+                    itemSummary[item.itemCode][1] += item.bag
 
-                    deliveryList.appendChild(child)
                 }
+                child.appendChild(itemList)
+
+                deliveryList.appendChild(child)
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"
@@ -344,8 +344,8 @@
 
         function checkDate() {
             if(isValidDate(document.getElementById("deliveryDate").value)) {
-                fill()
-                console.log("fill is called")
+                reDisplay()
+                console.log("reDisplay is called")
             }
         }
 

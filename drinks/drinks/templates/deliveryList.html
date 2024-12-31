@@ -118,9 +118,8 @@
                     currentSeq = parseFloat(element.seq)
 
                     //accumulate items
-                    const delivery_box = element.querySelector(".delivery_box")
-                    const itemDiv = delivery_box.querySelectorAll(".itemDiv")
-                    for(const item of itemDiv) {
+                    const itemList = element.querySelectorAll("#itemList")
+                    for(const item of itemList) {
                         if(!(item.itemCode in itemSummary)) {
                             itemSummary[item.itemCode] = [0, 0]
                         }
@@ -146,6 +145,19 @@
 
         itemSummary = {}
         itemDict = {}
+        //
+        //   DeliveryList
+        //   -- .delivery_box
+        //      -- .basic
+        //      -- #itemlist
+        //         -- .itemDiv
+        //         -- .itemDiv
+        //   -- .delivery_box
+        //      -- .basic
+        //      -- #itemlist
+        //         -- .itemDiv
+        //         -- .itemDiv
+        //
         async function fill() {
             itemSummary = {}
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
@@ -216,6 +228,7 @@
 
                 itemList = document.createElement("div")
                 itemList.className = "basic"
+                itemList.id = "itemList"
                 for(const item of element.itemList) {
                     itemDiv = document.createElement("div")
                     itemDiv.className = "itemDiv"
@@ -274,7 +287,6 @@
         }
 
         function shouldShow(element) {
-            const delivery_box = element.querySelector(".delivery_box")
             const basic = element.querySelector(".basic")
             const deliveryDateDiv = basic.querySelector("#deliveryDate")
             deliveryDate = deliveryDateDiv.innerText.substring(deliveryDateDiv.innerText.length - 10, deliveryDateDiv.innerText.length)

@@ -11,7 +11,16 @@
 </head>
 <body>
     {% include "heading.html" %}
+    <div id="cal_div" class="calendar">
+        <div id="calendar"></div>
+    </div>
+
     <div class="flex_column">
+        <div id="filter">
+            <span class="label_long">Delivery date:</span> 
+            <input class="textField" id="deliveryDate" name="deliveryDate" type="text" 
+                oninput="set_cal(event)">
+        </div>
         <div class="delivery_list" id="deliveryList">
 
         </div>    
@@ -125,81 +134,82 @@
 
             currentSeq = 0.0 //initially this is set to zero
             for(const element of delivery_sorted) {
-                dropTarget = document.createElement("div")
-                dropTarget.className = "dropTarget"
-                dropTarget.addEventListener('drop', handleDrop);
-                dropTarget.addEventListener('dragover', dragOverHandler);
-                dropTarget.addEventListener('dragleave', dragLeaveHandler);
-                dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
-                deliveryList.appendChild(dropTarget)
-                currentSeq = parseFloat(element.seq)
+                if(shouldShow(element)) {
+                    dropTarget = document.createElement("div")
+                    dropTarget.className = "dropTarget"
+                    dropTarget.addEventListener('drop', handleDrop);
+                    dropTarget.addEventListener('dragover', dragOverHandler);
+                    dropTarget.addEventListener('dragleave', dragLeaveHandler);
+                    dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
+                    deliveryList.appendChild(dropTarget)
+                    currentSeq = parseFloat(element.seq)
 
-                deliveryDateDiv = document.createElement("div")
-                deliveryDateDiv.className = "deliveryDateDiv"
-                deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
+                    deliveryDateDiv = document.createElement("div")
+                    deliveryDateDiv.className = "deliveryDateDiv"
+                    deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
 
-                nameDiv = document.createElement("div")
-                nameDiv.className = "nameDiv"
-                nameDiv.innerText = element.lastName + ", " + element.firstName
+                    nameDiv = document.createElement("div")
+                    nameDiv.className = "nameDiv"
+                    nameDiv.innerText = element.lastName + ", " + element.firstName
 
-                addressDiv = document.createElement("div")
-                addressDiv.className = "deliveryDateDiv"
-                addressDiv.innerText = element.address
+                    addressDiv = document.createElement("div")
+                    addressDiv.className = "deliveryDateDiv"
+                    addressDiv.innerText = element.address
 
-                eligibleDiv = document.createElement("div")
-                eligibleDiv.className = "deliveryDateDiv"
-                if(element.eligible == "P")
-                    eligibleDiv.innerText = "Eligibility: " + "Pending"
-                else if(element.eligible == "Y")
-                    eligibleDiv.innerText = "Eligibility: " + "Yes"
-                else if(element.eligible == "N")
-                    eligibleDiv.innerText = "Eligibility: " + "No"
+                    eligibleDiv = document.createElement("div")
+                    eligibleDiv.className = "deliveryDateDiv"
+                    if(element.eligible == "P")
+                        eligibleDiv.innerText = "Eligibility: " + "Pending"
+                    else if(element.eligible == "Y")
+                        eligibleDiv.innerText = "Eligibility: " + "Yes"
+                    else if(element.eligible == "N")
+                        eligibleDiv.innerText = "Eligibility: " + "No"
 
 
-                child = document.createElement("div")
-                child.className = "delivery_box"
-                child.id = element.id
-                child.seq = element.seq
-                child.setAttribute("draggable", "true")
-                child.addEventListener("dragstart", dragstartHandler)
+                    child = document.createElement("div")
+                    child.className = "delivery_box"
+                    child.id = element.id
+                    child.seq = element.seq
+                    child.setAttribute("draggable", "true")
+                    child.addEventListener("dragstart", dragstartHandler)
 
-                dot = document.createElement("div")
-                dot.className = "dot"
-                dot.innerText = "✷"
+                    dot = document.createElement("div")
+                    dot.className = "dot"
+                    dot.innerText = "✷"
 
-                basic = document.createElement("div")
-                basic.className = "basic"
-                basic.appendChild(deliveryDateDiv)
-                basic.appendChild(dot)
-                basic.appendChild(nameDiv)
-                basic.appendChild(dot.cloneNode(true))
-                basic.appendChild(addressDiv)
-                basic.appendChild(dot.cloneNode(true))
-                basic.appendChild(eligibleDiv)
+                    basic = document.createElement("div")
+                    basic.className = "basic"
+                    basic.appendChild(deliveryDateDiv)
+                    basic.appendChild(dot)
+                    basic.appendChild(nameDiv)
+                    basic.appendChild(dot.cloneNode(true))
+                    basic.appendChild(addressDiv)
+                    basic.appendChild(dot.cloneNode(true))
+                    basic.appendChild(eligibleDiv)
 
-                child.appendChild(basic)
+                    child.appendChild(basic)
 
-                console.log("element.itemList: ", element.itemList)
+                    console.log("element.itemList: ", element.itemList)
 
-                itemList = document.createElement("div")
-                itemList.className = "basic"
-                for(const item of element.itemList) {
-                    itemDiv = document.createElement("div")
-                    itemDiv.className = "itemDiv"
-                    itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
-                    itemList.appendChild(itemDiv)
+                    itemList = document.createElement("div")
+                    itemList.className = "basic"
+                    for(const item of element.itemList) {
+                        itemDiv = document.createElement("div")
+                        itemDiv.className = "itemDiv"
+                        itemDiv.innerText = item.itemCode + " x " + item.box + " box " + item.bag + " bag"
+                        itemList.appendChild(itemDiv)
 
-                    if(!(item.itemCode in itemSummary)) {
-                        itemSummary[item.itemCode] = [0, 0]
+                        if(!(item.itemCode in itemSummary)) {
+                            itemSummary[item.itemCode] = [0, 0]
+                        }
+                        itemSummary[item.itemCode][0] += item.box
+                        itemSummary[item.itemCode][1] += item.bag
+
                     }
-                    itemSummary[item.itemCode][0] += item.box
-                    itemSummary[item.itemCode][1] += item.bag
+                    child.appendChild(itemList)
 
+                    deliveryList.appendChild(child)
                 }
-                child.appendChild(itemList)
-
-                deliveryList.appendChild(child)
-
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"
@@ -230,6 +240,18 @@
             }
         }
 
+        function shouldShow(element) {
+            result = false
+            filterDeliveryDate = document.getElementById("deliveryDate").value
+            if(isValidDate(filterDeliveryDate)) {
+                if(element.deliveryDate == filterDeliveryDate)
+                    result = true
+            } else { //if date is invalid, just don't filter
+                result = true
+            }
+            return result
+        }
+
         async function getItemCode() {
             itemDict = {}
             const django_server = "https://www.roboosoft.com/"
@@ -250,6 +272,102 @@
         }
 
         fill()
+
+        document.getElementById('deliveryDate').addEventListener('focus', show_cal);
+
+        function show_cal(event) {
+            set_cal(event)
+
+            const inputField = event.target; // Get the clicked input field
+            activeDateObj = event.target
+
+            // Get the position and size of the input field
+            const rect = inputField.getBoundingClientRect();
+            
+            // Find the tooltip div
+            const tooltip = document.getElementById('cal_div');
+            
+            // Position the tooltip to the right of the input field
+            tooltip.style.left = `${rect.right + 20}px`; // Add 5px gap
+            tooltip.style.top = `${rect.top}px`;
+            tooltip.style.display = 'block'; // Make the tooltip visible
+            tooltip.style.visibility = 'visible';
+        }
+
+
+        function set_cal(event) {
+            calendar.selectedDates = [];
+            calendar.update()
+
+            if(event.inputType != 'deleteContentBackward') {
+                formatToDate(event)
+                // deliveryDate = document.getElementById('deliveryDate').value
+                theDate = event.target.value
+                console.log("theDate is ", theDate)
+                regex = /\d\d\/\d\d\/\d{4}/
+                if(regex.test(theDate)) {
+                    console.log("regex test ok")
+
+                    mm = theDate.substring(0,2)
+                    dd = theDate.substring(3,5)
+                    yyyy = theDate.substring(6,10)
+                    inputDate = yyyy + "-" + mm + "-" + dd
+                    console.log('inputDate is: ', inputDate)
+                    // inputDate = new Date(yyyy, mm-1, dd)
+                    // calendar.settings.date = inputDate
+
+                    calendar.selectedDates = [inputDate];
+                    // calendar.date.today = new Date(yyyy,mm-1,dd);
+                    calendar.selectedMonth = mm-1;
+                    calendar.selectedYear = yyyy;
+                    calendar.update()
+            
+                }
+            }
+
+            if(isValidDate(event.target.value)) {
+                event.target.style.backgroundColor = "white"
+            } else {
+                event.target.style.backgroundColor = "red"
+            }
+
+            checkDate()
+        }
+
+        function checkDate() {
+            if(isValidDate(document.getElementById("deliveryDate").value)) {
+                fill()
+            }
+        }
+
+        function isValidDate(dateString) {
+            const date = new Date(Date.UTC(dateString.substring(6,10), dateString.substring(0,2)-1, dateString.substring(3,5)));
+            console.log("date is ", date)
+            result = true
+
+            // console.log("dateString.substring(0,2)", dateString.substring(0,2))
+            // console.log("date.getUTCMonth+1", date.getUTCMonth()+1)
+            // console.log("dateString.substring(3,5)", dateString.substring(3,5))
+            // console.log("date.getUTCDate", date.getUTCDate())
+            // console.log("dateString.substring(6,10)", dateString.substring(6,10))
+            // console.log("date.getUTCFullYear", date.getUTCFullYear())
+
+            if(!isNaN(date.getTime())) {
+                if(dateString.substring(0,2) == date.getUTCMonth()+1 && 
+                   dateString.substring(3,5) == date.getUTCDate() &&
+                   dateString.substring(6,10) == date.getUTCFullYear()) {
+                    result = true
+                } else {
+                    result = false
+                }
+            } else {
+                result = false
+            }
+
+            return result;
+        }
+
+
     </script>     
 </body>
 </html>

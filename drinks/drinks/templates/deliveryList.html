@@ -226,6 +226,8 @@
             dropTarget.seq = currentSeq + 0.01
             deliveryList.appendChild(dropTarget)
 
+            itemsArray = Array.from(deliveryList.querySelectorAll(".delivery_box"))
+
             //Add a summary
             itemDict = await getItemCode()
             console.log("itemDict 2 is: ", itemDict)

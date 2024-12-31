@@ -398,7 +398,8 @@
         }
 
         function checkDate() {
-            if(isValidDate(document.getElementById("deliveryDate").value)) {
+            if(isValidDate(document.getElementById("deliveryDate").value) ||
+                document.getElementById("deliveryDate").value == "") {
                 reDisplay()
                 console.log("reDisplay is called")
             }

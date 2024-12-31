@@ -246,7 +246,7 @@
             const delivery_box = element.querySelector(".delivery_box")
             const basic = element.querySelector(".basic")
             const deliveryDateDiv = basic.querySelector("#deliveryDate")
-            deliveryDate = deliveryDateDiv.innerText.substring(deliveryDateDiv.value.length - 10, deliveryDateDiv.value.length)
+            deliveryDate = deliveryDateDiv.innerText.substring(deliveryDateDiv.innerText.length - 10, deliveryDateDiv.innerText.length)
             console.log("shouldShow, element.deliveryDate: ", deliveryDateDiv.value)
             var result = false
             filterDeliveryDate = document.getElementById("deliveryDate").value

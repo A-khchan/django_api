@@ -118,8 +118,9 @@
                     currentSeq = parseFloat(element.seq)
 
                     //accumulate items
-                    const itemList = element.querySelectorAll("#itemList")
-                    for(const item of itemList) {
+                    const itemList = element.querySelector("#itemList")
+                    const itemDivAll = itemList.querySelectorAll(".itemDiv")
+                    for(const item of itemDivAll) {
                         console.log("reDisplay")
                         console.log("item.itemCode: ", item.itemCode)
                         console.log("item.box: ", item.box)

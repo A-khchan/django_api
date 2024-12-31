@@ -49,6 +49,10 @@
             console.log('dropped on: ', event.target.seq)
             updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq))
             draggedElement.seq = parseFloat(event.target.seq)
+
+            deliveryList = document.getElementById("deliveryList")
+            itemsArray = Array.from(deliveryList.querySelectorAll(".delivery_box"))
+
             reDisplay()
         }
 
@@ -90,9 +94,9 @@
         }
 
         function reDisplay() {
-            deliveryList = document.getElementById("deliveryList")
-            const items = Array.from(deliveryList.querySelectorAll(".delivery_box"))
-            items_sorted = items.sort((a, b) => {
+            // deliveryList = document.getElementById("deliveryList")
+            // const items = Array.from(deliveryList.querySelectorAll(".delivery_box"))
+            items_sorted = itemsArray.sort((a, b) => {
                 return parseFloat(a.seq) - parseFloat(b.seq)
             })
             // items_sorted.forEach(item => deliveryList.appendChild(item));
@@ -247,7 +251,7 @@
             const basic = element.querySelector(".basic")
             const deliveryDateDiv = basic.querySelector("#deliveryDate")
             deliveryDate = deliveryDateDiv.innerText.substring(deliveryDateDiv.innerText.length - 10, deliveryDateDiv.innerText.length)
-            console.log("shouldShow, element.deliveryDate: ", deliveryDateDiv.value)
+            console.log("shouldShow, deliveryDate: ", deliveryDate)
             var result = false
             filterDeliveryDate = document.getElementById("deliveryDate").value
             console.log("filterDeliveryDate: ", filterDeliveryDate)

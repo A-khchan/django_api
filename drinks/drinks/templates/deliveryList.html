@@ -196,7 +196,9 @@
                 deliveryDateDiv = document.createElement("div")
                 deliveryDateDiv.className = "deliveryDateDiv"
                 deliveryDateDiv.id = "deliveryDate"
-                deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
+                // deliveryDateDiv.innerText = element.id + " (" + element.seq + ") " + element.deliveryDate
+                deliveryDateDiv.innerText = element.deliveryDate
+                deliveryDateDiv.addEventListener("click", setFilterDate)
 
                 nameDiv = document.createElement("div")
                 nameDiv.className = "nameDiv"
@@ -280,6 +282,12 @@
             // console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
             // console.log("itemSummary: ", itemSummary)
             addSummary(itemSummary)
+        }
+
+        function setFilterDate(event) {
+            document.getElementById("deliveryDate").value = event.target.innerText
+            document.getElementById("deliveryDateTo").value = event.target.innerText
+            reDisplay()
         }
 
         function addSummary(itemSummary) {

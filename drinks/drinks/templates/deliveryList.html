@@ -67,8 +67,15 @@
             updateSeq(event.dataTransfer.getData('text/plain'), parseFloat(event.target.seq))
             draggedElement.seq = parseFloat(event.target.seq)
 
-            deliveryList = document.getElementById("deliveryList")
-            itemsArray = Array.from(deliveryList.querySelectorAll(".delivery_box"))
+            // deliveryList = document.getElementById("deliveryList")
+            // itemsArray = Array.from(deliveryList.querySelectorAll(".delivery_box"))
+
+            for(const i = 0;i<itemsArray.length;i++) {
+                if(itemsArray[i].id == draggedElement.id) {
+                    itemsArray[i].seq = parseFloat(event.target.seq)
+                    break
+                }
+            }
 
             reDisplay()
         }

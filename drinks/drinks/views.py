@@ -1109,10 +1109,19 @@ def deliveryForm(request):
     userName = request.session.get('userName')
 
     if userName:    
+        if request.method == "GET":
+            deliveryID = request.GET.get('id', '0')
+            if not deliveryID == '0':
+                context = {
+                    'placeholder': 'test',
+                    'deliveryID': deliveryID
+                }
+            else:
+                context = {
+                    'placeholder': 'test',
+                }
+                                
         template = loader.get_template('deliveryForm.html')
-        context = {
-            'placeholder': 'test',
-        }
         response = HttpResponse(template.render(context, request))   
     else:
         template = loader.get_template('login.html')

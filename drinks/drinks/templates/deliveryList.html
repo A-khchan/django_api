@@ -243,6 +243,7 @@
                 child.seq = element.seq
                 child.setAttribute("draggable", "true")
                 child.addEventListener("dragstart", dragstartHandler)
+                child.addEventListener("click", gotoUpdate)
 
                 dot = document.createElement("div")
                 dot.className = "dot"
@@ -301,6 +302,10 @@
             // console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
             // console.log("itemSummary: ", itemSummary)
             addSummary(itemSummary)
+        }
+
+        function gotoUpdate(event) {
+            window.location.href = "../deliveryForm/?id=" + event.target.id
         }
 
         function setFilterDate(event) {

@@ -283,10 +283,13 @@
         }
 
         function addSummary(itemSummary) {
+            summaryBox = document.createElement("div")
+            summaryBox.className = "summaryBox"
+
             summaryRow = document.createElement("div")
             summaryRow.innerText = "Summary:"
-            deliveryList = document.getElementById("deliveryList")
-            deliveryList.appendChild(summaryRow)
+
+            summaryBox.appendChild(summaryRow)
             for(const key in itemSummary) {
                 value = itemSummary[key]
                 bagAndPrice = itemDict[key]
@@ -296,8 +299,11 @@
                 }
                 summaryRow = document.createElement("div")
                 summaryRow.innerText = key + " x " + value[0] + " box " + value[1] + " bag"
-                deliveryList.appendChild(summaryRow)
+                summaryBox.appendChild(summaryRow)
             }
+
+            deliveryList = document.getElementById("deliveryList")
+            deliveryList.appendChild(summaryBox)
 
         }
 

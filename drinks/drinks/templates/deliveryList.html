@@ -308,18 +308,26 @@
             console.log("shouldShow, deliveryDate: ", deliveryDate)
             var result = false
             filterDeliveryDate = document.getElementById("deliveryDate").value
+            filterDeliveryDateTo = document.getElementById("deliveryDateTo").value
             console.log("filterDeliveryDate: ", filterDeliveryDate)
             if(isValidDate(filterDeliveryDate)) {
                 console.log("isValidDate true")
-                if(deliveryDate == filterDeliveryDate) {
+                if(deliveryDate >= filterDeliveryDate) {
                     console.log("date are the same")
                     result = true
-                }
-            } else { //if date is invalid, just don't filter
+                } else
+                    result = false
+            } else 
                 result = true
-                console.log("date is invalid, result: ", result)
-            }
 
+            if(result && isValidDate(filterDeliveryDateTo)) {
+                console.log("isValidDate true")
+                if(deliveryDate <= filterDeliveryDateTo) {
+                    console.log("date are the same")
+                    result = true
+                } else 
+                    result = false
+            }
             console.log("result is: ", result)
             return result
         }

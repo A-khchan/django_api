@@ -72,8 +72,8 @@
 
             for(const i = 0;i<itemsArray.length;i++) {
                 if(itemsArray[i].id == draggedElement.id) {
+                    itemsArray.removeAttribute('readonly')
                     itemsArray[i].seq = parseFloat(event.target.seq)
-                    
                 }
             }
 

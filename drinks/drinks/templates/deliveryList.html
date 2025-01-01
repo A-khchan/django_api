@@ -267,7 +267,7 @@
                 itemList.id = "itemList"
                 editDiv = document.createElement("div")
                 editDiv.addEventListener("click", gotoUpdate)
-                editDiv.innerText("✏️")
+                editDiv.innerText = "✏️"
                 editDiv.id = element.id
                 itemList.appendChild(editDiv)
                 for(const item of element.itemList) {

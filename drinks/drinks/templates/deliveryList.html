@@ -18,9 +18,9 @@
     <div class="flex_column" onclick="hide_cal(event)">
         <div id="filter">
             <span class="label_long">Delivery date:</span> 
-            <input class="textField" id="deliveryDate" name="deliveryDate" type="text" 
+            <input class="deliveryDate" id="deliveryDate" name="deliveryDate" type="text" 
                 oninput="set_cal(event)">
-            <input class="textField" id="deliveryDateTo" name="deliveryDateTo" type="text" 
+            <input class="deliveryDate" id="deliveryDateTo" name="deliveryDateTo" type="text" 
                 oninput="set_cal(event)">
         </div>
         <div class="delivery_list" id="deliveryList">
@@ -32,8 +32,7 @@
     
     <script>
         function hide_cal(event) {
-            const deliveryDate = document.getElementById('deliveryDate')
-            if(event.target != deliveryDate) {
+            if(event.target.id.substring(0, 12) != "deliveryDate") {
                 const tooltip = document.getElementById('cal_div');
                 tooltip.style.visibility = 'hidden';
             }
@@ -367,8 +366,8 @@
             const tooltip = document.getElementById('cal_div');
             
             // Position the tooltip to the right of the input field
-            tooltip.style.left = `${rect.right - 20}px`; // Add 5px gap
-            tooltip.style.top = `${rect.bottom + 5}px`;
+            tooltip.style.left = `${rect.right + 10}px`; // Add 5px gap
+            tooltip.style.top = `${rect.top}px`;
             tooltip.style.display = 'block'; // Make the tooltip visible
             tooltip.style.visibility = 'visible';
         }

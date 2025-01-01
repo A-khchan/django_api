@@ -442,7 +442,8 @@
 
         function prepareUpdate() {
             console.log("context id: ", '{{deliveryID}}')
-            console.log("itemList id: ", '{{itemList}}')
+            const itemList = JSON.parse('{{ itemList|escapejs }}')
+            console.log("itemList id: ", itemList)
         }
 
         prepareUpdate()

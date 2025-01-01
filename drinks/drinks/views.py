@@ -1142,7 +1142,7 @@ def deliveryForm(request):
                     "log": delivery.log,
                     "comments": delivery.comments,
                     "seq": delivery.seq,
-                    "itemList": json.dump(itemArray),
+                    "itemList": json.dumps(itemArray),
                 }
             else:
                 context = {

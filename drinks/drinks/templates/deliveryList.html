@@ -20,6 +20,8 @@
             <span class="label_long">Delivery date:</span> 
             <input class="textField" id="deliveryDate" name="deliveryDate" type="text" 
                 oninput="set_cal(event)">
+            <input class="textField" id="deliveryDateTo" name="deliveryDateTo" type="text" 
+                oninput="set_cal(event)">
         </div>
         <div class="delivery_list" id="deliveryList">
 
@@ -349,7 +351,12 @@
         function show_cal(event) {
             set_cal(event)
 
-            const inputField = event.target; // Get the clicked input field
+            if(event.target.id == "deliveryDateTo") {
+                const inputField = document.getElementById("deliveryDate")
+            } else {
+                const inputField = event.target; // Get the clicked input field 
+            }
+
             activeDateObj = event.target
 
             // Get the position and size of the input field
@@ -359,8 +366,8 @@
             const tooltip = document.getElementById('cal_div');
             
             // Position the tooltip to the right of the input field
-            tooltip.style.left = `${rect.right + 20}px`; // Add 5px gap
-            tooltip.style.top = `${rect.top}px`;
+            tooltip.style.left = `${rect.right - 20}px`; // Add 5px gap
+            tooltip.style.top = `${rect.bottom + 5}px`;
             tooltip.style.display = 'block'; // Make the tooltip visible
             tooltip.style.visibility = 'visible';
         }

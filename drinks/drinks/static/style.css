@@ -342,6 +342,14 @@ body {
     padding: 3px;
 }
 
+.deliveryDate {
+    display: flex;
+    margin: 5px;
+    background-color: white;
+    font-size: 12px;
+    width: 200px;
+}
+
 .dot {
     padding: 3px;
     margin-left: 3px;

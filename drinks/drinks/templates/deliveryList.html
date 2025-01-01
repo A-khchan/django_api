@@ -312,7 +312,7 @@
             console.log("filterDeliveryDate: ", filterDeliveryDate)
             if(isValidDate(filterDeliveryDate)) {
                 console.log("isValidDate true")
-                if(deliveryDate >= filterDeliveryDate) {
+                if(getDate(deliveryDate) >= getDate(filterDeliveryDate)) {
                     console.log("date are the same")
                     result = true
                 } else
@@ -322,7 +322,7 @@
 
             if(result && isValidDate(filterDeliveryDateTo)) {
                 console.log("isValidDate true")
-                if(deliveryDate <= filterDeliveryDateTo) {
+                if(getDate(deliveryDate) <= getDate(filterDeliveryDateTo)) {
                     console.log("date are the same")
                     result = true
                 } else 
@@ -427,6 +427,11 @@
                 reDisplay()
                 console.log("reDisplay is called")
             }
+        }
+
+        function getDate(dateString) {
+            const date = new Date(Date.UTC(dateString.substring(6,10), dateString.substring(0,2)-1, dateString.substring(3,5)));
+            return date
         }
 
         function isValidDate(dateString) {

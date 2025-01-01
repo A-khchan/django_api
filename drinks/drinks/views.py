@@ -12,6 +12,7 @@ from .serializers import TargetSerializer
 from .serializers import FlightSerializer
 from .serializers import PostSerializer
 from .serializers import UserSerializer
+from django.core import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -1113,7 +1114,7 @@ def deliveryForm(request):
             deliveryID = request.GET.get('id', '0')
             if not deliveryID == '0':
                 delivery = Delivery.objects.filter(id=int(deliveryID)).first()
-                itemList = list(DeliveryItems.objects.filter(deliveryID=int(deliveryID)))
+                itemList = serializers.serialize('json', DeliveryItems.objects.filter(deliveryID=int(deliveryID)))
                 context = {
                     "placeholder": 'test',
                     "deliveryID": deliveryID,

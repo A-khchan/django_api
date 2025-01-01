@@ -351,10 +351,11 @@
         function show_cal(event) {
             set_cal(event)
 
+            var inputField
             if(event.target.id == "deliveryDateTo") {
-                const inputField = document.getElementById("deliveryDate")
+                inputField = document.getElementById("deliveryDate")
             } else {
-                const inputField = event.target; // Get the clicked input field 
+                inputField = event.target; // Get the clicked input field 
             }
 
             activeDateObj = event.target

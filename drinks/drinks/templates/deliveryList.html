@@ -22,6 +22,7 @@
                 oninput="set_cal(event)">
             <input class="deliveryDate" id="deliveryDateTo" name="deliveryDateTo" type="text" 
                 oninput="set_cal(event)">
+            <button onclick="clearDates()">Clear</button>
         </div>
         <div class="delivery_list" id="deliveryList">
 
@@ -31,6 +32,12 @@
     </div>
     
     <script>
+        function clearDates() {
+            document.getElementById("deliveryDate").value = ""
+            document.getElementById("deliveryDateTo").value = ""
+            reDisplay()
+        }
+
         function hide_cal(event) {
             if(event.target.id.substring(0, 12) != "deliveryDate") {
                 const tooltip = document.getElementById('cal_div');

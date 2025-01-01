@@ -1112,14 +1112,37 @@ def deliveryForm(request):
         if request.method == "GET":
             deliveryID = request.GET.get('id', '0')
             if not deliveryID == '0':
+                delivery = Delivery.objects.filter(id=int(deliveryID)).first()
+                itemList = DeliveryItems.objects.filter(deliveryID=int(deliveryID))
                 context = {
-                    'placeholder': 'test',
-                    'deliveryID': deliveryID
+                    "placeholder": 'test',
+                    "deliveryID": deliveryID,
+                    "deliveryDate": delivery.deliveryDate,
+                    "lastName": delivery.lastName,
+                    "firstName": delivery.firstName,
+                    "dateOfBirth": delivery.dateOfBirth,
+                    "address": delivery.address,
+                    "selfPickup": delivery.selfPickup,
+                    "parentID": delivery.parentID,
+                    "repeatFreq": delivery.repeatFreq,
+                    "eligible": delivery.eligible,
+                    "ticketNo": delivery.ticketNo,
+                    "leaveAtDoor": delivery.leaveAtDoor,
+                    "phoneForPic": delivery.phoneForPic,
+                    "status": delivery.status,
+                    "log": delivery.log,
+                    "comments": delivery.comments,
+                    "seq": delivery.seq,
+                    "itemList": itemList,
                 }
             else:
                 context = {
                     'placeholder': 'test',
                 }
+        else:
+            context = {
+                'errMsg': 'Not a GET',
+            }            
                                 
         template = loader.get_template('deliveryForm.html')
         response = HttpResponse(template.render(context, request))   

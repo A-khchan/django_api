@@ -1114,7 +1114,15 @@ def deliveryForm(request):
             deliveryID = request.GET.get('id', '0')
             if not deliveryID == '0':
                 delivery = Delivery.objects.filter(id=int(deliveryID)).first()
-                itemList = serializers.serialize('json', DeliveryItems.objects.filter(deliveryID=int(deliveryID)))
+                itemAll = DeliveryItems.objects.filter(deliveryID=int(deliveryID))
+                itemArray = []
+                for j in range(0, len(itemAll), 1):
+                    itemArray.append({
+                        "itemCode": itemAll[j].item,
+                        "box": itemAll[j].quantity1,
+                        "bag": itemAll[j].quantity2
+                    })
+
                 context = {
                     "placeholder": 'test',
                     "deliveryID": deliveryID,
@@ -1134,7 +1142,7 @@ def deliveryForm(request):
                     "log": delivery.log,
                     "comments": delivery.comments,
                     "seq": delivery.seq,
-                    "itemList": itemList,
+                    "itemList": json.dump(itemArray),
                 }
             else:
                 context = {

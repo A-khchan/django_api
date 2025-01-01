@@ -469,7 +469,7 @@
             dateMin: '1910-01-01',        
             settings: {
             selection: {
-                day: "single",  // Other values: "multiple-ranged"
+                day: "multiple-ranged",  // Other values: "single", "multiple-ranged"
             },
             iso8601: false, //Make Sunday as first day of the week
             visibility: {        
@@ -500,7 +500,6 @@
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`
                             activeDateObj.value = formatedDate
                         }
-
 
                         if(isValidDate(activeDateObj.value)) {
                             activeDateObj.style.backgroundColor = "white"

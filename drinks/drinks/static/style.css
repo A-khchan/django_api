@@ -351,6 +351,12 @@ body {
     padding: 3px;
 }
 
+.deliveryDateDiv:hover {
+    padding: 3px;
+    cursor: pointer;
+    color: blue;
+}
+
 .deliveryDate {
     display: flex;
     margin: 5px;

@@ -70,12 +70,12 @@
             // deliveryList = document.getElementById("deliveryList")
             // itemsArray = Array.from(deliveryList.querySelectorAll(".delivery_box"))
 
-            for(const i = 0;i<itemsArray.length;i++) {
-                if(itemsArray[i].id == draggedElement.id) {
-                    itemsArray.removeAttribute('readonly')
-                    itemsArray[i].seq = parseFloat(event.target.seq)
-                }
-            }
+            // for(const i = 0;i<itemsArray.length;i++) {
+            //     if(itemsArray[i].id == draggedElement.id) {
+            //         itemsArray.removeAttribute('readonly')
+            //         itemsArray[i].seq = parseFloat(event.target.seq)
+            //     }
+            // }
 
             reDisplay()
         }
@@ -130,16 +130,15 @@
             itemSummary = {}
             for(const element of items_sorted) {
                 console.log("element is: ", element)
+                dropTarget = document.createElement("div")
+                dropTarget.className = "dropTarget"
+                dropTarget.addEventListener('drop', handleDrop);
+                dropTarget.addEventListener('dragover', dragOverHandler);
+                dropTarget.addEventListener('dragleave', dragLeaveHandler);
+                dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
                 if(shouldShow(element)) {
-                    dropTarget = document.createElement("div")
-                    dropTarget.className = "dropTarget"
-                    dropTarget.addEventListener('drop', handleDrop);
-                    dropTarget.addEventListener('dragover', dragOverHandler);
-                    dropTarget.addEventListener('dragleave', dragLeaveHandler);
-                    dropTarget.seq = (currentSeq + parseFloat(element.seq))/2.0
-                    temp_deliveryList.push(dropTarget)
-                    currentSeq = parseFloat(element.seq)
-
+                    dropTarget.style.display = "block"
+                    element.style.display = "block"
                     //accumulate items
                     const itemList = element.querySelector("#itemList")
                     const itemDivAll = itemList.querySelectorAll(".itemDiv")
@@ -155,9 +154,15 @@
                         itemSummary[item.itemCode][0] += item.box
                         itemSummary[item.itemCode][1] += item.bag
                     }
-
-                    temp_deliveryList.push(element)
+                } else {
+                    dropTarget.style.display = "none"
+                    element.style.display = "none"
                 }
+
+                temp_deliveryList.push(dropTarget)
+                currentSeq = parseFloat(element.seq)
+
+                temp_deliveryList.push(element)
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"

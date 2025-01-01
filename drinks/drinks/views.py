@@ -1113,7 +1113,7 @@ def deliveryForm(request):
             deliveryID = request.GET.get('id', '0')
             if not deliveryID == '0':
                 delivery = Delivery.objects.filter(id=int(deliveryID)).first()
-                itemList = DeliveryItems.objects.filter(deliveryID=int(deliveryID))
+                itemList = list(DeliveryItems.objects.filter(deliveryID=int(deliveryID)))
                 context = {
                     "placeholder": 'test',
                     "deliveryID": deliveryID,

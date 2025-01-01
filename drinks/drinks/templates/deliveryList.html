@@ -243,7 +243,6 @@
                 child.seq = element.seq
                 child.setAttribute("draggable", "true")
                 child.addEventListener("dragstart", dragstartHandler)
-                child.addEventListener("click", gotoUpdate)
 
                 dot = document.createElement("div")
                 dot.className = "dot"
@@ -266,6 +265,11 @@
                 itemList = document.createElement("div")
                 itemList.className = "basic"
                 itemList.id = "itemList"
+                editDiv = document.createElement("div")
+                editDiv.addEventListener("click", gotoUpdate)
+                editDiv.innerText("✏️")
+                editDiv.id = element.id
+                itemList.appendChild(editDiv)
                 for(const item of element.itemList) {
                     itemDiv = document.createElement("div")
                     itemDiv.className = "itemDiv"

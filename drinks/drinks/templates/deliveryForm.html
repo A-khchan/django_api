@@ -470,6 +470,8 @@
 
             first = true
             for(const element in itemList) {
+                console.log("element.itemCode", element.itemCode)
+
                 if(first) {
                     document.getElementById("itemCode").value = element.itemCode
                     document.getElementById("box").value = element.box

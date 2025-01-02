@@ -38,11 +38,11 @@
                         <span class="label_long">Self pickup:</span> 
                         <div class="radio_group">
                             <div>
-                                <input type="radio" name="selfPickup" id="selfPickup" value="Y" checked />
+                                <input type="radio" name="selfPickup" id="selfPickupY" value="Y" checked />
                                 <label for="Y">Y</label>
                             </div>                        
                             <div>
-                                <input type="radio" name="selfPickup" id="selfPickup" value="N" />
+                                <input type="radio" name="selfPickup" id="selfPickupN" value="N" />
                                 <label for="N">N</label>
                             </div>                        
                         </div>
@@ -456,7 +456,7 @@
             document.getElementById("firstName").value = '{{ firstName }}'
             document.getElementById("dateOfBirth").value = '{{ dateOfBirth }}'
             document.getElementById("address").value = '{{ address }}'
-            document.getElementById("selfPickup").value = '{{ selfPickup }}'
+            document.getElementById("selfPickup" + '{{ selfPickup }}').checked = true
             // document.getElementById("").value = '{{ parentID }}'
             document.getElementById("repeatFreq").value = '{{ repeatFreq }}'
             document.getElementById("eligible").value = '{{ eligible }}'

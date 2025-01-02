@@ -225,6 +225,7 @@ body {
 }
 
 .button {
+    display: flex;
     font-size: 12px;
     height: 20px;
     max-width: 60%;

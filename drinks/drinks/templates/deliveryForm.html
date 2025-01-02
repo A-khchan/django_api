@@ -357,6 +357,7 @@
             selectDiv.id = "itemCode"
             selectDiv.addEventListener("change", calCost)
             selectDiv.name = "itemCode" + rowNum
+            console.log("itemCodeArray: ", itemCodeArray)
             itemCodeArray.forEach(element => {
                     selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
                 })

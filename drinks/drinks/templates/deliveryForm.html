@@ -448,35 +448,37 @@
 
         function prepareUpdate() {
             console.log("context id: ", '{{deliveryID}}')
-            const itemList = JSON.parse('{{ itemList|escapejs }}')
-            console.log("itemList: ", itemList)
-            // document.getElementById("").value = '{{ deliveryID }}'
-            document.getElementById("deliveryDate").value = '{{ deliveryDate }}'
-            document.getElementById("lastName").value = '{{ lastName }}'
-            document.getElementById("firstName").value = '{{ firstName }}'
-            document.getElementById("dateOfBirth").value = '{{ dateOfBirth }}'
-            document.getElementById("address").value = '{{ address }}'
-            document.getElementById("selfPickup_" + '{{ selfPickup }}').checked = true
-            // document.getElementById("").value = '{{ parentID }}'
-            document.getElementById("repeatFreq_" + '{{ repeatFreq }}').checked = true
-            document.getElementById("eligible_" + '{{ eligible }}').checked = true
-            document.getElementById("ticketNo").value = '{{ ticketNo }}'
-            // document.getElementById("").value = '{{ leaveAtDoor }}'
-            // document.getElementById("").value = '{{ phoneForPic }}'
-            // document.getElementById("").value = '{{ status }}'
-            // document.getElementById("").value = '{{ log }}'
-            // document.getElementById("").value = '{{ comments }}'
-            // document.getElementById("").value = '{{ seq }}'
+            if('{{deliveryID}}' != "") {
+                const itemList = JSON.parse('{{ itemList|escapejs }}')
+                console.log("itemList: ", itemList)
+                // document.getElementById("").value = '{{ deliveryID }}'
+                document.getElementById("deliveryDate").value = '{{ deliveryDate }}'
+                document.getElementById("lastName").value = '{{ lastName }}'
+                document.getElementById("firstName").value = '{{ firstName }}'
+                document.getElementById("dateOfBirth").value = '{{ dateOfBirth }}'
+                document.getElementById("address").value = '{{ address }}'
+                document.getElementById("selfPickup_" + '{{ selfPickup }}').checked = true
+                // document.getElementById("").value = '{{ parentID }}'
+                document.getElementById("repeatFreq_" + '{{ repeatFreq }}').checked = true
+                document.getElementById("eligible_" + '{{ eligible }}').checked = true
+                document.getElementById("ticketNo").value = '{{ ticketNo }}'
+                // document.getElementById("").value = '{{ leaveAtDoor }}'
+                // document.getElementById("").value = '{{ phoneForPic }}'
+                // document.getElementById("").value = '{{ status }}'
+                // document.getElementById("").value = '{{ log }}'
+                // document.getElementById("").value = '{{ comments }}'
+                // document.getElementById("").value = '{{ seq }}'
 
-            first = true
-            for(const element of itemList) {
-                if(first) {
-                    document.getElementById("itemCode").value = element.itemCode
-                    document.getElementById("box").value = element.box
-                    document.getElementById("bag").value = element.bag
-                    first = false
-                } else {
-                    addItemRow(element)
+                first = true
+                for(const element of itemList) {
+                    if(first) {
+                        document.getElementById("itemCode").value = element.itemCode
+                        document.getElementById("box").value = element.box
+                        document.getElementById("bag").value = element.bag
+                        first = false
+                    } else {
+                        addItemRow(element)
+                    }
                 }
             }
         }

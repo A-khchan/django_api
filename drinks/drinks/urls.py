@@ -52,6 +52,7 @@ urlpatterns = [
     path('account/deliveryList/', views.deliveryList),
     path('account/deliveryForm/', views.deliveryForm),
     path('account/deliveryAdd/', views.deliveryAdd),
+    path('account/deliveryUpdate/', views.deliveryUpdate),
     path('account/deliverySeqUpdate/', views.deliverySeqUpdate),
     path('account/itemSetup/', views.itemSetup),
     path('account/itemList/', views.itemList),

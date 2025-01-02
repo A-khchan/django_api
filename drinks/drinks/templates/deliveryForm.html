@@ -38,11 +38,11 @@
                         <span class="label_long">Self pickup:</span> 
                         <div class="radio_group">
                             <div>
-                                <input type="radio" name="selfPickup" id="selfPickupY" value="Y" checked />
+                                <input type="radio" name="selfPickup" id="selfPickup_Y" value="Y" checked />
                                 <label for="Y">Y</label>
                             </div>                        
                             <div>
-                                <input type="radio" name="selfPickup" id="selfPickupN" value="N" />
+                                <input type="radio" name="selfPickup" id="selfPickup_N" value="N" />
                                 <label for="N">N</label>
                             </div>                        
                         </div>
@@ -55,15 +55,15 @@
                         <span class="label_long">Repeat frequency:</span> 
                         <div class="radio_group">
                             <div>
-                                <input type="radio" name="repeatFreq" id="repeatFreq" value="None" checked />
+                                <input type="radio" name="repeatFreq" id="repeatFreq_None" value="None" checked />
                                 <label for="None">None</label>
                             </div>
                             <div>
-                                <input type="radio" name="repeatFreq" id="repeatFreq" value="Monthly" />
+                                <input type="radio" name="repeatFreq" id="repeatFreq_Monthly" value="Monthly" />
                                 <label for="Monthly">Monthly</label>
                             </div>
                             <div>
-                                <input type="radio" name="repeatFreq" id="repeatFreq" value="Bi-Monthly" />
+                                <input type="radio" name="repeatFreq" id="repeatFreq_Bi-Monthly" value="Bi-Monthly" />
                                 <label for="Bi-Monthly">Bi-Monthly</label>
                             </div>
                         </div>
@@ -72,15 +72,15 @@
                         <span class="label_long">Eligibile:</span> 
                         <div class="radio_group">
                             <div>
-                                <input type="radio" name="eligible" id="eligible" value="P" checked />
+                                <input type="radio" name="eligible" id="eligible_P" value="P" checked />
                                 <label for="P">Pending</label>
                             </div>
                             <div>
-                                <input type="radio" name="eligible" id="eligible" value="Y" />
+                                <input type="radio" name="eligible" id="eligible_Y" value="Y" />
                                 <label for="Y">Yes</label>
                             </div>
                             <div>
-                                <input type="radio" name="eligible" id="eligible" value="N" />
+                                <input type="radio" name="eligible" id="eligible_N" value="N" />
                                 <label for="N">No</label>
                             </div>
                         </div>
@@ -456,10 +456,10 @@
             document.getElementById("firstName").value = '{{ firstName }}'
             document.getElementById("dateOfBirth").value = '{{ dateOfBirth }}'
             document.getElementById("address").value = '{{ address }}'
-            document.getElementById("selfPickup" + '{{ selfPickup }}').checked = true
+            document.getElementById("selfPickup_" + '{{ selfPickup }}').checked = true
             // document.getElementById("").value = '{{ parentID }}'
-            document.getElementById("repeatFreq").value = '{{ repeatFreq }}'
-            document.getElementById("eligible").value = '{{ eligible }}'
+            document.getElementById("repeatFreq_" + '{{ repeatFreq }}').checked = true
+            document.getElementById("eligible_" + '{{ eligible }}').checked = true
             document.getElementById("ticketNo").value = '{{ ticketNo }}'
             // document.getElementById("").value = '{{ leaveAtDoor }}'
             // document.getElementById("").value = '{{ phoneForPic }}'

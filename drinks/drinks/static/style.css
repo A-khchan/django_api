@@ -228,6 +228,7 @@ body {
     font-size: 12px;
     height: 20px;
     max-width: 60%;
+    margin: 5px;
 }
 
 .button_recover {

@@ -18,8 +18,9 @@
             <div class="flex_column">
                 <div>Create a delivery</div>
                 <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
-                    <input name="deliveryID" value="{{deliveryID}}" display="none">
-                    
+                    <div display="none">
+                        <input name="deliveryID" value="{{deliveryID}}">
+                    </div>
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Delivery date:</span> 
                         <input class="textField" id="deliveryDate" name="deliveryDate" type="text" 

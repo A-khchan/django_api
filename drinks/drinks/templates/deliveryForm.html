@@ -332,11 +332,11 @@
 
         itemCodeArray = []
         itemDict = {}
-        function getItemCode() {
+        async function getItemCode() {
             itemCodeArray = []
             itemDict = {}
             const django_server = "https://www.roboosoft.com/"
-            fetch(django_server + "account/itemList/")
+            await fetch(django_server + "account/itemList/")
             .then((response) => {
                 return response.json()
             })
@@ -445,7 +445,7 @@
             }
         }
 
-        getItemCode()
+        await getItemCode()
 
         function prepareUpdate() {
             console.log("context id: ", '{{deliveryID}}')

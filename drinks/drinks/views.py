@@ -1597,7 +1597,7 @@ def addItem(request, deliveryObj):
     while(request.POST.get(itemCodeName)):
         boxName = "box" + str(rowNum)
         bagName = "bag" + str(rowNum)
-        if(not request.POST[boxName] == 0 or not request.POST[bagName] == 0):
+        if(not int(request.POST[boxName]) == 0 or not int(request.POST[bagName]) == 0):
             itemObj = DeliveryItems.objects.create(
                 deliveryID = deliveryObj.id,
                 item = request.POST[itemCodeName],

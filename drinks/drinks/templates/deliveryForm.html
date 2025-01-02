@@ -469,7 +469,7 @@
             // document.getElementById("").value = '{{ seq }}'
 
             first = true
-            for(const element in itemList) {
+            for(const element of itemList) {
                 if(first) {
                     document.getElementById("itemCode").value = element[itemCode]
                     document.getElementById("box").value = element[box]

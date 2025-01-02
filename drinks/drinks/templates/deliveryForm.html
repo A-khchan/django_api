@@ -351,7 +351,7 @@
         }
 
         rowNum = 1
-        function addItemRow() {
+        function addItemRow(element) {
             rowNum += 1
             selectDiv = document.createElement("select")
             selectDiv.id = "itemCode"
@@ -386,6 +386,12 @@
 
             itemListDiv = document.getElementById("itemList")
             itemListDiv.appendChild(rowDiv)
+
+            if (arguments.length > 0) {
+                selectDiv.value = element.itemCode
+                boxInput.value = element.box
+                bagInput.value = element.bag
+            }
         }
 
         function calCost(event) {
@@ -443,7 +449,36 @@
         function prepareUpdate() {
             console.log("context id: ", '{{deliveryID}}')
             const itemList = JSON.parse('{{ itemList|escapejs }}')
-            console.log("itemList id: ", itemList)
+            console.log("itemList: ", itemList)
+            // document.getElementById("").value = '{{ deliveryID }}'
+            document.getElementById("deliveryDate").value = '{{ deliveryDate }}'
+            document.getElementById("lastName").value = '{{ lastName }}'
+            document.getElementById("firstName").value = '{{ firstName }}'
+            document.getElementById("dateOfBirth").value = '{{ dateOfBirth }}'
+            document.getElementById("address").value = '{{ address }}'
+            document.getElementById("selfPickup").value = '{{ selfPickup }}'
+            // document.getElementById("").value = '{{ parentID }}'
+            document.getElementById("repeatFreq").value = '{{ repeatFreq }}'
+            document.getElementById("eligible").value = '{{ eligible }}'
+            document.getElementById("ticketNo").value = '{{ ticketNo }}'
+            // document.getElementById("").value = '{{ leaveAtDoor }}'
+            // document.getElementById("").value = '{{ phoneForPic }}'
+            // document.getElementById("").value = '{{ status }}'
+            // document.getElementById("").value = '{{ log }}'
+            // document.getElementById("").value = '{{ comments }}'
+            // document.getElementById("").value = '{{ seq }}'
+
+            first = true
+            for(const element in itemList) {
+                if(first) {
+                    document.getElementById("itemCode").value = element.itemCode
+                    document.getElementById("box").value = element.box
+                    document.getElementById("bag").value = element.bag
+                    first = false
+                } else {
+                    addItemRow(element)
+                }
+            }
         }
 
         prepareUpdate()

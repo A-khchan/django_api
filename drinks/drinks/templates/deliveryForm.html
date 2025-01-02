@@ -332,11 +332,11 @@
 
         itemCodeArray = []
         itemDict = {}
-        async function getItemCode() {
+        function getItemCode() {
             itemCodeArray = []
             itemDict = {}
             const django_server = "https://www.roboosoft.com/"
-            await fetch(django_server + "account/itemList/")
+            fetch(django_server + "account/itemList/")
             .then((response) => {
                 return response.json()
             })
@@ -347,6 +347,7 @@
                     selectDiv.options.add(new Option(element.itemCode + " (" + element.itemDesc + ")", element.itemCode))
                     itemDict[element.itemCode] = [element.bags, element.bagPrice]
                 })
+                prepareUpdate()
             })
         }
 
@@ -445,8 +446,6 @@
             }
         }
 
-        getItemCode()
-
         function prepareUpdate() {
             console.log("context id: ", '{{deliveryID}}')
             const itemList = JSON.parse('{{ itemList|escapejs }}')
@@ -482,7 +481,8 @@
             }
         }
 
-        prepareUpdate()
+        getItemCode()
+
     </script>     
 
     <link

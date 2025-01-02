@@ -1276,6 +1276,123 @@ def deliveryAdd(request):
 
     return response   
 
+def deliveryUpdate(request):
+    
+    userName = request.session.get('userName')
+
+    if userName is None:
+        template = loader.get_template('login.html')
+        context = {
+            'errMsg': 'Please login to create a delivery'
+        }
+        response = HttpResponse(template.render(context, request))
+    else:
+        if request.method == 'POST':    
+            if request.POST['repeatFreq'] == 'None':
+                parentID = 0
+            else:
+                parentID = -1
+
+            if request.POST['ticketNo'] == '':
+                ticketNo = 0
+            else:
+                ticketNo = int(request.POST['ticketNo'])
+
+            deliveryObj = Delivery.objects.filter(id=request.POST['deliveryID']).first()
+
+            # deliveryObj = Delivery.objects.create(
+            deliveryObj.lastName = request.POST['lastName']
+            deliveryObj.firstName = request.POST['firstName']
+            deliveryObj.dateOfBirth = request.POST['dateOfBirth']
+            deliveryObj.deliveryDate = request.POST['deliveryDate']
+            deliveryObj.address = request.POST['address']
+            deliveryObj.selfPickup = request.POST['selfPickup']
+                        # parentID = parentID,
+            deliveryObj.repeatFreq = request.POST['repeatFreq']
+            deliveryObj.eligible = request.POST['eligible']
+            deliveryObj.ticketNo = ticketNo
+            deliveryObj.leaveAtDoor = 'Y'
+            deliveryObj.phoneForPic = '123-456-7890'
+            deliveryObj.status = 'Planned'
+            deliveryObj.log = ''
+            deliveryObj.comments = None
+            deliveryObj.save()
+
+            removeItem(int(request.POST['deliveryID']))
+            addItem(request, deliveryObj)
+
+            repeatMsg = ""
+            #skip this part first
+            if False and not request.POST['repeatFreq'] == "None":
+                date_string = request.POST['deliveryDate']
+                date_format = "%m/%d/%Y"
+                dateObj = dt.strptime(date_string, date_format)
+
+                # mm = request.POST['deliveryDate'][0:2]
+                # dd = request.POST['deliveryDate'][3:5]
+                # yyyy = request.POST['deliveryDate'][6:10]
+                # dateObj = datetime.date(yyyy, mm, dd)
+                dayOfWeek = dateObj.weekday()
+                weekOfMonth = math.ceil(dateObj.day/7) #round up
+
+                if request.POST['repeatFreq'] == "Monthly":
+                    count = 12
+                    addMonth = 1
+                else:
+                    count = 6
+                    addMonth = 2
+
+                parentID = deliveryObj.id
+                lastDeliveryDate = dateObj
+                for i in range(0, count, 1):
+                    
+                    nextMonth = lastDeliveryDate + relativedelta(months = addMonth)
+                    nextMonth1st = nextMonth.replace(day=1)
+                    if nextMonth1st.weekday() > dayOfWeek:
+                        daysToAdd = 7 - (nextMonth1st.weekday() - dayOfWeek)
+                    else:
+                        daysToAdd = dayOfWeek - nextMonth1st.weekday()
+                    nextDeliveryDate = nextMonth1st + relativedelta(days = 7*(weekOfMonth-1) + daysToAdd)
+
+                    deliveryObj = Delivery.objects.create(
+                                lastName = request.POST['lastName'],
+                                firstName = request.POST['firstName'],
+                                dateOfBirth = request.POST['dateOfBirth'],
+                                deliveryDate = nextDeliveryDate.strftime("%m/%d/%Y"),
+                                address = request.POST['address'],
+                                selfPickup = request.POST['selfPickup'],
+                                parentID = parentID,
+                                repeatFreq = request.POST['repeatFreq'],
+                                eligible = 'P',
+                                ticketNo = 0,
+                                leaveAtDoor = 'Y',
+                                phoneForPic = '123-456-7890',
+                                status = 'Planned',
+                                log = '',
+                                comments = None)
+                    deliveryObj.save()
+                    lastDeliveryDate = nextDeliveryDate
+                    addItem(request, deliveryObj)
+
+                repeatMsg = str(count) + " repeated events created."
+
+            template = loader.get_template('deliveryForm.html')
+            context = {
+                # 'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
+                # str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
+                # ", deliveryObj.id = " + str(deliveryObj.id)
+                'errMsg': 'A delivery is updated. ' + repeatMsg
+            }
+            response = HttpResponse(template.render(context, request))         
+        else:
+            template = loader.get_template('deliveryForm.html')
+            context = {
+                'errMsg': 'POST request is required to create a delivery'
+            }
+            response = HttpResponse(template.render(context, request))         
+
+    return response
+
 def deliveryList(request):
     
     userName = request.session.get('userName')
@@ -1467,6 +1584,11 @@ def itemAddUpdate(request):
     }
 
     return JsonResponse(data, safe=False)
+
+def removeItem(deliveryID):
+    itemObjList = DeliveryItems.objects.filter(deliveryID=deliveryID)
+    for i in range(0, len(itemObjList), 1):
+        itemObjList.delete()
 
 
 def addItem(request, deliveryObj):

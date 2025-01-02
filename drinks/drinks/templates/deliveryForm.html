@@ -18,6 +18,8 @@
             <div class="flex_column">
                 <div>Create a delivery</div>
                 <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
+                    <input name="deliveryID" value="{{deliveryID}}" display="none">
+                    
                     <div class="contentVerticallyCenter">
                         <span class="label_long">Delivery date:</span> 
                         <input class="textField" id="deliveryDate" name="deliveryDate" type="text" 
@@ -108,6 +110,7 @@
 
                     <br>
                     <input id="create" class="button" type="submit" value="Create">
+                    <input id="update" class="button" type="submit" value="Update" formaction="../deliveryUpdate">
                 </form>
                 <div class="err_msg">
                     <span id="message">{{ errMsg }}</span>

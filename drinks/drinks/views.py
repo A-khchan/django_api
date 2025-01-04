@@ -1376,7 +1376,7 @@ def deliveryUpdate(request):
 
                 repeatMsg = str(count) + " repeated events created."
 
-            template = loader.get_template('deliveryForm.html')
+            template = loader.get_template('deliveryList.html')
             context = {
                 # 'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
                 # str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
@@ -1385,7 +1385,7 @@ def deliveryUpdate(request):
             }
             response = HttpResponse(template.render(context, request))         
         else:
-            template = loader.get_template('deliveryList.html')
+            template = loader.get_template('deliveryForm.html')
             context = {
                 'errMsg': 'POST request is required to create a delivery'
             }

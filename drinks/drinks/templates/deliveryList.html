@@ -573,10 +573,12 @@
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`
                             deliveryDate = document.getElementById("deliveryDate")
                             deliveryDate.value = formatedDate
+                            sessionStorage.setItem(deliveryDate.id, deliveryDate.value)
                             aDate = endDate
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`
                             deliveryDateTo = document.getElementById("deliveryDateTo")
                             deliveryDateTo.value = formatedDate
+                            sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
                         } else {
                             aDate = self.selectedDates[0]
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`

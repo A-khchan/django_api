@@ -308,6 +308,19 @@
             // console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
             // console.log("itemSummary: ", itemSummary)
             addSummary(itemSummary)
+
+            needRedisplay = false
+            if(sessionStorage.getItem('deliveryDate')) {
+                document.getElementById('deliveryDate').value = sessionStorage.getItem('deliveryDate')
+                needRedisplay = true
+            }
+            if(sessionStorage.getItem('deliveryDateTo')) {
+                document.getElementById('deliveryDateTo').value = sessionStorage.getItem('deliveryDateTo')
+                needRedisplay = true
+            }
+            if(needRedisplay)
+                reDisplay()
+
         }
 
         function gotoUpdate(event) {
@@ -432,6 +445,9 @@
             calendar.selectedDates = [];
             calendar.update()
 
+            if(event.target.value == "")
+                sessionStorage.setItem(event.target.id, "")
+
             if(event.inputType != 'deleteContentBackward') {
                 formatToDate(event)
                 // deliveryDate = document.getElementById('deliveryDate').value
@@ -440,6 +456,7 @@
                 regex = /\d\d\/\d\d\/\d{4}/
                 if(regex.test(theDate)) {
                     console.log("regex test ok")
+                    sessionStorage.setItem(event.target.id, theDate)
 
                     mm = theDate.substring(0,2)
                     dd = theDate.substring(3,5)

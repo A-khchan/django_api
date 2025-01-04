@@ -310,6 +310,7 @@
             addSummary(itemSummary)
 
             needRedisplay = false
+            console.log("sessionStorage.getItem('deliveryDate'):", sessionStorage.getItem('deliveryDate'))
             if(sessionStorage.getItem('deliveryDate')) {
                 document.getElementById('deliveryDate').value = sessionStorage.getItem('deliveryDate')
                 needRedisplay = true

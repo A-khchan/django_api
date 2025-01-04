@@ -415,6 +415,15 @@
 
         document.getElementById('deliveryDate').addEventListener('focus', show_cal);
         document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
+        document.getElementById('deliveryDate').addEventListener('change', sessionSet);
+        document.getElementById('deliveryDateTo').addEventListener('change', sessionSet);
+
+        function sessionSet(event) {
+            if(event.target.value == "" || isValidDate(event.target.value)) {
+                console.log("event.target.id", event.target.id)
+                sessionStorage.setItem(event.target.id, event.target.value)
+            } 
+        }
 
         function show_cal(event) {
             set_cal(event)
@@ -446,11 +455,6 @@
             calendar.selectedDates = [];
             calendar.update()
 
-            if(event.target.value == "") {
-                console.log("event.target.id", event.target.id)
-                sessionStorage.setItem(event.target.id, "")
-            }
-
             if(event.inputType != 'deleteContentBackward') {
                 formatToDate(event)
                 // deliveryDate = document.getElementById('deliveryDate').value
@@ -459,7 +463,6 @@
                 regex = /\d\d\/\d\d\/\d{4}/
                 if(regex.test(theDate)) {
                     console.log("regex test ok")
-                    sessionStorage.setItem(event.target.id, theDate)
 
                     mm = theDate.substring(0,2)
                     dd = theDate.substring(3,5)

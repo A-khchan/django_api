@@ -407,7 +407,8 @@
         }
 
         function calCost(event) {
-            validateQuantity(event)
+            if(arguments.length > 0)
+                validateQuantity(event)
 
             console.log("calCost ...")
             allRow = document.querySelectorAll("#itemRow")

@@ -118,6 +118,11 @@
         }
 
         function reDisplay() {
+            deliveryDate = document.getElementById("deliveryDate")
+            deliveryDateTo = document.getElementById("deliveryDateTo")
+            sessionStorage.setItem(deliveryDate.id, deliveryDate.value)
+            sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
+
             // deliveryList = document.getElementById("deliveryList")
             // const items = Array.from(deliveryList.querySelectorAll(".delivery_box"))
             items_sorted = itemsArray.sort((a, b) => {
@@ -415,15 +420,15 @@
 
         document.getElementById('deliveryDate').addEventListener('focus', show_cal);
         document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
-        document.getElementById('deliveryDate').addEventListener('input', sessionSet);
-        document.getElementById('deliveryDateTo').addEventListener('input', sessionSet);
+        // document.getElementById('deliveryDate').addEventListener('input', sessionSet);
+        // document.getElementById('deliveryDateTo').addEventListener('input', sessionSet);
 
-        function sessionSet(event) {
-            if(event.target.value == "" || isValidDate(event.target.value)) {
-                console.log("event.target.id", event.target.id)
-                sessionStorage.setItem(event.target.id, event.target.value)
-            } 
-        }
+        // function sessionSet(event) {
+        //     if(event.target.value == "" || isValidDate(event.target.value)) {
+        //         console.log("event.target.id", event.target.id)
+        //         sessionStorage.setItem(event.target.id, event.target.value)
+        //     } 
+        // }
 
         function show_cal(event) {
             set_cal(event)
@@ -573,12 +578,12 @@
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`
                             deliveryDate = document.getElementById("deliveryDate")
                             deliveryDate.value = formatedDate
-                            sessionStorage.setItem(deliveryDate.id, deliveryDate.value)
+                            // sessionStorage.setItem(deliveryDate.id, deliveryDate.value)
                             aDate = endDate
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`
                             deliveryDateTo = document.getElementById("deliveryDateTo")
                             deliveryDateTo.value = formatedDate
-                            sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
+                            // sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
                         } else {
                             aDate = self.selectedDates[0]
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`

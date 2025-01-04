@@ -447,6 +447,7 @@
             calendar.update()
 
             if(event.target.value == "")
+                console.log("event.target.id", event.target.id)
                 sessionStorage.setItem(event.target.id, "")
 
             if(event.inputType != 'deleteContentBackward') {

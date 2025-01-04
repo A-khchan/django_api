@@ -1389,7 +1389,7 @@ def deliveryUpdate(request):
             # response = HttpResponse(template.render(context, request))         
 
             id_value = deliveryObj.id
-            base_url = reverse('../deliveryForm/')  # Reverse the named URL
+            base_url = '../deliveryForm/'  # Reverse the named URL
             query_string = urlencode({'id': id_value})  # Construct the query string
             response = redirect(f'{base_url}?{query_string}') 
 

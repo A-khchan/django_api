@@ -315,7 +315,7 @@
             addSummary(itemSummary)
 
             needRedisplay = false
-            console.log("sessionStorage.getItem('deliveryDate'):", sessionStorage.getItem('deliveryDate'))
+            // console.log("sessionStorage.getItem('deliveryDate'):", sessionStorage.getItem('deliveryDate'))
             if(sessionStorage.getItem('deliveryDate')) {
                 document.getElementById('deliveryDate').value = sessionStorage.getItem('deliveryDate')
                 needRedisplay = true
@@ -388,7 +388,7 @@
             if(result && isValidDate(filterDeliveryDateTo)) {
                 // console.log("isValidDate true")
                 if(getDate(deliveryDate) <= getDate(filterDeliveryDateTo)) {
-                    console.log("date are the same")
+                    // console.log("date are the same")
                     result = true
                 } else 
                     result = false
@@ -402,17 +402,17 @@
             const django_server = "https://www.roboosoft.com/"
             await fetch(django_server + "account/itemList/")
             .then((response) => {
-                console.log("response is: ", response)
+                // console.log("response is: ", response)
                 return response.json()
             })
             .then((data) => {
-                console.log("data is: ", data)
+                // console.log("data is: ", data)
                 data.forEach(element => {
                     itemDict[element.itemCode] = [element.bags, element.bagPrice]
                 })
             })
 
-            console.log("itemDict is: ", itemDict)
+            // console.log("itemDict is: ", itemDict)
             return itemDict
         }
 
@@ -420,15 +420,6 @@
 
         document.getElementById('deliveryDate').addEventListener('focus', show_cal);
         document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
-        // document.getElementById('deliveryDate').addEventListener('input', sessionSet);
-        // document.getElementById('deliveryDateTo').addEventListener('input', sessionSet);
-
-        // function sessionSet(event) {
-        //     if(event.target.value == "" || isValidDate(event.target.value)) {
-        //         console.log("event.target.id", event.target.id)
-        //         sessionStorage.setItem(event.target.id, event.target.value)
-        //     } 
-        // }
 
         function show_cal(event) {
             set_cal(event)
@@ -546,7 +537,7 @@
             // calendar.selectedMonth = 0;
             // calendar.selectedYear = 1998;
             calendar.update();
-            console.log(calendar)
+            // console.log(calendar)
         }
 
         const options = {

@@ -19,6 +19,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework import filters
 from django.shortcuts import render
+from django.shortcuts import redirect
 
 from drinks.ff import multiSearch
 import json
@@ -1376,14 +1377,16 @@ def deliveryUpdate(request):
 
                 repeatMsg = str(count) + " repeated events created."
 
-            template = loader.get_template('deliveryList.html')
-            context = {
+            # template = loader.get_template('deliveryForm.html')
+            # context = {
                 # 'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
                 # str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
                 # ", deliveryObj.id = " + str(deliveryObj.id)
                 'errMsg': 'A delivery is updated. ' + repeatMsg
-            }
-            response = HttpResponse(template.render(context, request))         
+            # }
+            # response = HttpResponse(template.render(context, request))         
+            response = redirect('../deliveryForm', id=deliveryObj.id)
+
         else:
             template = loader.get_template('deliveryForm.html')
             context = {

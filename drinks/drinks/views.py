@@ -20,6 +20,8 @@ from rest_framework import generics
 from rest_framework import filters
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.urls import reverse
+from urllib.parse import urlencode
 
 from drinks.ff import multiSearch
 import json
@@ -1385,7 +1387,11 @@ def deliveryUpdate(request):
                 # 'errMsg': 'A delivery is updated. ' + repeatMsg
             # }
             # response = HttpResponse(template.render(context, request))         
-            response = redirect('../deliveryForm', id=deliveryObj.id)
+
+            id_value = deliveryObj.id
+            base_url = reverse('../deliveryForm/')  # Reverse the named URL
+            query_string = urlencode({'id': id_value})  # Construct the query string
+            response = redirect(f'{base_url}?{query_string}') 
 
         else:
             template = loader.get_template('deliveryForm.html')

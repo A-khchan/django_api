@@ -129,7 +129,7 @@
             temp_deliveryList = []
             itemSummary = {}
             for(const element of items_sorted) {
-                console.log("element is: ", element)
+                // console.log("element is: ", element)
                 dropTarget = document.createElement("div")
                 dropTarget.className = "dropTarget"
                 dropTarget.addEventListener('drop', handleDrop);
@@ -365,13 +365,13 @@
             const basic = element.querySelector(".basic")
             const deliveryDateDiv = basic.querySelector("#deliveryDate")
             deliveryDate = deliveryDateDiv.innerText.substring(deliveryDateDiv.innerText.length - 10, deliveryDateDiv.innerText.length)
-            console.log("shouldShow, deliveryDate: ", deliveryDate)
+            // console.log("shouldShow, deliveryDate: ", deliveryDate)
             var result = false
             filterDeliveryDate = document.getElementById("deliveryDate").value
             filterDeliveryDateTo = document.getElementById("deliveryDateTo").value
-            console.log("filterDeliveryDate: ", filterDeliveryDate)
+            // console.log("filterDeliveryDate: ", filterDeliveryDate)
             if(isValidDate(filterDeliveryDate)) {
-                console.log("isValidDate true")
+                // console.log("isValidDate true")
                 if(getDate(deliveryDate) >= getDate(filterDeliveryDate)) {
                     console.log("date are the same")
                     result = true
@@ -381,14 +381,14 @@
                 result = true
 
             if(result && isValidDate(filterDeliveryDateTo)) {
-                console.log("isValidDate true")
+                // console.log("isValidDate true")
                 if(getDate(deliveryDate) <= getDate(filterDeliveryDateTo)) {
                     console.log("date are the same")
                     result = true
                 } else 
                     result = false
             }
-            console.log("result is: ", result)
+            // console.log("result is: ", result)
             return result
         }
 
@@ -490,7 +490,7 @@
             if(isValidDate(document.getElementById("deliveryDate").value) ||
                 document.getElementById("deliveryDate").value == "") {
                 reDisplay()
-                console.log("reDisplay is called")
+                // console.log("reDisplay is called")
             }
         }
 

@@ -1385,7 +1385,7 @@ def deliveryUpdate(request):
             }
             response = HttpResponse(template.render(context, request))         
         else:
-            template = loader.get_template('deliveryForm.html')
+            template = loader.get_template('deliveryList.html')
             context = {
                 'errMsg': 'POST request is required to create a delivery'
             }

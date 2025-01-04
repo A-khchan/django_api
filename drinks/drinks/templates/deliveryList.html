@@ -235,11 +235,11 @@
                 nameDiv.innerText = element.lastName + ", " + element.firstName
 
                 addressDiv = document.createElement("div")
-                addressDiv.className = "deliveryDateDiv"
+                addressDiv.className = "textDiv"
                 addressDiv.innerText = element.address
 
                 eligibleDiv = document.createElement("div")
-                eligibleDiv.className = "deliveryDateDiv"
+                eligibleDiv.className = "textDiv"
                 if(element.eligible == "P")
                     eligibleDiv.innerText = "Eligibility: " + "Pending"
                 else if(element.eligible == "Y")

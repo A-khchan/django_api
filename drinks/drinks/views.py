@@ -1382,7 +1382,7 @@ def deliveryUpdate(request):
                 # 'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
                 # str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
                 # ", deliveryObj.id = " + str(deliveryObj.id)
-                'errMsg': 'A delivery is updated. ' + repeatMsg
+                # 'errMsg': 'A delivery is updated. ' + repeatMsg
             # }
             # response = HttpResponse(template.render(context, request))         
             response = redirect('../deliveryForm', id=deliveryObj.id)

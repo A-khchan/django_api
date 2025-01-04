@@ -1115,6 +1115,7 @@ def deliveryForm(request):
     if userName:    
         if request.method == "GET":
             deliveryID = request.GET.get('id', '0')
+            Msg = request.GET.get('msg', '')
             if not deliveryID == '0':
                 delivery = Delivery.objects.filter(id=int(deliveryID)).first()
                 itemAll = DeliveryItems.objects.filter(deliveryID=int(deliveryID))
@@ -1146,6 +1147,7 @@ def deliveryForm(request):
                     "comments": delivery.comments,
                     "seq": delivery.seq,
                     "itemList": json.dumps(itemArray),
+                    "errMsg": Msg,
                 }
             else:
                 context = {
@@ -1390,7 +1392,7 @@ def deliveryUpdate(request):
 
             id_value = deliveryObj.id
             base_url = '../deliveryForm/'  # Reverse the named URL
-            query_string = urlencode({'id': id_value})  # Construct the query string
+            query_string = urlencode({'id': id_value, 'msg': 'Delivery is updated'})  # Construct the query string
             response = redirect(f'{base_url}?{query_string}') 
 
         else:

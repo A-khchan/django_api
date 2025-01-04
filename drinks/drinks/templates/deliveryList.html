@@ -415,8 +415,8 @@
 
         document.getElementById('deliveryDate').addEventListener('focus', show_cal);
         document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
-        document.getElementById('deliveryDate').addEventListener('change', sessionSet);
-        document.getElementById('deliveryDateTo').addEventListener('change', sessionSet);
+        document.getElementById('deliveryDate').addEventListener('input', sessionSet);
+        document.getElementById('deliveryDateTo').addEventListener('input', sessionSet);
 
         function sessionSet(event) {
             if(event.target.value == "" || isValidDate(event.target.value)) {

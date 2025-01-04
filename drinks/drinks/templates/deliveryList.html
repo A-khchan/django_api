@@ -143,10 +143,10 @@
                     const itemList = element.querySelector("#itemList")
                     const itemDivAll = itemList.querySelectorAll(".itemDiv")
                     for(const item of itemDivAll) {
-                        console.log("reDisplay")
-                        console.log("item.itemCode: ", item.itemCode)
-                        console.log("item.box: ", item.box)
-                        console.log("item.bag: ", item.bag)
+                        // console.log("reDisplay")
+                        // console.log("item.itemCode: ", item.itemCode)
+                        // console.log("item.box: ", item.box)
+                        // console.log("item.bag: ", item.bag)
 
                         if(!(item.itemCode in itemSummary)) {
                             itemSummary[item.itemCode] = [0, 0]
@@ -373,7 +373,7 @@
             if(isValidDate(filterDeliveryDate)) {
                 // console.log("isValidDate true")
                 if(getDate(deliveryDate) >= getDate(filterDeliveryDate)) {
-                    console.log("date are the same")
+                    // console.log("date are the same")
                     result = true
                 } else
                     result = false

@@ -1305,14 +1305,15 @@ def deliveryUpdate(request):
 
             deliveryObj = Delivery.objects.filter(id=request.POST['deliveryID']).first()
 
+            secondMsg = ""
             if request.POST.get('action') == 'Update All':
                 if deliveryObj.parentID == -1:
                     delChildDelivery(request.POST['deliveryID'])
                 else:
-                    reAssignParent(deliveryObj.parentID, request.POST['deliveryID'])
+                    secondMsg = secondMsg + reAssignParent(deliveryObj.parentID, request.POST['deliveryID'])
             else:
                 if deliveryObj.parentID == -1:
-                    reAssignParent(deliveryObj.id, request.POST['deliveryID'])
+                    secondMsg = secondMsg + reAssignParent(deliveryObj.id, request.POST['deliveryID'])
                 else:
                     delSibling(request.POST['deliveryID'])
 
@@ -1337,7 +1338,7 @@ def deliveryUpdate(request):
             removeItem(int(request.POST['deliveryID']))
             addItem(request, deliveryObj)
 
-            secondMsg = ", request.POST.get('action') is: " + request.POST.get('action')
+            secondMsg = secondMsg + ", request.POST.get('action') is: " + request.POST.get('action')
 
             repeatMsg = ""
             if not request.POST['repeatFreq'] == "None" and request.POST.get('action') == 'Update All':
@@ -1411,9 +1412,13 @@ def deliveryUpdate(request):
 
 def reAssignParent(deliveryID, newID):
     selectedChild = Delivery.objects.filter(parentID = deliveryID, id__gt = deliveryID)
+    msg = "no. of child is " + len(selectedChild)
     for child in selectedChild:
         child.parentID = newID
         child.save()
+        msg = msg + ", saved"
+
+    return msg
 
 def delChildDelivery(deliveryID):
     allChildren = Delivery.objects.filter(parentID = deliveryID)

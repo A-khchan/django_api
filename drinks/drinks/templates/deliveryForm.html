@@ -115,7 +115,10 @@
                             <input id="create" class="button" type="submit" value="Create">
                         </div>
                         <div>
-                            <input id="update" class="button" type="submit" value="Update" formaction="../deliveryUpdate/">
+                            <input id="update" class="button" type="submit" value="Update" name="action" value="update" formaction="../deliveryUpdate/">
+                        </div>
+                        <div>
+                            <input id="updateAll" class="button" type="submit" value="Update All" name="action" value="updateAll" formaction="../deliveryUpdate/">
                         </div>
                     </div>
                 </form>
@@ -492,6 +495,12 @@
                     }
                 }
                 calCost()
+
+                if('{{ repeatFreq }}' != "None") {
+                    document.getElementById("updateAll").style.display = "block"
+                } else {
+                    document.getElementById("updateAll").style.display = "none"
+                }
             }
         }
 

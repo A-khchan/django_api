@@ -1305,13 +1305,24 @@ def deliveryUpdate(request):
 
             deliveryObj = Delivery.objects.filter(id=request.POST['deliveryID']).first()
 
-            # deliveryObj = Delivery.objects.create(
+            if request.form['action'] == 'updateAll':
+                if deliveryObj.parentID == -1:
+                    delChildDelivery(request.POST['deliveryID'])
+                else:
+                    reAssignParent(request.POST['deliveryID'])
+            else:
+                if deliveryObj.parentID == -1:
+                    reAssignParent(request.POST['deliveryID'])
+                else:
+                    delSibling(request.POST['deliveryID'])
+
             deliveryObj.lastName = request.POST['lastName']
             deliveryObj.firstName = request.POST['firstName']
             deliveryObj.dateOfBirth = request.POST['dateOfBirth']
             deliveryObj.deliveryDate = request.POST['deliveryDate']
             deliveryObj.address = request.POST['address']
             deliveryObj.selfPickup = request.POST['selfPickup']
+            deliveryObj.parentID = -1
                         # parentID = parentID,
             deliveryObj.repeatFreq = request.POST['repeatFreq']
             deliveryObj.eligible = request.POST['eligible']
@@ -1326,9 +1337,9 @@ def deliveryUpdate(request):
             removeItem(int(request.POST['deliveryID']))
             addItem(request, deliveryObj)
 
+
             repeatMsg = ""
-            #skip this part first
-            if False and not request.POST['repeatFreq'] == "None":
+            if not request.POST['repeatFreq'] == "None" and request.form['action'] == 'updateAll':
                 date_string = request.POST['deliveryDate']
                 date_format = "%m/%d/%Y"
                 dateObj = dt.strptime(date_string, date_format)
@@ -1379,20 +1390,11 @@ def deliveryUpdate(request):
                     lastDeliveryDate = nextDeliveryDate
                     addItem(request, deliveryObj)
 
-                repeatMsg = str(count) + " repeated events created."
-
-            # template = loader.get_template('deliveryForm.html')
-            # context = {
-                # 'errMsg': 'A delivery is created. ' + "dayOfWeek: " + str(dayOfWeek) + ", weekOfMonth: " + 
-                # str(weekOfMonth) + ", nextMonth1st: " + nextDeliveryDate.strftime("%Y-%m-%d") +
-                # ", deliveryObj.id = " + str(deliveryObj.id)
-                # 'errMsg': 'A delivery is updated. ' + repeatMsg
-            # }
-            # response = HttpResponse(template.render(context, request))         
+                repeatMsg = str(count) + " repeated events updated."
 
             id_value = deliveryObj.id
             base_url = '../deliveryForm/'  # Reverse the named URL
-            query_string = urlencode({'id': id_value, 'msg': 'Delivery is updated'})  # Construct the query string
+            query_string = urlencode({'id': id_value, 'msg': 'Delivery is updated. ' + repeatMsg})  # Construct the query string
             response = redirect(f'{base_url}?{query_string}') 
 
         else:
@@ -1403,6 +1405,24 @@ def deliveryUpdate(request):
             response = HttpResponse(template.render(context, request))         
 
     return response
+
+def reAssignParent(deliveryID, newID):
+    selectedChild = Delivery.objects.filter(parentID = deliveryID, id__gt = deliveryID)
+    for child in selectedChild:
+        child.parentID = newID
+        child.save()
+
+def delChildDelivery(deliveryID):
+    allChildren = Delivery.objects.filter(parentID = deliveryID)
+    for child in allChildren:
+        removeItem(child.id)
+        child.delete()
+
+def delSibling(deliveryID):
+    allSibling = Delivery.objects.filter(parentID = deliveryID, id__gt = deliveryID)
+    for sibling in allSibling:
+        removeItem(sibling)
+        sibling.delete()
 
 def deliveryList(request):
     

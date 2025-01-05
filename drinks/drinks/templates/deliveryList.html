@@ -139,6 +139,11 @@
             sessionStorage.setItem(deliveryDate.id, deliveryDate.value)
             sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
 
+            lastName = document.getElementById("lastName")
+            firstName = document.getElementById("firstName")
+            sessionStorage.setItem(lastName.id, lastName.value)
+            sessionStorage.setItem(firstName.id, firstName.value)
+
             // deliveryList = document.getElementById("deliveryList")
             // const items = Array.from(deliveryList.querySelectorAll(".delivery_box"))
             items_sorted = itemsArray.sort((a, b) => {
@@ -340,6 +345,14 @@
                 document.getElementById('deliveryDateTo').value = sessionStorage.getItem('deliveryDateTo')
                 needRedisplay = true
             }
+            if(sessionStorage.getItem('lastName')) {
+                document.getElementById('lastName').value = sessionStorage.getItem('lastName')
+                needRedisplay = true
+            }            
+            if(sessionStorage.getItem('firstName')) {
+                document.getElementById('firstName').value = sessionStorage.getItem('firstName')
+                needRedisplay = true
+            }            
             if(needRedisplay)
                 reDisplay()
 

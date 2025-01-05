@@ -1341,6 +1341,7 @@ def deliveryUpdate(request):
 
             repeatMsg = ""
             if not request.POST['repeatFreq'] == "None" and request.POST.get('action') == 'updateAll':
+                secondMsg = secondMsg + ", in if---"
                 date_string = request.POST['deliveryDate']
                 date_format = "%m/%d/%Y"
                 dateObj = dt.strptime(date_string, date_format)
@@ -1362,7 +1363,8 @@ def deliveryUpdate(request):
                 parentID = deliveryObj.id
                 lastDeliveryDate = dateObj
                 for i in range(0, count, 1):
-                    
+                    secondMsg = secondMsg + ", in for loop"
+
                     nextMonth = lastDeliveryDate + relativedelta(months = addMonth)
                     nextMonth1st = nextMonth.replace(day=1)
                     if nextMonth1st.weekday() > dayOfWeek:

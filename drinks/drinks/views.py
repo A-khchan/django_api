@@ -1337,6 +1337,7 @@ def deliveryUpdate(request):
             removeItem(int(request.POST['deliveryID']))
             addItem(request, deliveryObj)
 
+            secondMsg = ", request.POST.get('action') is: " + request.POST.get('action')
 
             repeatMsg = ""
             if not request.POST['repeatFreq'] == "None" and request.POST.get('action') == 'updateAll':
@@ -1394,7 +1395,7 @@ def deliveryUpdate(request):
 
             id_value = deliveryObj.id
             base_url = '../deliveryForm/'  # Reverse the named URL
-            query_string = urlencode({'id': id_value, 'msg': 'Delivery is updated. ' + repeatMsg})  # Construct the query string
+            query_string = urlencode({'id': id_value, 'msg': 'Delivery is updated. ' + repeatMsg + secondMsg})  # Construct the query string
             response = redirect(f'{base_url}?{query_string}') 
 
         else:

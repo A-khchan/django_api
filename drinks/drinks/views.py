@@ -1305,14 +1305,14 @@ def deliveryUpdate(request):
 
             deliveryObj = Delivery.objects.filter(id=request.POST['deliveryID']).first()
 
-            if request.form['action'] == 'updateAll':
+            if request.POST.get('action') == 'updateAll':
                 if deliveryObj.parentID == -1:
                     delChildDelivery(request.POST['deliveryID'])
                 else:
-                    reAssignParent(request.POST['deliveryID'])
+                    reAssignParent(deliveryObj.parentID, request.POST['deliveryID'])
             else:
                 if deliveryObj.parentID == -1:
-                    reAssignParent(request.POST['deliveryID'])
+                    reAssignParent(deliveryObj.id, request.POST['deliveryID'])
                 else:
                     delSibling(request.POST['deliveryID'])
 
@@ -1339,7 +1339,7 @@ def deliveryUpdate(request):
 
 
             repeatMsg = ""
-            if not request.POST['repeatFreq'] == "None" and request.form['action'] == 'updateAll':
+            if not request.POST['repeatFreq'] == "None" and request.POST.get('action') == 'updateAll':
                 date_string = request.POST['deliveryDate']
                 date_format = "%m/%d/%Y"
                 dateObj = dt.strptime(date_string, date_format)

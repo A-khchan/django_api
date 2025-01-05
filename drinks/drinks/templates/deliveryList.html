@@ -17,12 +17,22 @@
 
     <div class="flex_column" onclick="hide_cal(event)">
         <div id="filter">
-            <span class="label_long">Delivery date:</span> 
-            <input class="deliveryDate" id="deliveryDate" name="deliveryDate" type="text" 
-                oninput="set_cal(event)">
-            <input class="deliveryDate" id="deliveryDateTo" name="deliveryDateTo" type="text" 
-                oninput="set_cal(event)">
-            <button onclick="clearDates()">Clear</button>
+            <div class="flex_row_middle_up">
+                <div class="flex_column">
+                    <span class="label_long">Delivery date:</span> 
+                    <input class="deliveryDate" id="deliveryDate" name="deliveryDate" type="text" 
+                        oninput="set_cal(event)">
+                    <input class="deliveryDate" id="deliveryDateTo" name="deliveryDateTo" type="text" 
+                        oninput="set_cal(event)">
+                    <button onclick="clearDates()">Clear</button>
+                </div>
+                <div class="flex_column">
+                    <span class="label_long">Last/First Name:</span> 
+                    <input class="lastName" id="lastName" name="lastName" type="text">
+                    <input class="firstName" id="firstName" name="firstName" type="text">
+                    <button onclick="clearName()">Clear</button>
+                </div>
+            </div>
         </div>
         <div class="delivery_list" id="deliveryList">
 
@@ -35,6 +45,12 @@
         function clearDates() {
             document.getElementById("deliveryDate").value = ""
             document.getElementById("deliveryDateTo").value = ""
+            reDisplay()
+        }
+
+        function clearName() {
+            document.getElementById("lastName").value = ""
+            document.getElementById("firstName").value = ""
             reDisplay()
         }
 
@@ -370,20 +386,47 @@
             const basic = element.querySelector(".basic")
             const deliveryDateDiv = basic.querySelector("#deliveryDate")
             deliveryDate = deliveryDateDiv.innerText.substring(deliveryDateDiv.innerText.length - 10, deliveryDateDiv.innerText.length)
+            name = basic.querySelector(".nameDiv").innerText
+
             // console.log("shouldShow, deliveryDate: ", deliveryDate)
             var result = false
-            filterDeliveryDate = document.getElementById("deliveryDate").value
-            filterDeliveryDateTo = document.getElementById("deliveryDateTo").value
-            // console.log("filterDeliveryDate: ", filterDeliveryDate)
-            if(isValidDate(filterDeliveryDate)) {
-                // console.log("isValidDate true")
-                if(getDate(deliveryDate) >= getDate(filterDeliveryDate)) {
-                    // console.log("date are the same")
-                    result = true
-                } else
-                    result = false
-            } else 
+
+            filterLastName = document.getElementById("lastName").value
+            filterFirstName = document.getElementById("firstName").value
+            if(filterLastName == "") {
                 result = true
+            } else {
+                if(!name.includes(filterLastName)) 
+                    result = false
+                else
+                    result = true
+            }
+
+            if(result) {
+                if(filterFirstName == "" ) {
+                    result = true
+                } else {
+                    if(!name.includes(filterFirstName)) 
+                        result = false
+                    else
+                        result = true
+                }
+            }
+
+            if(result) {
+                filterDeliveryDate = document.getElementById("deliveryDate").value
+                filterDeliveryDateTo = document.getElementById("deliveryDateTo").value
+                // console.log("filterDeliveryDate: ", filterDeliveryDate)
+                if(isValidDate(filterDeliveryDate)) {
+                    // console.log("isValidDate true")
+                    if(getDate(deliveryDate) >= getDate(filterDeliveryDate)) {
+                        // console.log("date are the same")
+                        result = true
+                    } else
+                        result = false
+                } else 
+                    result = true
+            }
 
             if(result && isValidDate(filterDeliveryDateTo)) {
                 // console.log("isValidDate true")

@@ -1305,7 +1305,7 @@ def deliveryUpdate(request):
 
             deliveryObj = Delivery.objects.filter(id=request.POST['deliveryID']).first()
 
-            if request.POST.get('action') == 'updateAll':
+            if request.POST.get('action') == 'Update All':
                 if deliveryObj.parentID == -1:
                     delChildDelivery(request.POST['deliveryID'])
                 else:
@@ -1340,7 +1340,7 @@ def deliveryUpdate(request):
             secondMsg = ", request.POST.get('action') is: " + request.POST.get('action')
 
             repeatMsg = ""
-            if not request.POST['repeatFreq'] == "None" and request.POST.get('action') == 'updateAll':
+            if not request.POST['repeatFreq'] == "None" and request.POST.get('action') == 'Update All':
                 secondMsg = secondMsg + ", in if---"
                 date_string = request.POST['deliveryDate']
                 date_format = "%m/%d/%Y"

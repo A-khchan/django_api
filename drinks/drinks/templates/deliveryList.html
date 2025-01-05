@@ -396,7 +396,7 @@
             if(filterLastName == "") {
                 result = true
             } else {
-                if(!name.includes(filterLastName)) 
+                if(!name.toLowerCase().includes(filterLastName.toLowerCase())) 
                     result = false
                 else
                     result = true
@@ -406,7 +406,7 @@
                 if(filterFirstName == "" ) {
                     result = true
                 } else {
-                    if(!name.includes(filterFirstName)) 
+                    if(!name.toLowerCase().includes(filterFirstName.toLowerCase())) 
                         result = false
                     else
                         result = true

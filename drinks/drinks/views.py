@@ -1410,6 +1410,15 @@ def deliveryUpdate(request):
     return response
 
 def reAssignParent(deliveryID, lowestID):
+    previousEvent = Delivery.objects.filter(parentID = deliveryID, id__lt = lowestID)
+    for event in previousEvent:
+        event.parentID = 0
+        event.repeatFreq = 'None'
+
+    orgParent = Delivery.objects.filter(id = deliveryID).first()
+    orgParent.parentID = 0
+    orgParent.repeatFreq = 'None'
+
     selectedChild = Delivery.objects.filter(parentID = deliveryID, id__gte = lowestID)
     msg = "no. of child is " + str(len(selectedChild))
     newParent = 0

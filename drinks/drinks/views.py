@@ -1308,14 +1308,14 @@ def deliveryUpdate(request):
             secondMsg = ""
             if request.POST.get('action') == 'Update All':
                 if deliveryObj.parentID == -1:
-                    delChildDelivery(request.POST['deliveryID'])
+                    delChildDelivery(request.POST['deliveryID'], request.POST['deliveryID'])
                 else:
-                    secondMsg = secondMsg + reAssignParent(deliveryObj.parentID, deliveryObj.id)
+                    delChildDelivery(request.POST['deliveryID'], deliveryObj.id)
             else:
                 if deliveryObj.parentID == -1:
                     secondMsg = secondMsg + reAssignParent(deliveryObj.id, deliveryObj.id)
                 else:
-                    delSibling(request.POST['deliveryID'])
+                    delSibling(deliveryObj.parentID, request.POST['deliveryID'])
 
             deliveryObj.lastName = request.POST['lastName']
             deliveryObj.firstName = request.POST['firstName']
@@ -1425,16 +1425,16 @@ def reAssignParent(deliveryID, lowestID):
 
     return msg
 
-def delChildDelivery(deliveryID):
-    allChildren = Delivery.objects.filter(parentID = deliveryID)
+def delChildDelivery(deliveryID, lowestID):
+    allChildren = Delivery.objects.filter(parentID = deliveryID, id__gte = lowestID)
     for child in allChildren:
         removeItem(child.id)
         child.delete()
 
-def delSibling(deliveryID):
-    allSibling = Delivery.objects.filter(parentID = deliveryID, id__gt = deliveryID)
+def delSibling(deliveryID, lowestID):
+    allSibling = Delivery.objects.filter(parentID = deliveryID, id__gt = lowestID)
     for sibling in allSibling:
-        removeItem(sibling)
+        removeItem(sibling.id)
         sibling.delete()
 
 def deliveryList(request):

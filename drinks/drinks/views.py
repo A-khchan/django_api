@@ -1424,7 +1424,7 @@ def reAssignParent(deliveryID, lowestID):
         start = start + 1
         msg = msg + ", saved"
 
-    if not child.repeatFreq == "None":
+    if start > 0 and not child.repeatFreq == "None":
         date_string = child.deliveryDate
         date_format = "%m/%d/%Y"
         dateObj = dt.strptime(date_string, date_format)

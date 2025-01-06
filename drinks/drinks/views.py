@@ -1315,7 +1315,7 @@ def deliveryUpdate(request):
                 if deliveryObj.parentID == -1:
                     secondMsg = secondMsg + reAssignParent(deliveryObj.id, deliveryObj.id)
                 else:
-                    reAssignParent(deliveryObj.parentID, request.POST['deliveryID'] + 1)
+                    reAssignParent(deliveryObj.parentID, int(request.POST['deliveryID']) + 1)
 
             deliveryObj.lastName = request.POST['lastName']
             deliveryObj.firstName = request.POST['firstName']

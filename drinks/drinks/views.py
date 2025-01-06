@@ -1411,7 +1411,7 @@ def deliveryUpdate(request):
     return response
 
 def reAssignParent(deliveryID):
-    selectedChild = Delivery.objects.filter(parentID = deliveryID, id__ge = deliveryID)
+    selectedChild = Delivery.objects.filter(parentID = deliveryID, id__gte = deliveryID)
     msg = "no. of child is " + str(len(selectedChild))
     newParent = 0
     for child in selectedChild:

@@ -258,6 +258,7 @@
                 nameDiv.className = "nameDiv"
                 // nameDiv.innerText = element.lastName + ", " + element.firstName
                 lastNameDiv = document.createElement("div")
+                lastNameDiv.className = "deliveryDateDiv"
                 lastNameDiv.innerText = element.lastName
                 lastNameDiv.addEventListener("click", setFilterLastName)
                 comma = document.createElement("div")
@@ -265,6 +266,7 @@
                 comma.innerText = ","
 
                 firstNameDiv = document.createElement("div")
+                firstNameDiv.className = "deliveryDateDiv"
                 firstNameDiv.innerText = element.firstName
                 firstNameDiv.addEventListener("click", setFilterFirstName)
                 nameDiv.appendChild(lastNameDiv)

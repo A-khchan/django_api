@@ -1323,8 +1323,7 @@ def deliveryUpdate(request):
             deliveryObj.deliveryDate = request.POST['deliveryDate']
             deliveryObj.address = request.POST['address']
             deliveryObj.selfPickup = request.POST['selfPickup']
-            deliveryObj.parentID = -1
-                        # parentID = parentID,
+            deliveryObj.parentID = parentID
             deliveryObj.repeatFreq = request.POST['repeatFreq']
             deliveryObj.eligible = request.POST['eligible']
             deliveryObj.ticketNo = ticketNo
@@ -1414,6 +1413,7 @@ def reAssignParent(deliveryID, lowestID):
     selectedChild = Delivery.objects.filter(parentID = deliveryID, id__gte = lowestID)
     msg = "no. of child is " + str(len(selectedChild))
     newParent = 0
+    start = 0
     for child in selectedChild:
         if newParent == 0:
             newParent = child.id
@@ -1421,9 +1421,50 @@ def reAssignParent(deliveryID, lowestID):
         else:
             child.parentID = newParent
         child.save()
+        start = start + 1
         msg = msg + ", saved"
 
+    if not child.repeatFreq == "None":
+        date_string = child.deliveryDate
+        date_format = "%m/%d/%Y"
+        dateObj = dt.strptime(date_string, date_format)
+
+        dayOfWeek = dateObj.weekday()
+        weekOfMonth = math.ceil(dateObj.day/7) #round up
+
+        if child.repeatFreq == "Monthly":
+            count = 12
+            addMonth = 1
+        else:
+            count = 6
+            addMonth = 2
+
+        lastDeliveryDate = dateObj
+        for i in range(start, count, 1):
+            
+            nextMonth = lastDeliveryDate + relativedelta(months = addMonth)
+            nextMonth1st = nextMonth.replace(day=1)
+            if nextMonth1st.weekday() > dayOfWeek:
+                daysToAdd = 7 - (nextMonth1st.weekday() - dayOfWeek)
+            else:
+                daysToAdd = dayOfWeek - nextMonth1st.weekday()
+            nextDeliveryDate = nextMonth1st + relativedelta(days = 7*(weekOfMonth-1) + daysToAdd)
+
+            child.pk = None
+            child.deliveryDate = nextDeliveryDate.strftime("%m/%d/%Y")
+            child.save()
+            lastDeliveryDate = nextDeliveryDate
+            cloneItem(newParent, child.id)    
+
     return msg
+
+def cloneItem(cloneFromID, deliveryID):
+    items = DeliveryItems.objects.filter(deliveryID = cloneFromID)
+    for item in items:
+        item.pk = None
+        item.deliveryID = deliveryID
+        item.save()
+    
 
 def delChildDelivery(deliveryID, lowestID):
     allChildren = Delivery.objects.filter(parentID = deliveryID, id__gte = lowestID)

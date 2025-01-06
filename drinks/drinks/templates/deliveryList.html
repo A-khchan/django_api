@@ -154,6 +154,7 @@
             currentSeq = 0.0 //initially this is set to zero
             temp_deliveryList = []
             itemSummary = {}
+            eventCount = 0
             for(const element of items_sorted) {
                 // console.log("element is: ", element)
                 dropTarget = document.createElement("div")
@@ -189,6 +190,7 @@
                 currentSeq = parseFloat(element.seq)
 
                 temp_deliveryList.push(element)
+                eventCount++
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"
@@ -200,7 +202,7 @@
 
             deliveryList.replaceChildren(...temp_deliveryList)
 
-            addSummary(itemSummary)
+            addSummary(eventCount, itemSummary)
         }
 
         itemSummary = {}
@@ -227,6 +229,7 @@
 
             deliveryList = document.getElementById("deliveryList")
 
+            eventCount = 0
             currentSeq = 0.0 //initially this is set to zero
             for(const element of delivery_sorted) {
                 dropTarget = document.createElement("div")
@@ -330,6 +333,7 @@
                 child.appendChild(itemList)
 
                 deliveryList.appendChild(child)
+                eventCount++
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"
@@ -346,7 +350,7 @@
             // console.log("itemDict 2 is: ", itemDict)
             // console.log("itemDict['3036'] 2 is: ", itemDict["3036"])
             // console.log("itemSummary: ", itemSummary)
-            addSummary(itemSummary)
+            addSummary(eventCount, itemSummary)
 
             needRedisplay = false
             // console.log("sessionStorage.getItem('deliveryDate'):", sessionStorage.getItem('deliveryDate'))
@@ -393,9 +397,13 @@
             reDisplay()
         }
 
-        function addSummary(itemSummary) {
+        function addSummary(eventCount, itemSummary) {
             summaryBox = document.createElement("div")
             summaryBox.className = "summaryBox"
+
+            countInfo = document.createElement("div")
+            countInfo.innerText = "Event count: " + eventCount
+            summaryBox.appendChild(countInfo)
 
             summaryRow = document.createElement("div")
             summaryRow.innerText = "Summary:"

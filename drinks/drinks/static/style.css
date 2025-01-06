@@ -391,6 +391,7 @@ body {
 }
 
 .nameDiv {
+    display: flex;
     padding: 3px;
     /* border-style: solid;
     border-width: 2px;

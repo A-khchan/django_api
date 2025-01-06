@@ -258,7 +258,9 @@
                 lastNameDiv.innerText = element.lastName
                 lastNameDiv.addEventListener("click", setFilterLastName)
                 comma = document.createElement("div")
-                comma.innerText = ", "
+                comma.className = "comma"
+                comma.innerText = "x"
+
                 firstNameDiv = document.createElement("div")
                 firstNameDiv.innerText = element.firstName
                 firstNameDiv.addEventListener("click", setFilterFirstName)

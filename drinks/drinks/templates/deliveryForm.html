@@ -115,10 +115,10 @@
                             <input id="create" class="button" type="submit" value="Create">
                         </div>
                         <div>
-                            <input id="update" class="button" type="submit" value="Update" name="action" value="update" formaction="../deliveryUpdate/">
+                            <input id="update" class="button" type="submit" value="Update" name="action" formaction="../deliveryUpdate/">
                         </div>
                         <div>
-                            <input id="updateAll" class="button" type="submit" value="Update All" name="action" value="updateAll" formaction="../deliveryUpdate/">
+                            <input id="updateAll" class="button" type="submit" value="Update All" name="action" formaction="../deliveryUpdate/">
                         </div>
                     </div>
                 </form>
@@ -474,6 +474,11 @@
                 document.getElementById("selfPickup_" + '{{ selfPickup }}').checked = true
                 // document.getElementById("").value = '{{ parentID }}'
                 document.getElementById("repeatFreq_" + '{{ repeatFreq }}').checked = true
+                if('{{ repeatFreq }}' == 'None') {
+                    document.getElementById("updateAll").disabled = true
+                } else {
+                    document.getElementById("updateAll").disabled = true
+                }
                 document.getElementById("eligible_" + '{{ eligible }}').checked = true
                 document.getElementById("ticketNo").value = '{{ ticketNo }}'
                 // document.getElementById("").value = '{{ leaveAtDoor }}'
@@ -505,6 +510,20 @@
         }
 
         getItemCode()
+
+        function disableUpdatedAll() {
+            document.getElementById("updateAll").disabled = true
+            document.getElementById("update").disabled = false
+        }
+
+        function disableUpdated() {
+            document.getElementById("updateAll").disabled = false
+            document.getElementById("update").disabled = true 
+        }
+
+        document.getElementById("repeatFreq_None").addEventListener("click", disableUpdateAll)
+        document.getElementById("repeatFreq_Monthly").addEventListener("click", disableUpdate)
+        document.getElementById("repeatFreq_Bi-Monthly").addEventListener("click", disableUpdate)
 
     </script>     
 

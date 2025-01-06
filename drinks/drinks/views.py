@@ -1309,8 +1309,10 @@ def deliveryUpdate(request):
             if request.POST.get('action') == 'Update All':
                 if deliveryObj.parentID == -1:
                     delChildDelivery(request.POST['deliveryID'], request.POST['deliveryID'])
+                    reAssignParent(request.POST['deliveryID'], request.POST['deliveryID'])
                 else:
                     delChildDelivery(deliveryObj.parentID, deliveryObj.id)
+                    reAssignParent(deliveryObj.parentID, deliveryObj.id)
             else:
                 if deliveryObj.parentID == -1:
                     secondMsg = secondMsg + reAssignParent(deliveryObj.id, deliveryObj.id)

@@ -478,8 +478,10 @@
                 document.getElementById("repeatFreq_" + '{{ repeatFreq }}').checked = true
                 if('{{ repeatFreq }}' == 'None') {
                     document.getElementById("updateAll").disabled = true
+                    document.getElementById("update").disabled = false
                 } else {
-                    document.getElementById("updateAll").disabled = true
+                    document.getElementById("updateAll").disabled = false
+                    document.getElementById("update").disabled = true
                 }
                 document.getElementById("eligible_" + '{{ eligible }}').checked = true
                 document.getElementById("ticketNo").value = '{{ ticketNo }}'

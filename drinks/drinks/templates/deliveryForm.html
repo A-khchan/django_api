@@ -115,10 +115,12 @@
                             <input id="create" class="button" type="submit" value="Create">
                         </div>
                         <div>
-                            <input id="update" class="button" type="submit" value="Update" name="action" formaction="../deliveryUpdate/">
+                            <input id="update" class="button" type="submit" value="Update" name="action" 
+                                    formaction="../deliveryUpdate/" style="display: none">
                         </div>
                         <div>
-                            <input id="updateAll" class="button" type="submit" value="Update All" name="action" formaction="../deliveryUpdate/">
+                            <input id="updateAll" class="button" type="submit" value="Update All" name="action" 
+                                    formaction="../deliveryUpdate/" style="display: none">
                         </div>
                     </div>
                 </form>
@@ -501,11 +503,12 @@
                 }
                 calCost()
 
-                if('{{ repeatFreq }}' != "None") {
-                    document.getElementById("updateAll").style.display = "block"
-                } else {
-                    document.getElementById("updateAll").style.display = "none"
-                }
+                // if('{{ repeatFreq }}' != "None") {
+                document.getElementById("updateAll").style.display = "block"
+                document.getElementById("update").style.display = "block"
+                // } else {
+                //     document.getElementById("updateAll").style.display = "none"
+                // }
             }
         }
 
@@ -521,9 +524,9 @@
             document.getElementById("update").disabled = true 
         }
 
-        document.getElementById("repeatFreq_None").addEventListener("click", disableUpdateAll)
-        document.getElementById("repeatFreq_Monthly").addEventListener("click", disableUpdate)
-        document.getElementById("repeatFreq_Bi-Monthly").addEventListener("click", disableUpdate)
+        document.getElementById("repeatFreq_None").addEventListener("change", disableUpdateAll)
+        document.getElementById("repeatFreq_Monthly").addEventListener("change", disableUpdate)
+        document.getElementById("repeatFreq_Bi-Monthly").addEventListener("change", disableUpdate)
 
     </script>     
 

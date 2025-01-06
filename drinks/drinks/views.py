@@ -1310,10 +1310,10 @@ def deliveryUpdate(request):
                 if deliveryObj.parentID == -1:
                     delChildDelivery(request.POST['deliveryID'])
                 else:
-                    secondMsg = secondMsg + reAssignParent(deliveryObj.parentID, request.POST['deliveryID'])
+                    secondMsg = secondMsg + reAssignParent(deliveryObj.parentID)
             else:
                 if deliveryObj.parentID == -1:
-                    secondMsg = secondMsg + reAssignParent(deliveryObj.id, request.POST['deliveryID'])
+                    secondMsg = secondMsg + reAssignParent(deliveryObj.id)
                 else:
                     delSibling(request.POST['deliveryID'])
 
@@ -1410,11 +1410,16 @@ def deliveryUpdate(request):
 
     return response
 
-def reAssignParent(deliveryID, newID):
-    selectedChild = Delivery.objects.filter(parentID = deliveryID, id__gt = deliveryID)
+def reAssignParent(deliveryID):
+    selectedChild = Delivery.objects.filter(parentID = deliveryID, id__ge = deliveryID)
     msg = "no. of child is " + str(len(selectedChild))
+    newParent = 0
     for child in selectedChild:
-        child.parentID = newID
+        if newParent == 0:
+            newParent = child.id
+            child.parentID = -1
+        else:
+            child.parentID = newParent
         child.save()
         msg = msg + ", saved"
 

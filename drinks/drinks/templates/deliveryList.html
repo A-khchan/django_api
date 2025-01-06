@@ -181,6 +181,7 @@
                         itemSummary[item.itemCode][0] += item.box
                         itemSummary[item.itemCode][1] += item.bag
                     }
+                    eventCount++
                 } else {
                     dropTarget.style.display = "none"
                     element.style.display = "none"
@@ -190,7 +191,6 @@
                 currentSeq = parseFloat(element.seq)
 
                 temp_deliveryList.push(element)
-                eventCount++
             }
             dropTarget = document.createElement("div")
             dropTarget.className = "dropTarget"

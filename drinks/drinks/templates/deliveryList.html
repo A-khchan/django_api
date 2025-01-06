@@ -253,7 +253,18 @@
 
                 nameDiv = document.createElement("div")
                 nameDiv.className = "nameDiv"
-                nameDiv.innerText = element.lastName + ", " + element.firstName
+                // nameDiv.innerText = element.lastName + ", " + element.firstName
+                lastNameDiv = document.createElement("div")
+                lastNameDiv.innerText = element.lastName
+                lastNameDiv.addEventListener("click", setFilterLastName)
+                comma = document.createElement("div")
+                comma.innerText = ", "
+                firstNameDiv = document.createElement("div")
+                firstNameDiv.innerText = element.firstName
+                firstNameDiv.addEventListener("click", setFilterfirstName)
+                nameDiv.appendChild(lastNameDiv)
+                nameDiv.appendChild(comma)
+                nameDiv.appendChild(firstNameDiv)
 
                 addressDiv = document.createElement("div")
                 addressDiv.className = "textDiv"
@@ -356,6 +367,16 @@
             if(needRedisplay)
                 reDisplay()
 
+        }
+
+        function setFilterLastName(event) {
+            document.getElementById("lastName").value = event.target.innerText
+            reDisplay()
+        }
+
+        function setFilterFirstName(event) {
+            document.getElementById("firstName").value = event.target.innerText
+            reDisplay()
         }
 
         function gotoUpdate(event) {

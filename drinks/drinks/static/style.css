@@ -319,6 +319,10 @@ body {
     flex-direction: column;
 }
 
+.comma {
+    margin-right: 5px;
+}
+
 .basic {
     display: flex;
     margin: 2px;

@@ -1596,6 +1596,40 @@ def deliverySeqUpdate(request):
     
     return JsonResponse(data, safe=False)
 
+def deliveryDelete(request):
+    
+    userName = request.session.get('userName')
+
+    print("request: ", request)
+
+    if userName is None:
+        data = {
+            'Msg': 'Please login'
+        }
+    else:
+        if request.method == 'POST':  
+            data = json.loads(request.body)
+            print("data is ", data)
+            deliveryID = data.get("deliveryID")
+            mode = data.get("mode")
+            # print("request.POST['from'] is ", fromSeq)
+            deliveryObj = Delivery.objects.filter(id=int(deliveryID)).first()
+            if not deliveryObj is None:
+                deliveryObj.delete()
+                data = {
+                    'Msg': 'Delivery deleted'
+                }
+            else:
+                data = {
+                    'Msg': 'Record not found'
+                }
+        else:
+            data = {
+                        'Msg': 'Not a POST'
+                    } 
+    
+    return JsonResponse(data, safe=False)
+
 def itemSetup(request):
     
     userName = request.session.get('userName')

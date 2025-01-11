@@ -309,6 +309,11 @@
                 basic.appendChild(dot.cloneNode(true))
                 basic.appendChild(eligibleDiv)
 
+                delDiv = document.createElement("div")
+                delDiv.addEventListener("click", doDelete)
+                delDiv.innerText = "🗑"
+                delDiv.id = element.id
+
                 child.appendChild(basic)
 
                 // console.log("element.itemList: ", element.itemList)
@@ -385,6 +390,34 @@
         function setFilterFirstName(event) {
             document.getElementById("firstName").value = event.target.innerText
             reDisplay()
+        }
+
+        function doDelete(event) {
+            const django_server = "https://www.roboosoft.com/"
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json',
+                           'X-CSRFToken': csrfToken  
+                         },
+                body: JSON.stringify({ 'deliveryID': event.target.innerText, 
+                                       'mode': 'one',
+                                     })
+            }
+            console.log("Before fetch ")
+            fetch(django_server + "account/deliveryDelete/", requestOptions)
+            .then((response) => {
+                    console.log("Before response.json() ", response)
+                    return response.json()
+                })
+            .then((data) => {
+                                //data.id
+                                console.log("data: ", data)
+                                console.log("data.Msg: ", data.Msg)
+                                window.location.reload()
+                            })
         }
 
         function gotoUpdate(event) {

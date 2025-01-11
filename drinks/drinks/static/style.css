@@ -370,6 +370,7 @@ body {
 
 .delDiv {
     cursor: pointer;
+    transform: translateY(-3px);
 }
 
 .deliveryDateDiv:hover {

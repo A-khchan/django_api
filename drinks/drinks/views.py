@@ -1311,13 +1311,15 @@ def deliveryUpdate(request):
                     delChildDelivery(request.POST['deliveryID'], request.POST['deliveryID'])
                     reAssignParent(request.POST['deliveryID'], request.POST['deliveryID'])
                 else:
-                    delChildDelivery(deliveryObj.parentID, deliveryObj.id)
-                    reAssignParent(deliveryObj.parentID, deliveryObj.id)
+                    if deliveryObj.parentID > 0:
+                        delChildDelivery(deliveryObj.parentID, deliveryObj.id)
+                        reAssignParent(deliveryObj.parentID, deliveryObj.id)
             else:
                 if deliveryObj.parentID == -1:
                     secondMsg = secondMsg + reAssignParent(deliveryObj.id, deliveryObj.id)
                 else:
-                    reAssignParent(deliveryObj.parentID, int(request.POST['deliveryID']) + 1)
+                    if deliveryObj.parentID > 0:
+                        reAssignParent(deliveryObj.parentID, int(request.POST['deliveryID']) + 1)
 
             deliveryObj.lastName = request.POST['lastName']
             deliveryObj.firstName = request.POST['firstName']

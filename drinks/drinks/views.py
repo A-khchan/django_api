@@ -1615,10 +1615,39 @@ def deliveryDelete(request):
             # print("request.POST['from'] is ", fromSeq)
             deliveryObj = Delivery.objects.filter(id=int(deliveryID)).first()
             if not deliveryObj is None:
-                deliveryObj.delete()
-                data = {
-                    'Msg': 'Delivery deleted'
-                }
+                if mode == "one":
+                    if deliveryObj.parentID == 0:
+                        deleteDelivery(int(deliveryID))
+                    else:
+                        if deliveryObj.parentID == -1:
+                            reAssignParent(deliveryObj.id, deliveryObj.id)
+                        else:
+                            reAssignParent(deliveryObj.parentID, deliveryObj.id)
+                        deleteDelivery(int(deliveryID))
+                        data = {
+                            'Msg': 'Delivery deleted (reassigned)'
+                        }
+                else:
+                    if deliveryObj.parentID == -1:
+                        deliveryList = Delivery.objects.filter(parentID=int(deliveryID))
+                        deliveryList.delete()
+                        deleteDelivery(int(deliveryID))
+                        data = {
+                            'Msg': 'Delivery deleted (all)'
+                        }
+                    else:
+                        if deliveryObj.parentID > 0:
+                            deliveryList = Delivery.objects.filter(parentID=deliveryObj.parentID, id__gte = deliveryObj.id)
+                            deliveryList.delete()
+                            deleteDelivery(int(deliveryID))
+                            data = {
+                                'Msg': 'Delivery deleted (this and future)'
+                            }
+                        else:
+                            deleteDelivery(int(deliveryID))
+                            data = {
+                                'Msg': 'Delivery deleted (this only)'
+                            }                            
             else:
                 data = {
                     'Msg': 'Record not found'
@@ -1629,6 +1658,12 @@ def deliveryDelete(request):
                     } 
     
     return JsonResponse(data, safe=False)
+
+def deleteDelivery(deliveryID):
+    removeItem(deliveryID)
+    deliveryObj = Delivery.objects.filter(id=int(deliveryID)).first()
+    if not deliveryObj is None:
+        deliveryObj.delete()
 
 def itemSetup(request):
     
@@ -1721,9 +1756,7 @@ def itemAddUpdate(request):
 
 def removeItem(deliveryID):
     itemObjList = DeliveryItems.objects.filter(deliveryID=deliveryID)
-    for i in range(0, len(itemObjList), 1):
-        itemObjList.delete()
-
+    itemObjList.delete()
 
 def addItem(request, deliveryObj):
     rowNum = 1

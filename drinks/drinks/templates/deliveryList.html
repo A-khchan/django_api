@@ -314,7 +314,18 @@
                 delDiv.className = "delDiv"
                 delDiv.innerText = "🗑"
                 delDiv.id = element.id
+                delDiv.mode = "one"
                 basic.appendChild(delDiv)
+
+                if(element.id == -1) {
+                    delAllDiv = document.createElement("div")
+                    delAllDiv.addEventListener("click", doDelete)
+                    delAllDiv.className = "delAllDiv"
+                    delAllDiv.innerText = "🔥"
+                    delAllDiv.id = element.id
+                    delAllDiv.mode = "all"
+                    basic.appendChild(delAllDiv)
+                }
 
                 child.appendChild(basic)
 
@@ -405,7 +416,7 @@
                            'X-CSRFToken': csrfToken  
                          },
                 body: JSON.stringify({ 'deliveryID': event.target.id, 
-                                       'mode': 'one',
+                                       'mode': event.target.mode,
                                      })
             }
             console.log("Before fetch ")

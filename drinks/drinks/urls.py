@@ -57,7 +57,7 @@ urlpatterns = [
     path('account/itemSetup/', views.itemSetup),
     path('account/itemList/', views.itemList),
     path('account/itemAddUpdate/', views.itemAddUpdate),
-    path('account/deliveryDelete/', views.itemAddUpdate),
+    path('account/deliveryDelete/', views.deliveryDelete),
     # path('ws/count/', consumers.Counter.as_asgi()), 
 ]
 

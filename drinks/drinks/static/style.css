@@ -368,6 +368,11 @@ body {
     cursor: pointer;
 }
 
+.delDiv {
+    padding: 3px;
+    cursor: pointer;
+}
+
 .deliveryDateDiv:hover {
     padding: 3px;
     cursor: pointer;

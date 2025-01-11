@@ -404,7 +404,7 @@
                 headers: { 'Content-Type': 'application/json',
                            'X-CSRFToken': csrfToken  
                          },
-                body: JSON.stringify({ 'deliveryID': event.target.innerText, 
+                body: JSON.stringify({ 'deliveryID': event.target.id, 
                                        'mode': 'one',
                                      })
             }

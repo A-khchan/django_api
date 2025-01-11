@@ -373,6 +373,11 @@ body {
     transform: translateY(-3px);
 }
 
+.delDiv {
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
 .deliveryDateDiv:hover {
     padding: 3px;
     cursor: pointer;

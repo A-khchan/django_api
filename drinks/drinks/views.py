@@ -1622,7 +1622,7 @@ def deliveryDelete(request):
                         if deliveryObj.parentID == -1:
                             reAssignParent(deliveryObj.id, deliveryObj.id)
                         else:
-                            reAssignParent(deliveryObj.parentID, deliveryObj.id)
+                            reAssignParent(deliveryObj.parentID, deliveryObj.id + 1)
                         deleteDelivery(int(deliveryID))
                         data = {
                             'Msg': 'Delivery deleted (reassigned)'

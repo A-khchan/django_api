@@ -89,6 +89,19 @@
                         </div>
                     </div>
                     <div class="contentVerticallyCenter">
+                        <span class="label_long">Leave at door:</span> 
+                        <div class="radio_group">
+                            <div>
+                                <input type="radio" name="leaveAtDoor" id="leaveAtDoor_Y" value="Y" checked />
+                                <label for="Y">Yes</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="leaveAtDoor" id="leaveAtDoor_N" value="N" />
+                                <label for="N">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contentVerticallyCenter">
                         <span class="label_long">Ticket No.:</span> <input class="textField" id="ticketNo" name="ticketNo" type="number" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
@@ -219,6 +232,8 @@
         document.getElementsByName('selfPickup')[0].addEventListener('click', hide_cal );
         document.getElementsByName('selfPickup')[1].addEventListener('click', hide_cal );
         document.getElementById('address').addEventListener('focus', hide_cal );
+        document.getElementsById('leaveAtDoor_Y').addEventListener('click', hide_cal );
+        document.getElementsById('leaveAtDoor_N').addEventListener('click', hide_cal );
 
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message
@@ -485,7 +500,7 @@
                 }
                 document.getElementById("eligible_" + '{{ eligible }}').checked = true
                 document.getElementById("ticketNo").value = '{{ ticketNo }}'
-                // document.getElementById("").value = '{{ leaveAtDoor }}'
+                document.getElementById("leaveAtDoor_" + '{{ leaveAtDoor }}').checked = true
                 // document.getElementById("").value = '{{ phoneForPic }}'
                 // document.getElementById("").value = '{{ status }}'
                 // document.getElementById("").value = '{{ log }}'

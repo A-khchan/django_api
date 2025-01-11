@@ -1202,7 +1202,7 @@ def deliveryAdd(request):
                         repeatFreq = request.POST['repeatFreq'],
                         eligible = request.POST['eligible'],
                         ticketNo = ticketNo,
-                        leaveAtDoor = 'Y',
+                        leaveAtDoor = request.POST['leaveAtDoor'],
                         phoneForPic = '123-456-7890',
                         status = 'Planned',
                         log = '',
@@ -1253,7 +1253,7 @@ def deliveryAdd(request):
                                 repeatFreq = request.POST['repeatFreq'],
                                 eligible = 'P',
                                 ticketNo = 0,
-                                leaveAtDoor = 'Y',
+                                leaveAtDoor = request.POST['leaveAtDoor'],
                                 phoneForPic = '123-456-7890',
                                 status = 'Planned',
                                 log = '',
@@ -1331,7 +1331,7 @@ def deliveryUpdate(request):
             deliveryObj.repeatFreq = request.POST['repeatFreq']
             deliveryObj.eligible = request.POST['eligible']
             deliveryObj.ticketNo = ticketNo
-            deliveryObj.leaveAtDoor = 'Y'
+            deliveryObj.leaveAtDoor = request.POST['leaveAtDoor']
             deliveryObj.phoneForPic = '123-456-7890'
             deliveryObj.status = 'Planned'
             deliveryObj.log = ''
@@ -1388,7 +1388,7 @@ def deliveryUpdate(request):
                                 repeatFreq = request.POST['repeatFreq'],
                                 eligible = 'P',
                                 ticketNo = 0,
-                                leaveAtDoor = 'Y',
+                                leaveAtDoor = request.POST['leaveAtDoor'],
                                 phoneForPic = '123-456-7890',
                                 status = 'Planned',
                                 log = '',

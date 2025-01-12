@@ -547,6 +547,7 @@
         function formatPhone(event) {
             let input = event.target.value;
             input = input.replace(/[^\d]/g, '');
+            console.log("input: ", input)
             output = input
             if(input.length > 6) {
                 endIndex = Math.min(input.length, 10)

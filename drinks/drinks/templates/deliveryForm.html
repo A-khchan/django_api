@@ -102,6 +102,9 @@
                         </div>
                     </div>
                     <div class="contentVerticallyCenter">
+                        <span class="label_long">Send picture to:</span> <input class="textField" id="phoneForPic" name="phoneForPic" type="text" oninput="clearMessage()"><br>
+                    </div>
+                    <div class="contentVerticallyCenter">
                         <span class="label_long">Ticket No.:</span> <input class="textField" id="ticketNo" name="ticketNo" type="number" oninput="clearMessage()"><br>
                     </div>
                     <div class="contentVerticallyCenter">
@@ -499,9 +502,9 @@
                     document.getElementById("update").disabled = true
                 }
                 document.getElementById("eligible_" + '{{ eligible }}').checked = true
-                document.getElementById("ticketNo").value = '{{ ticketNo }}'
                 document.getElementById("leaveAtDoor_" + '{{ leaveAtDoor }}').checked = true
-                // document.getElementById("").value = '{{ phoneForPic }}'
+                document.getElementById("phoneForPic").value = '{{ phoneForPic }}'
+                document.getElementById("ticketNo").value = '{{ ticketNo }}'
                 // document.getElementById("").value = '{{ status }}'
                 // document.getElementById("").value = '{{ log }}'
                 // document.getElementById("").value = '{{ comments }}'
@@ -541,9 +544,24 @@
             document.getElementById("update").disabled = true 
         }
 
+        function formatPhone(event) {
+            let input = event.target.value;
+            input = input.replace(/[^\d]/g, '');
+            if(input.length > 6) {
+                endIndex = Math.min(input.length, 10)
+                ouput = input.substring(0,3) + "-" + input.substring(3,6) + "-" + input.substring(6,endIndex)
+            } else if(input.length >= 3) {
+                ouput = input.substring(0,3) + "-"
+            } else {
+                ouput = input
+            }
+            event.target.value = output
+        }
+
         document.getElementById("repeatFreq_None").addEventListener("change", disableUpdateAll)
         document.getElementById("repeatFreq_Monthly").addEventListener("change", disableUpdate)
         document.getElementById("repeatFreq_Bi-Monthly").addEventListener("change", disableUpdate)
+        document.getElementById("phoneForPic").addEventListener("change", formatPhone)
 
     </script>     
 

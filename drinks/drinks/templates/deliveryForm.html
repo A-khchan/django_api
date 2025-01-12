@@ -555,7 +555,7 @@
                 console.log("output > 6: ", output)
             } else if(input.length >= 3) {
                 endIndex = Math.min(input.length, 6)
-                output = input.substring(0,3) + "-" + input.substring(6,endIndex)
+                output = input.substring(0,3) + "-" + input.substring(3,endIndex)
             }
             event.target.value = output
         }

@@ -1316,7 +1316,7 @@ def deliveryUpdate(request):
                         reAssignParent(deliveryObj.parentID, deliveryObj.id)
             else:
                 if deliveryObj.parentID == -1:
-                    secondMsg = secondMsg + reAssignParent(deliveryObj.id, deliveryObj.id)
+                    reAssignParent(deliveryObj.id, deliveryObj.id)
                 else:
                     if deliveryObj.parentID > 0:
                         reAssignParent(deliveryObj.parentID, int(request.POST['deliveryID']) + 1)
@@ -1341,11 +1341,11 @@ def deliveryUpdate(request):
             removeItem(int(request.POST['deliveryID']))
             addItem(request, deliveryObj)
 
-            secondMsg = secondMsg + ", request.POST.get('action') is: " + request.POST.get('action')
+            # secondMsg = secondMsg + ", request.POST.get('action') is: " + request.POST.get('action')
 
             repeatMsg = ""
             if not request.POST['repeatFreq'] == "None" and request.POST.get('action') == 'Update All':
-                secondMsg = secondMsg + ", in if---"
+                # secondMsg = secondMsg + ", in if---"
                 date_string = request.POST['deliveryDate']
                 date_format = "%m/%d/%Y"
                 dateObj = dt.strptime(date_string, date_format)
@@ -1367,7 +1367,7 @@ def deliveryUpdate(request):
                 parentID = deliveryObj.id
                 lastDeliveryDate = dateObj
                 for i in range(0, count, 1):
-                    secondMsg = secondMsg + ", in for loop"
+                    # secondMsg = secondMsg + ", in for loop"
 
                     nextMonth = lastDeliveryDate + relativedelta(months = addMonth)
                     nextMonth1st = nextMonth.replace(day=1)

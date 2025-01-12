@@ -1203,7 +1203,7 @@ def deliveryAdd(request):
                         eligible = request.POST['eligible'],
                         ticketNo = ticketNo,
                         leaveAtDoor = request.POST['leaveAtDoor'],
-                        phoneForPic = '123-456-7890',
+                        phoneForPic = request.POST['phoneForPic'],
                         status = 'Planned',
                         log = '',
                         comments = None)
@@ -1254,7 +1254,7 @@ def deliveryAdd(request):
                                 eligible = 'P',
                                 ticketNo = 0,
                                 leaveAtDoor = request.POST['leaveAtDoor'],
-                                phoneForPic = '123-456-7890',
+                                phoneForPic = request.POST['phoneForPic'],
                                 status = 'Planned',
                                 log = '',
                                 comments = None)
@@ -1332,7 +1332,8 @@ def deliveryUpdate(request):
             deliveryObj.eligible = request.POST['eligible']
             deliveryObj.ticketNo = ticketNo
             deliveryObj.leaveAtDoor = request.POST['leaveAtDoor']
-            deliveryObj.phoneForPic = '123-456-7890'
+            print("request.POST['phoneForPic']: ", request.POST['phoneForPic'])
+            deliveryObj.phoneForPic = request.POST['phoneForPic']
             deliveryObj.status = 'Planned'
             deliveryObj.log = ''
             deliveryObj.comments = None
@@ -1389,7 +1390,7 @@ def deliveryUpdate(request):
                                 eligible = 'P',
                                 ticketNo = 0,
                                 leaveAtDoor = request.POST['leaveAtDoor'],
-                                phoneForPic = '123-456-7890',
+                                phoneForPic = request.POST['phoneForPic'],
                                 status = 'Planned',
                                 log = '',
                                 comments = None)

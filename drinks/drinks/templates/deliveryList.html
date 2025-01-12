@@ -318,11 +318,6 @@
                 basic.appendChild(dot.cloneNode(true))
                 basic.appendChild(delDiv)
 
-                idsDiv = document.createElement("div")
-                idsDiv.className = "textDiv"
-                idsDiv.innerText = "id: " + element.id + ", pID: " + element.parentID
-                basic.appendChild(dot.cloneNode(true))
-                basic.appendChild(idsDiv)
 
                 if(element.parentID != 0) {
                     delAllDiv = document.createElement("div")
@@ -331,8 +326,15 @@
                     delAllDiv.innerText = "🔥"
                     delAllDiv.id = element.id
                     delAllDiv.mode = "all"
+                    basic.appendChild(dot.cloneNode(true))
                     basic.appendChild(delAllDiv)
                 }
+
+                idsDiv = document.createElement("div")
+                idsDiv.className = "textDiv"
+                idsDiv.innerText = "id: " + element.id + ", pID: " + element.parentID
+                basic.appendChild(dot.cloneNode(true))
+                basic.appendChild(idsDiv)
 
                 child.appendChild(basic)
 

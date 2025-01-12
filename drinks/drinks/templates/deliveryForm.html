@@ -551,9 +551,10 @@
             output = input
             if(input.length > 6) {
                 endIndex = Math.min(input.length, 10)
-                ouput = input.substring(0,3) + "-" + input.substring(3,6) + "-" + input.substring(6,endIndex)
+                output = input.substring(0,3) + "-" + input.substring(3,6) + "-" + input.substring(6,endIndex)
+                console.log("output > 6: ", output)
             } else if(input.length >= 3) {
-                ouput = input.substring(0,3) + "-"
+                output = input.substring(0,3) + "-"
             }
             event.target.value = output
         }

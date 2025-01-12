@@ -547,13 +547,12 @@
         function formatPhone(event) {
             let input = event.target.value;
             input = input.replace(/[^\d]/g, '');
+            output = input
             if(input.length > 6) {
                 endIndex = Math.min(input.length, 10)
                 ouput = input.substring(0,3) + "-" + input.substring(3,6) + "-" + input.substring(6,endIndex)
             } else if(input.length >= 3) {
                 ouput = input.substring(0,3) + "-"
-            } else {
-                ouput = input
             }
             event.target.value = output
         }

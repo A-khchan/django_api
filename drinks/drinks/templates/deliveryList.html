@@ -275,7 +275,7 @@
 
                 addressDiv = document.createElement("div")
                 addressDiv.className = "textDiv"
-                addressDiv.innerText = element.address + ", ID: " + element.id + ", parentID: " + element.parentID
+                addressDiv.innerText = element.address
 
                 eligibleDiv = document.createElement("div")
                 eligibleDiv.className = "textDiv"
@@ -315,7 +315,14 @@
                 delDiv.innerText = "🗑"
                 delDiv.id = element.id
                 delDiv.mode = "one"
+                basic.appendChild(dot.cloneNode(true))
                 basic.appendChild(delDiv)
+
+                idsDiv = document.createElement("div")
+                idsDiv.className = "textDiv"
+                idsDiv.innerText = "id: " + element.id + ", pID: " + element.parentID
+                basic.appendChild(dot.cloneNode(true))
+                basic.appendChild(idsDiv)
 
                 if(element.parentID != 0) {
                     delAllDiv = document.createElement("div")

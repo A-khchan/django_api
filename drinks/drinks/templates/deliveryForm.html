@@ -549,12 +549,13 @@
             input = input.replace(/[^\d]/g, '');
             console.log("input: ", input)
             output = input
-            if(input.length > 6) {
+            if(input.length >= 6) {
                 endIndex = Math.min(input.length, 10)
                 output = input.substring(0,3) + "-" + input.substring(3,6) + "-" + input.substring(6,endIndex)
                 console.log("output > 6: ", output)
             } else if(input.length >= 3) {
-                output = input.substring(0,3) + "-"
+                endIndex = Math.min(input.length, 6)
+                output = input.substring(0,3) + "-" + input.substring(6,endIndex)
             }
             event.target.value = output
         }

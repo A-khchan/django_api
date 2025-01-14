@@ -228,6 +228,7 @@
             })
 
             deliveryList = document.getElementById("deliveryList")
+            deliveryList.style.display = "none"
 
             eventCount = 0
             currentSeq = 0.0 //initially this is set to zero
@@ -402,6 +403,7 @@
             if(needRedisplay)
                 reDisplay()
 
+            deliveryList.style.display = "block"
         }
 
         function setFilterLastName(event) {

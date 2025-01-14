@@ -16,7 +16,7 @@
     <div class="flex_row_middle_up">
         <div class="contentVerticallyCenter">
             <div class="flex_column">
-                <div>Create a delivery</div>
+                <div id="page_title">Create a delivery</div>
                 <form class="registerForm" method="post" action="../deliveryAdd/" >{% csrf_token %}
                     <div style="display: none">
                         <input name="deliveryID" value="{{deliveryID}}">
@@ -483,6 +483,7 @@
         function prepareUpdate() {
             console.log("context id: ", '{{deliveryID}}')
             if('{{deliveryID}}' != "") {
+                document.getElementById("page_title").innerText = "Update"
                 const itemList = JSON.parse('{{ itemList|escapejs }}')
                 console.log("itemList: ", itemList)
                 // document.getElementById("").value = '{{ deliveryID }}'

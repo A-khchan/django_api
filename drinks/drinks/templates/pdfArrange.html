@@ -140,6 +140,7 @@
         pageElement.dataset.index = index;
 
         const img = document.createElement('img');
+        img.draggable = false;
         img.src = page.url;
         pageElement.appendChild(img);
 

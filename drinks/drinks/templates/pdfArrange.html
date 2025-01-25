@@ -76,17 +76,17 @@
         const pageCount = pdfDoc.getPageCount();
 
         for (let i = 0; i < pageCount; i++) {
-          const [page] = await pdfDoc.copyPages(pdfDoc, [i]);
           const singlePagePdf = await PDFLib.PDFDocument.create();
-          singlePagePdf.addPage(page);
+          const [copiedPage] = await singlePagePdf.copyPages(pdfDoc, [i]);
+          singlePagePdf.addPage(copiedPage);
           const singlePageBytes = await singlePagePdf.save();
           const blob = new Blob([singlePageBytes], { type: "application/pdf" });
           const url = URL.createObjectURL(blob);
 
           pages.push({ blob, url });
-          renderPages();
         }
       }
+      renderPages();
     }
 
     function renderPages() {

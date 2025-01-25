@@ -172,6 +172,10 @@
       event.target.classList.add('dragover');
     }
 
+    function handleDragLeave(event) {
+      event.target.classList.remove('dragover');
+    }
+
     function handleDropPage(event) {
       event.preventDefault();
       console.log('handleDropPage')

@@ -170,7 +170,11 @@
 
     function handleDragOver(event) {
       event.preventDefault();
-      event.target.classList.add('dragover');
+
+      const dragTarget = event.target.closest('.page');
+      if (!dragTarget) return;
+
+      dragTarget.classList.add('dragover');
     }
 
     function handleDragLeave(event) {

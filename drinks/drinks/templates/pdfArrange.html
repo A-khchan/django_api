@@ -137,7 +137,7 @@
 
     let originalPdf = null;
     let pageOrder = [];
-    let zoomScale = 1;
+    let zoomScale = 0.6;
 
     dropZone.addEventListener("dragover", (e) => {
       e.preventDefault();
@@ -296,22 +296,30 @@
       }
     }
 
-    downloadReordered.addEventListener("click", async () => {
-      const pdfDoc = await PDFLib.PDFDocument.load(originalPdf);
-      const newPdfDoc = await PDFLib.PDFDocument.create();
+downloadReordered.addEventListener("click", async () => {
+  if (!originalPdf || pageOrder.length === 0) {
+    alert("No pages to reorder.");
+    return;
+  }
 
-      for (const pageIndex of pageOrder) {
-        const [page] = await newPdfDoc.copyPages(pdfDoc, [pageIndex]);
-        newPdfDoc.addPage(page);
-      }
+  // Load the original PDF
+  const pdfDoc = await PDFLib.PDFDocument.load(originalPdf);
+  const newPdfDoc = await PDFLib.PDFDocument.create();
 
-      const pdfBytes = await newPdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "reordered.pdf";
-      link.click();
-    });
+  // Add pages to the new PDF based on the page order
+  for (const pageIndex of pageOrder) {
+    const [page] = await newPdfDoc.copyPages(pdfDoc, [pageIndex]);
+    newPdfDoc.addPage(page);
+  }
+
+  // Save the new PDF and trigger download
+  const pdfBytes = await newPdfDoc.save();
+  const blob = new Blob([pdfBytes], { type: "application/pdf" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "reordered.pdf";
+  link.click();
+});
 
     downloadSplit.addEventListener("click", async () => {
       const pdfDoc = await PDFLib.PDFDocument.load(originalPdf);

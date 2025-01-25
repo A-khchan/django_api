@@ -153,22 +153,24 @@
         const files = e.dataTransfer.files;
         for (const file of files) {
             if (file.type === "application/pdf") {
-            const newPdfBytes = await file.arrayBuffer();
-            const newPdf = await PDFLib.PDFDocument.load(newPdfBytes);
-            
-            // If originalPdf doesn't exist, set it to the newPdf
-            if (!originalPdf) {
-                originalPdf = await PDFLib.PDFDocument.create();
-            }
+                const newPdfBytes = await file.arrayBuffer();
+                const newPdf = await PDFLib.PDFDocument.load(newPdfBytes);
+                
+                // If originalPdf doesn't exist, set it to the newPdf
+                if (!originalPdf) {
+                    originalPdf = await PDFLib.PDFDocument.create();
+                }
 
-            // Append pages from the new PDF to the existing originalPdf
-            const copiedPages = await originalPdf.copyPages(newPdf, newPdf.getPages().map((_, i) => i));
-            copiedPages.forEach((page) => {
-                originalPdf.addPage(page);
-            });
+                // Append pages from the new PDF to the existing originalPdf
+                const copiedPages = await originalPdf.copyPages(newPdf, newPdf.getPages().map((_, i) => i));
+                copiedPages.forEach((page) => {
+                    originalPdf.addPage(page);
+                });
 
-            // Re-render the pages in the preview area
-            renderPreview(newPdf);
+                // Re-render the pages in the preview area
+                const numPages = newPdf.getPageCount();
+                console.log("Number of pages:", numPages);
+                renderPreview(newPdf);
             }
         }
     });

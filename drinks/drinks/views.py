@@ -1501,6 +1501,10 @@ def deliveryList(request):
     print("deliveryList")
 
     if userName:
+        if request.method == "GET":
+            today = 
+            fromDate = request.GET.get('fromDate', '')
+
         deliveryAll = Delivery.objects.all()
         deliveryArray = []
         for i in range(0, len(deliveryAll), 1):
@@ -1545,7 +1549,7 @@ def deliveryList(request):
 
         template = loader.get_template('deliveryList.html')
         context = {
-            'errMsg': 'Please login to create a delivery',
+            'errMsg': 'None',
             'delivery_json': delivery_json,
         }
         response = HttpResponse(template.render(context, request))      
@@ -1775,3 +1779,14 @@ def addItem(request, deliveryObj):
             itemObj.save()
         rowNum = rowNum + 1
         itemCodeName = "itemCode" + str(rowNum)    
+
+def pdfArrange(request):
+
+    context = {
+        'page': 'login',
+        'errMsg': 'None',
+    }
+    template = loader.get_template('pdfArrange.html')
+    response = HttpResponse(template.render(context, request))
+
+    return response

@@ -168,8 +168,11 @@
 
     function handleDropPage(event) {
       event.preventDefault();
+      console.log('handleDropPage')
       const dragTarget = event.target.closest('.page');
       if (!dragTarget) return;
+
+      console.log('dragTarget is not null')
 
       const dragTargetIndex = dragTarget.dataset.index;
 

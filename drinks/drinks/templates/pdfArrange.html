@@ -31,6 +31,7 @@
       border: 1px solid #ccc;
       position: relative;
       overflow: hidden;
+      cursor: grab;
     }
     .page img {
       width: 100%;
@@ -52,6 +53,9 @@
     .controls button {
       margin-right: 10px;
     }
+    .dragging {
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body>
@@ -69,6 +73,7 @@
   <script>
     let pages = [];
     let zoom = 1;
+    let dragSrcIndex = null;
 
     const dropArea = document.getElementById('dropArea');
 
@@ -130,6 +135,8 @@
         const pageElement = document.createElement('div');
         pageElement.classList.add('page');
         pageElement.style.transform = `scale(${zoom})`;
+        pageElement.draggable = true;
+        pageElement.dataset.index = index;
 
         const img = document.createElement('img');
         img.src = page.url;
@@ -141,8 +148,32 @@
         deleteButton.onclick = () => deletePage(index);
         pageElement.appendChild(deleteButton);
 
+        pageElement.addEventListener('dragstart', handleDragStart);
+        pageElement.addEventListener('dragover', handleDragOver);
+        pageElement.addEventListener('drop', handleDropPage);
+
         container.appendChild(pageElement);
       });
+    }
+
+    function handleDragStart(event) {
+      dragSrcIndex = event.target.dataset.index;
+      event.target.classList.add('dragging');
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+    }
+
+    function handleDropPage(event) {
+      event.preventDefault();
+      const dragTargetIndex = event.target.closest('.page').dataset.index;
+
+      if (dragSrcIndex !== null && dragTargetIndex !== null) {
+        const draggedPage = pages.splice(dragSrcIndex, 1)[0];
+        pages.splice(dragTargetIndex, 0, draggedPage);
+        renderPages();
+      }
     }
 
     function deletePage(index) {

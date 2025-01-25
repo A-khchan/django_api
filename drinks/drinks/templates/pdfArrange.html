@@ -18,6 +18,10 @@
       text-align: center;
       margin-bottom: 20px;
     }
+    .drop-area.dragover {
+      border-color: #000;
+      background-color: #f9f9f9;
+    }
     .page-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -51,7 +55,7 @@
   </style>
 </head>
 <body>
-  <div class="drop-area" ondrop="handleDrop(event)" ondragover="event.preventDefault()">
+  <div class="drop-area" id="dropArea">
     Drag and drop PDF files here
   </div>
   <div class="controls">
@@ -66,24 +70,53 @@
     let pages = [];
     let zoom = 1;
 
+    const dropArea = document.getElementById('dropArea');
+
+    // Highlight drop area on dragover
+    dropArea.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      dropArea.classList.add('dragover');
+    });
+
+    dropArea.addEventListener('dragleave', () => {
+      dropArea.classList.remove('dragover');
+    });
+
+    dropArea.addEventListener('drop', handleDrop);
+
     async function handleDrop(event) {
       event.preventDefault();
+      dropArea.classList.remove('dragover');
+
       const files = Array.from(event.dataTransfer.files).filter(file => file.type === "application/pdf");
 
+      if (files.length === 0) {
+        console.error('No valid PDF files found.');
+        return;
+      }
+
+      console.log('Dropped files:', files);
+
       for (const file of files) {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-        const pageCount = pdfDoc.getPageCount();
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+          const pageCount = pdfDoc.getPageCount();
 
-        for (let i = 0; i < pageCount; i++) {
-          const singlePagePdf = await PDFLib.PDFDocument.create();
-          const [copiedPage] = await singlePagePdf.copyPages(pdfDoc, [i]);
-          singlePagePdf.addPage(copiedPage);
-          const singlePageBytes = await singlePagePdf.save();
-          const blob = new Blob([singlePageBytes], { type: "application/pdf" });
-          const url = URL.createObjectURL(blob);
+          console.log(`Processing ${file.name}, pages: ${pageCount}`);
 
-          pages.push({ blob, url });
+          for (let i = 0; i < pageCount; i++) {
+            const singlePagePdf = await PDFLib.PDFDocument.create();
+            const [copiedPage] = await singlePagePdf.copyPages(pdfDoc, [i]);
+            singlePagePdf.addPage(copiedPage);
+            const singlePageBytes = await singlePagePdf.save();
+            const blob = new Blob([singlePageBytes], { type: "application/pdf" });
+            const url = URL.createObjectURL(blob);
+
+            pages.push({ blob, url });
+          }
+        } catch (error) {
+          console.error('Error processing file:', file.name, error);
         }
       }
       renderPages();

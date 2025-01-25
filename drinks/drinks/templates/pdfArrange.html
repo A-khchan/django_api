@@ -34,7 +34,7 @@
       cursor: grab;
       padding: 10px;
     }
-    .page.dragover {
+    .dragover {
       border: 1px solid red;
     }
     .page img {
@@ -169,6 +169,7 @@
 
     function handleDragOver(event) {
       event.preventDefault();
+      event.target.classList.add('dragover');
     }
 
     function handleDropPage(event) {

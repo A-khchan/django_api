@@ -151,6 +151,7 @@
         pageElement.addEventListener('dragstart', handleDragStart);
         pageElement.addEventListener('dragover', handleDragOver);
         pageElement.addEventListener('drop', handleDropPage);
+        pageElement.addEventListener('dragend', handleDragEnd);
 
         container.appendChild(pageElement);
       });
@@ -167,13 +168,21 @@
 
     function handleDropPage(event) {
       event.preventDefault();
-      const dragTargetIndex = event.target.closest('.page').dataset.index;
+      const dragTarget = event.target.closest('.page');
+      if (!dragTarget) return;
+
+      const dragTargetIndex = dragTarget.dataset.index;
 
       if (dragSrcIndex !== null && dragTargetIndex !== null) {
         const draggedPage = pages.splice(dragSrcIndex, 1)[0];
         pages.splice(dragTargetIndex, 0, draggedPage);
         renderPages();
       }
+    }
+
+    function handleDragEnd(event) {
+      event.target.classList.remove('dragging');
+      dragSrcIndex = null;
     }
 
     function deletePage(index) {

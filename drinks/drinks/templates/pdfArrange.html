@@ -148,16 +148,40 @@
       dropZone.classList.remove("dragover");
     });
 
-    dropZone.addEventListener("drop", (e) => {
-      e.preventDefault();
-      dropZone.classList.remove("dragover");
-      const file = e.dataTransfer.files[0];
-      if (file && file.type === "application/pdf") {
-        handlePDF(file);
-      } else {
-        alert("Please drop a valid PDF file.");
-      }
+    dropZone.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        for (const file of files) {
+            if (file.type === "application/pdf") {
+            const newPdfBytes = await file.arrayBuffer();
+            const newPdf = await PDFLib.PDFDocument.load(newPdfBytes);
+            
+            // If originalPdf doesn't exist, set it to the newPdf
+            if (!originalPdf) {
+                originalPdf = await PDFLib.PDFDocument.create();
+            }
+
+            // Append pages from the new PDF to the existing originalPdf
+            const copiedPages = await originalPdf.copyPages(newPdf, newPdf.getPages().map((_, i) => i));
+            copiedPages.forEach((page) => {
+                originalPdf.addPage(page);
+            });
+
+            // Re-render the pages in the preview area
+            renderPreview(newPdf);
+            }
+        }
     });
+
+    function renderPreview(pdfDoc) {
+        const previewContainer = document.getElementById("pdf-preview");
+        previewContainer.innerHTML = ''; // Clear existing pages
+
+        // Loop through all the pages in the pdfDoc
+        pdfDoc.getPages().forEach((page, index) => {
+            renderPage(page, index);
+        });
+    }
 
     dropZone.addEventListener("click", () => {
       const fileInput = document.createElement("input");
@@ -204,13 +228,13 @@
         viewport: viewport,
       };
 
-      await page.render(renderContext).promise;
-
       const pageContainer = document.createElement("div");
       pageContainer.classList.add("pdf-page");
       pageContainer.draggable = true;
       pageContainer.dataset.pageNum = pageIndex;
       pageOrder.push(pageIndex);
+
+      await page.render(renderContext).promise;
 
       pageContainer.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", pageContainer.dataset.pageNum);

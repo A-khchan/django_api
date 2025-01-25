@@ -178,7 +178,12 @@
       const fileReader = new FileReader();
       fileReader.onload = async (e) => {
         const pdfData = new Uint8Array(e.target.result);
-        originalPdf = pdfData;
+        if(originalPdf == null)
+            originalPdf = pdfData;
+        else {
+            originalPdf = originalPdf.concat(pdfData)
+        }
+
         const pdf = await pdfjsLib.getDocument(pdfData).promise;
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
@@ -234,7 +239,8 @@
         );
 
         if (draggedElement && targetElement) {
-          pdfPreview.insertBefore(draggedElement, targetElement.nextSibling);
+        //   pdfPreview.insertBefore(draggedElement, targetElement.nextSibling);
+          pdfPreview.insertBefore(draggedElement, targetElement);
           updatePageOrder();
         }
       });
@@ -261,6 +267,7 @@
       pageOrder = [...pdfPreview.querySelectorAll(".pdf-page")].map((page) =>
         parseInt(page.dataset.pageNum)
       );
+      console.log("pageOrder: ", pageOrder)
     }
 
     function updateButtons() {

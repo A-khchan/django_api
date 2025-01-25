@@ -1502,7 +1502,7 @@ def deliveryList(request):
 
     if userName:
         if request.method == "GET":
-            today = 
+            # today = 
             fromDate = request.GET.get('fromDate', '')
 
         deliveryAll = Delivery.objects.all()

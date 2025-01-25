@@ -5,9 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF Reorder and Split</title>
+    <title>PDF Reorder and Split</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -43,6 +46,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      justify-content: center;
     }
 
     .pdf-page {
@@ -81,69 +85,80 @@
     .button-container button:hover {
       background-color: #0056b3;
     }
+
+    .zoom-container {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
   </style>
 </head>
 <body>
-    {% include "heading.html" %}
-
-    <h1>PDF Reorder and Split</h1>
-    <div class="drop-zone" id="dropZone">
+  <h1>PDF Reorder and Split with Zoom</h1>
+  <div class="drop-zone" id="dropZone">
     Drag and drop a PDF file here or click to upload
-    </div>
-    <div class="pdf-preview" id="pdfPreview"></div>
-    <div class="button-container" id="buttonContainer" style="display: none;">
+  </div>
+  <div class="zoom-container">
+    <button id="zoomIn">Zoom In</button>
+    <button id="zoomOut">Zoom Out</button>
+  </div>
+  <div class="pdf-preview" id="pdfPreview"></div>
+  <div class="button-container" id="buttonContainer" style="display: none;">
     <button id="downloadReordered">Download Reordered PDF</button>
     <button id="downloadSplit">Download as Separate PDFs</button>
-    </div>
+  </div>
 
-    <script>
+  <script>
     const dropZone = document.getElementById("dropZone");
     const pdfPreview = document.getElementById("pdfPreview");
     const buttonContainer = document.getElementById("buttonContainer");
     const downloadReordered = document.getElementById("downloadReordered");
     const downloadSplit = document.getElementById("downloadSplit");
+    const zoomIn = document.getElementById("zoomIn");
+    const zoomOut = document.getElementById("zoomOut");
 
     let originalPdf = null;
     let pageOrder = [];
+    let zoomScale = 1; // Initial zoom scale
 
     dropZone.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    dropZone.classList.add("dragover");
+      e.preventDefault();
+      dropZone.classList.add("dragover");
     });
 
     dropZone.addEventListener("dragleave", () => {
-    dropZone.classList.remove("dragover");
+      dropZone.classList.remove("dragover");
     });
 
     dropZone.addEventListener("drop", (e) => {
-    e.preventDefault();
-    dropZone.classList.remove("dragover");
-    const file = e.dataTransfer.files[0];
-    if (file && file.type === "application/pdf") {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === "application/pdf") {
         handlePDF(file);
-    } else {
+      } else {
         alert("Please drop a valid PDF file.");
-    }
+      }
     });
 
     dropZone.addEventListener("click", () => {
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = "application/pdf";
-    fileInput.addEventListener("change", (e) => {
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "application/pdf";
+      fileInput.addEventListener("change", (e) => {
         const file = e.target.files[0];
         if (file && file.type === "application/pdf") {
-        handlePDF(file);
+          handlePDF(file);
         } else {
-        alert("Please select a valid PDF file.");
+          alert("Please select a valid PDF file.");
         }
-    });
-    fileInput.click();
+      });
+      fileInput.click();
     });
 
     async function handlePDF(file) {
-    const fileReader = new FileReader();
-    fileReader.onload = async (e) => {
+      const fileReader = new FileReader();
+      fileReader.onload = async (e) => {
         const pdfData = new Uint8Array(e.target.result);
         originalPdf = pdfData; // Store the original PDF data
         const pdf = await pdfjsLib.getDocument(pdfData).promise;
@@ -151,106 +166,121 @@
         pageOrder = []; // Reset page order
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        const page = await pdf.getPage(pageNum);
-        const viewport = page.getViewport({ scale: 1 });
-
-        const canvas = document.createElement("canvas");
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        const context = canvas.getContext("2d");
-        const renderContext = {
-            canvasContext: context,
-            viewport: viewport,
-        };
-
-        await page.render(renderContext).promise;
-
-        const pageContainer = document.createElement("div");
-        pageContainer.classList.add("pdf-page");
-        pageContainer.draggable = true;
-        pageContainer.dataset.pageNum = pageNum - 1; // Store original page index
-        pageOrder.push(pageNum - 1);
-
-        pageContainer.addEventListener("dragstart", (e) => {
-            e.target.classList.add("dragging");
-        });
-
-        pageContainer.addEventListener("dragend", (e) => {
-            e.target.classList.remove("dragging");
-        });
-
-        pdfPreview.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            const afterElement = getDragAfterElement(pdfPreview, e.clientX, e.clientY);
-            const draggable = document.querySelector(".dragging");
-            if (afterElement == null) {
-            pdfPreview.appendChild(draggable);
-            } else {
-            pdfPreview.insertBefore(draggable, afterElement);
-            }
-        });
-
-        pageContainer.appendChild(canvas);
-        pdfPreview.appendChild(pageContainer);
+          const page = await pdf.getPage(pageNum);
+          renderPage(page, pageNum - 1); // Render each page
         }
 
         buttonContainer.style.display = "flex"; // Show buttons
-    };
-    fileReader.readAsArrayBuffer(file);
+      };
+      fileReader.readAsArrayBuffer(file);
     }
 
-    function getDragAfterElement(container, x, y) {
-    const draggableElements = [...container.querySelectorAll(".pdf-page:not(.dragging)")];
-    return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
+    async function renderPage(page, pageIndex) {
+      const viewport = page.getViewport({ scale: zoomScale });
+
+      const canvas = document.createElement("canvas");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      const context = canvas.getContext("2d");
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+      };
+
+      await page.render(renderContext).promise;
+
+      const pageContainer = document.createElement("div");
+      pageContainer.classList.add("pdf-page");
+      pageContainer.draggable = true;
+      pageContainer.dataset.pageNum = pageIndex; // Store original page index
+      pageOrder.push(pageIndex);
+
+      pageContainer.addEventListener("dragstart", (e) => {
+        e.target.classList.add("dragging");
+      });
+
+      pageContainer.addEventListener("dragend", (e) => {
+        e.target.classList.remove("dragging");
+      });
+
+      pdfPreview.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(pdfPreview, e.clientX, e.clientY);
+        const draggable = document.querySelector(".dragging");
+        if (afterElement == null) {
+          pdfPreview.appendChild(draggable);
         } else {
-        return closest;
+          pdfPreview.insertBefore(draggable, afterElement);
         }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
+      });
+
+      pageContainer.appendChild(canvas);
+      pdfPreview.appendChild(pageContainer);
     }
 
+    zoomIn.addEventListener("click", () => {
+      zoomScale += 0.1; // Increase zoom scale
+      reRenderPages();
+    });
+
+    zoomOut.addEventListener("click", () => {
+      zoomScale = Math.max(0.1, zoomScale - 0.1); // Decrease zoom scale, minimum 0.1
+      reRenderPages();
+    });
+
+    async function reRenderPages() {
+      const pdf = await pdfjsLib.getDocument(originalPdf).promise;
+      pdfPreview.innerHTML = ""; // Clear previous previews
+
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        renderPage(page, pageNum - 1);
+      }
+    }
+
+    // Reordered and Split PDF functionality remains the same as in the previous version...
     downloadReordered.addEventListener("click", async () => {
-    const reorderedPages = [...pdfPreview.querySelectorAll(".pdf-page")].map((page) =>
+      const reorderedPages = [...pdfPreview.querySelectorAll(".pdf-page")].map((page) =>
         parseInt(page.dataset.pageNum)
-    );
+      );
 
-    const pdfDoc = await PDFLib.PDFDocument.load(originalPdf);
-    const newPdfDoc = await PDFLib.PDFDocument.create();
+      const pdfDoc = await PDFLib.PDFDocument.load(originalPdf);
+      const newPdfDoc = await PDFLib.PDFDocument.create();
 
-    for (const pageIndex of reorderedPages) {
+      for (const pageIndex of reorderedPages) {
         const [page] = await newPdfDoc.copyPages(pdfDoc, [pageIndex]);
         newPdfDoc.addPage(page);
-    }
+      }
 
-    const pdfBytes = await newPdfDoc.save();
-    const blob = new Blob([pdfBytes], { type: "application/pdf" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "reordered.pdf";
-    link.click();
+      const pdfBytes = await newPdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "reordered.pdf";
+      link.click();
     });
 
     downloadSplit.addEventListener("click", async () => {
-    const pdfDoc = await PDFLib.PDFDocument.load(originalPdf);
+      const pdfDoc = await PDFLib.PDFDocument.load(originalPdf);
+      const zip = new JSZip();
 
-    for (let pageIndex = 0; pageIndex < pdfDoc.getPageCount(); pageIndex++) {
+      for (let pageIndex = 0; pageIndex < pdfDoc.getPageCount(); pageIndex++) {
         const newPdfDoc = await PDFLib.PDFDocument.create();
         const [page] = await newPdfDoc.copyPages(pdfDoc, [pageIndex]);
         newPdfDoc.addPage(page);
 
         const pdfBytes = await newPdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: "application/pdf" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `page-${pageIndex + 1}.pdf`;
-        link.click();
-    }
+        zip.file(`page-${pageIndex + 1}.pdf`, pdfBytes);
+      }
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(zipBlob);
+      link.download = "split-pages.zip";
+      link.click();
     });
-  </script>  
+  </script>
 </body>
 </html>
 

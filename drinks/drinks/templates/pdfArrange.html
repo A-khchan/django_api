@@ -71,7 +71,7 @@
       opacity: 0.5;
     }
     .arrow {
-        position: absolute;
+        position: relative;
         color: blue;
         display: none;
     }
@@ -152,6 +152,8 @@
     function renderPages() {
       const container = document.getElementById('pageContainer');
       container.innerHTML = '';
+      arrow = document.getElementById("arrow")   
+      container.appendChild(arrow)
 
       pages.forEach((page, index) => {
         const pageElement = document.createElement('div');

@@ -68,6 +68,7 @@
     }
     .arrow {
         position: absolute;
+        color: blue;
     }
   </style>
 </head>
@@ -198,11 +199,11 @@
         if (dragSrcIndex > dragTargetIndex) {
         //   dragTarget.style.transform = 'translateX(5px)';
             arrow.style.left = `${rect.left - 10}px`;
-            arrow.style.top = `${rect.top}px`;
+            arrow.style.top = `${rect.top - 10}px`;
         } else if (dragSrcIndex < dragTargetIndex) {
         //   dragTarget.style.transform = 'translateX(-5px)';
-            arrow.style.left = `${rect.right + 10}px`;
-            arrow.style.top = `${rect.top}px`;
+            arrow.style.left = `${rect.right + 5}px`;
+            arrow.style.top = `${rect.top - 10}px`;
         }
       }
     }

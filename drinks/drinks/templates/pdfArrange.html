@@ -35,6 +35,7 @@
         cursor: grab;
         padding: 10px;
         margin: 3px;
+        transition: transform 0.3s ease;
     }
     .dragover {
       border: 1px solid red;
@@ -184,10 +185,20 @@
       if (!dragTarget) return;
 
       dragTarget.classList.add('dragover');
+
+      const dragTargetIndex = dragTarget.dataset.index;
+      if (dragSrcIndex !== null && dragTargetIndex !== null) {
+        if (dragSrcIndex > dragTargetIndex) {
+          dragTarget.style.transform = 'translateX(5px)';
+        } else (dragSrcIndex < dragTargetIndex) {
+          dragTarget.style.transform = 'translateX(-5px)';
+        }
+      }
     }
 
     function handleDragLeave(event) {
       event.target.classList.remove('dragover');
+        event.target.style.transform = ''
     }
 
     function handleDropPage(event) {
@@ -205,6 +216,8 @@
         pages.splice(dragTargetIndex, 0, draggedPage);
         renderPages();
       }
+        event.target.style.transform = ''
+
     }
 
     function handleDragEnd(event) {

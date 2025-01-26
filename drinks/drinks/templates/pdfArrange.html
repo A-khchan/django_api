@@ -41,7 +41,7 @@
         margin: 3px;
         transition: transform 0.3s ease;
     }
-    .dragover {
+    .dragoverPage {
         opacity: 0.2;
     }
     .page img {
@@ -190,13 +190,13 @@
       event.target.classList.add('dragging');
     }
 
-    function handleDragOver(event) {
+    function handleDragOver(event) {  //page
         event.preventDefault();
 
         const dragTarget = event.target.closest('.page');
         if (!dragTarget) return;
 
-        dragTarget.classList.add('dragover');
+        dragTarget.classList.add('dragoverPage');
 
         const rect = dragTarget.getBoundingClientRect()
         console.log("rect.left: ", rect.left)
@@ -222,26 +222,26 @@
         }
     }
 
-    function handleDragLeave(event) {
-      event.target.classList.remove('dragover');
+    function handleDragLeave(event) { //page
+      event.target.classList.remove('dragoverPage');
         event.target.style.transform = ''
     }
 
     function handleDropPage(event) {
-      event.preventDefault();
-      console.log('handleDropPage')
-      const dragTarget = event.target.closest('.page');
-      if (!dragTarget) return;
+        event.preventDefault();
+        console.log('handleDropPage')
+        const dragTarget = event.target.closest('.page');
+        if (!dragTarget) return;
 
-      console.log('dragTarget is not null')
+        console.log('dragTarget is not null')
 
-      const dragTargetIndex = dragTarget.dataset.index;
+        const dragTargetIndex = dragTarget.dataset.index;
 
-      if (dragSrcIndex !== null && dragTargetIndex !== null) {
+        if (dragSrcIndex !== null && dragTargetIndex !== null) {
         const draggedPage = pages.splice(dragSrcIndex, 1)[0];
         pages.splice(dragTargetIndex, 0, draggedPage);
         renderPages();
-      }
+        }
         event.target.style.transform = ''
 
         arrow = document.getElementById("arrow")

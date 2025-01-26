@@ -80,6 +80,8 @@
     let pages = [];
     let zoom = 1;
     let dragSrcIndex = null;
+    let orgWidth = 100;
+    let orgHeight = 200;
 
     const dropArea = document.getElementById('dropArea');
 
@@ -140,7 +142,9 @@
       pages.forEach((page, index) => {
         const pageElement = document.createElement('div');
         pageElement.classList.add('page');
-        pageElement.style.transform = `scale(${zoom})`;
+        // pageElement.style.transform = `scale(${zoom})`;
+        pageElement.style.width = orgWidth * zoom;
+        pageElement.style.height = orgHeight * zoom;
         pageElement.draggable = true;
         pageElement.dataset.index = index;
 

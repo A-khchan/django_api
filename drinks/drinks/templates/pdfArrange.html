@@ -205,20 +205,24 @@
         arrow = document.getElementById("arrow")
 
         const dragTargetIndex = dragTarget.dataset.index;
+
+        console.log('dragSrcIndex: ', dragSrcIndex)
+        console.log('dragTargetIndex: ', dragTargetIndex)
+
         if (dragSrcIndex !== null && dragTargetIndex !== null) {
-        if (dragSrcIndex > dragTargetIndex) {
-        //   dragTarget.style.transform = 'translateX(5px)';
-            arrow.style.left = `${rect.left - 11}px`;
-            arrow.style.top = `${rect.top - 19 + window.scrollY}px`;
-            arrow.style.display = 'block';
-        } else if (dragSrcIndex < dragTargetIndex) {
-        //   dragTarget.style.transform = 'translateX(-5px)';
-            arrow.style.left = `${rect.right - 5}px`;
-            arrow.style.top = `${rect.top - 19 + window.scrollY}px`;
-            arrow.style.display = 'block';
-        } else {
-            arrow.style.display = 'none';
-        }
+            if (dragSrcIndex > dragTargetIndex) {
+            //   dragTarget.style.transform = 'translateX(5px)';
+                arrow.style.left = `${rect.left - 11}px`;
+                arrow.style.top = `${rect.top - 19 + window.scrollY}px`;
+                arrow.style.display = 'block';
+            } else if (dragSrcIndex < dragTargetIndex) {
+            //   dragTarget.style.transform = 'translateX(-5px)';
+                arrow.style.left = `${rect.right - 5}px`;
+                arrow.style.top = `${rect.top - 19 + window.scrollY}px`;
+                arrow.style.display = 'block';
+            } else {
+                arrow.style.display = 'none';
+            }
         }
     }
 
@@ -227,7 +231,7 @@
         event.target.style.transform = ''
     }
 
-    function handleDropPage(event) {
+    function handleDropPage(event) { //page
         event.preventDefault();
         console.log('handleDropPage')
         const dragTarget = event.target.closest('.page');
@@ -236,11 +240,13 @@
         console.log('dragTarget is not null')
 
         const dragTargetIndex = dragTarget.dataset.index;
+        console.log('dragSrcIndex: ', dragSrcIndex)
+        console.log('dragTargetIndex: ', dragTargetIndex)
 
         if (dragSrcIndex !== null && dragTargetIndex !== null) {
-        const draggedPage = pages.splice(dragSrcIndex, 1)[0];
-        pages.splice(dragTargetIndex, 0, draggedPage);
-        renderPages();
+            const draggedPage = pages.splice(dragSrcIndex, 1)[0];
+            pages.splice(dragTargetIndex, 0, draggedPage);
+            renderPages();
         }
         event.target.style.transform = ''
 

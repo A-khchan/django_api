@@ -283,15 +283,18 @@ def post_detail(request, id, format=None):
     elif request.method == 'DELETE':
         #delete the associate image from GCS bucket first
         if post.image and not post.image == "":
-                # Initialize a client
-                client = storage.Client()
-                # Get the bucket
-                bucket = client.get_bucket('offerimage-may2018.appspot.com')
-                # Get the blob (file) to delete
-                folder_name = 'images'
+            # Initialize a client
+            client = storage.Client()
+            # Get the bucket
+            bucket = client.get_bucket('offerimage-may2018.appspot.com')
+            # Get the blob (file) to delete
+            folder_name = 'images'
+            try:
                 blob = bucket.blob(f'{folder_name}/{post.image}')
                 # Delete the blob
                 blob.delete()
+            except Exception as e:
+                print(f"Error deleting blob: {e}")
 
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

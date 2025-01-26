@@ -190,7 +190,7 @@
       if (dragSrcIndex !== null && dragTargetIndex !== null) {
         if (dragSrcIndex > dragTargetIndex) {
           dragTarget.style.transform = 'translateX(5px)';
-        } else (dragSrcIndex < dragTargetIndex) {
+        } else if (dragSrcIndex < dragTargetIndex) {
           dragTarget.style.transform = 'translateX(-5px)';
         }
       }
@@ -217,7 +217,6 @@
         renderPages();
       }
         event.target.style.transform = ''
-
     }
 
     function handleDragEnd(event) {

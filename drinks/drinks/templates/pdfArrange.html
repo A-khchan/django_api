@@ -38,7 +38,7 @@
         transition: transform 0.3s ease;
     }
     .dragover {
-      border: 1px solid red;
+        opacity: 0.2;
     }
     .page img {
       width: 100%;  
@@ -64,7 +64,7 @@
       margin-right: 10px;
     }
     .dragging {
-      opacity: 1;
+      opacity: 0.5;
     }
     .arrow {
         position: absolute;
@@ -234,6 +234,9 @@
         renderPages();
       }
         event.target.style.transform = ''
+
+        arrow = document.getElementById("arrow")
+        arrow.style.display = 'none'
     }
 
     function handleDragEnd(event) {

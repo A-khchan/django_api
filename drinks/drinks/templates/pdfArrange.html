@@ -88,6 +88,7 @@
     <button onclick="zoomOut()">Zoom Out</button>
     <button onclick="downloadReordered()">Download Reordered PDF</button>
     <button onclick="downloadAsZip()">Download All as ZIP</button>
+    <div id="message"></div>
   </div>
   <div class="page-container" id="pageContainer"></div>
   <div class="arrow" id="arrow">⬇︎</div>
@@ -199,16 +200,20 @@
         dragTarget.classList.add('dragoverPage');
 
         const rect = dragTarget.getBoundingClientRect()
-        console.log("rect.left: ", rect.left)
-        console.log("rect.right: ", rect.right)
-        console.log("rect.top: ", rect.top)
+        // console.log("rect.left: ", rect.left)
+        // console.log("rect.right: ", rect.right)
+        // console.log("rect.top: ", rect.top)
 
         arrow = document.getElementById("arrow")
 
         const dragTargetIndex = dragTarget.dataset.index;
 
-        console.log('dragSrcIndex: ', dragSrcIndex)
-        console.log('dragTargetIndex: ', dragTargetIndex)
+        // console.log('dragSrcIndex: ', dragSrcIndex)
+        // console.log('dragTargetIndex: ', dragTargetIndex)
+
+        message = document.getElementById("message")
+        message.innerText = "rect.left: " + rect.left + ", rect.right: " + rect.right + ", dragSrcIndex: " + dragSrcIndex 
+                                + ", dragTargetIndex: " + dragTargetIndex
 
         if (dragSrcIndex !== null && dragTargetIndex !== null) {
             if (dragSrcIndex > dragTargetIndex) {

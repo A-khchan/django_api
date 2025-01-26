@@ -189,18 +189,21 @@
     }
 
     function handleDragOver(event) {
-      event.preventDefault();
+        event.preventDefault();
 
-      const dragTarget = event.target.closest('.page');
-      if (!dragTarget) return;
+        const dragTarget = event.target.closest('.page');
+        if (!dragTarget) return;
 
-      dragTarget.classList.add('dragover');
+        dragTarget.classList.add('dragover');
 
         const rect = dragTarget.getBoundingClientRect()
+        console.log("rect.left: ", rect.left)
+        console.log("rect.top: ", rect.top)
+
         arrow = document.getElementById("arrow")
 
-      const dragTargetIndex = dragTarget.dataset.index;
-      if (dragSrcIndex !== null && dragTargetIndex !== null) {
+        const dragTargetIndex = dragTarget.dataset.index;
+        if (dragSrcIndex !== null && dragTargetIndex !== null) {
         if (dragSrcIndex > dragTargetIndex) {
         //   dragTarget.style.transform = 'translateX(5px)';
             arrow.style.left = `${rect.left - 11}px`;
@@ -214,7 +217,7 @@
         } else {
             arrow.style.display = 'none';
         }
-      }
+        }
     }
 
     function handleDragLeave(event) {

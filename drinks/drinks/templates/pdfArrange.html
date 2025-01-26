@@ -211,17 +211,17 @@
         // console.log('dragSrcIndex: ', dragSrcIndex)
         // console.log('dragTargetIndex: ', dragTargetIndex)
 
-        message = document.getElementById("message")
-        message.innerText = "rect.left: " + rect.left + ", rect.right: " + rect.right + ", dragSrcIndex: " + dragSrcIndex 
-                                + ", dragTargetIndex: " + dragTargetIndex
+        // message = document.getElementById("message")
+        // message.innerText = "rect.left: " + rect.left + ", rect.right: " + rect.right + ", dragSrcIndex: " + dragSrcIndex 
+        //                         + ", dragTargetIndex: " + dragTargetIndex
 
         if (dragSrcIndex !== null && dragTargetIndex !== null) {
-            if (dragSrcIndex > dragTargetIndex) {
+            if (parseInt(dragSrcIndex) > parseInt(dragTargetIndex)) {
             //   dragTarget.style.transform = 'translateX(5px)';
                 arrow.style.left = `${rect.left - 11}px`;
                 arrow.style.top = `${rect.top - 19 + window.scrollY}px`;
                 arrow.style.display = 'block';
-            } else if (dragSrcIndex < dragTargetIndex) {
+            } else if (parseInt(dragSrcIndex) < parseInt(dragTargetIndex)) {
             //   dragTarget.style.transform = 'translateX(-5px)';
                 arrow.style.left = `${rect.right - 5}px`;
                 arrow.style.top = `${rect.top - 19 + window.scrollY}px`;

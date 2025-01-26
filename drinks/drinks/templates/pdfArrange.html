@@ -144,8 +144,8 @@
         const pageElement = document.createElement('div');
         pageElement.classList.add('page');
         // pageElement.style.transform = `scale(${zoom})`;
-        pageElement.style.width = str(orgWidth * zoom) + "px";
-        pageElement.style.height = str(orgHeight * zoom) + "px";
+        pageElement.style.width = orgWidth * zoom + "px";
+        pageElement.style.height = orgHeight * zoom + "px";
         pageElement.draggable = true;
         pageElement.dataset.index = index;
 

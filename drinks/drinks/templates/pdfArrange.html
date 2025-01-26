@@ -198,12 +198,12 @@
       if (dragSrcIndex !== null && dragTargetIndex !== null) {
         if (dragSrcIndex > dragTargetIndex) {
         //   dragTarget.style.transform = 'translateX(5px)';
-            arrow.style.left = `${rect.left - 10}px`;
-            arrow.style.top = `${rect.top - 10}px`;
+            arrow.style.left = `${rect.left - 12}px`;
+            arrow.style.top = `${rect.top - 15}px`;
         } else if (dragSrcIndex < dragTargetIndex) {
         //   dragTarget.style.transform = 'translateX(-5px)';
-            arrow.style.left = `${rect.right + 5}px`;
-            arrow.style.top = `${rect.top - 10}px`;
+            arrow.style.left = `${rect.right}px`;
+            arrow.style.top = `${rect.top - 15}px`;
         }
       }
     }

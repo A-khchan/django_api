@@ -152,7 +152,7 @@
             const blob = new Blob([singlePageBytes], { type: "application/pdf" });
             const url = URL.createObjectURL(blob);
 
-            pages.push({ blob, url });
+            pages.push({ blob, url, arrayBuffer: singlePageBytes });
           }
         } catch (error) {
           console.error('Error processing file:', file.name, error);

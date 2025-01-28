@@ -11,9 +11,11 @@
     <meta name="google-adsense-account" content="ca-pub-7433277523718686">     
     <link rel="stylesheet" href="{% static 'style.css' %}">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
   <style>
     .desc {
         margin: 10px;
@@ -159,23 +161,54 @@
       renderPages();
     }
 
-    function renderPages() {
+    // function renderPages() {
+    //   const container = document.getElementById('pageContainer');
+    //   container.innerHTML = '';
+
+    //   pages.forEach((page, index) => {
+    //     const pageElement = document.createElement('div');
+    //     pageElement.classList.add('page');
+    //     // pageElement.style.transform = `scale(${zoom})`;
+    //     pageElement.style.width = orgWidth * zoom + "px";
+    //     pageElement.style.height = orgHeight * zoom + "px";
+    //     pageElement.draggable = true;
+    //     pageElement.dataset.index = index;
+
+    //     const img = document.createElement('img');
+    //     img.draggable = false;
+    //     img.src = page.url;
+    //     pageElement.appendChild(img);
+
+    //     const deleteButton = document.createElement('button');
+    //     deleteButton.textContent = '✕';
+    //     deleteButton.classList.add('delete-button');
+    //     deleteButton.onclick = () => deletePage(index);
+    //     pageElement.appendChild(deleteButton);
+
+    //     pageElement.addEventListener('dragstart', handleDragStart);
+    //     pageElement.addEventListener('dragover', handleDragOver);
+    //     pageElement.addEventListener('dragleave', handleDragLeave);
+    //     pageElement.addEventListener('drop', handleDropPage);
+    //     pageElement.addEventListener('dragend', handleDragEnd);
+
+    //     container.appendChild(pageElement);
+    //   });
+    // }
+
+    async function renderPages() {
       const container = document.getElementById('pageContainer');
       container.innerHTML = '';
 
-      pages.forEach((page, index) => {
+      for (let index = 0; index < pages.length; index++) {
+        const page = pages[index];
         const pageElement = document.createElement('div');
         pageElement.classList.add('page');
-        // pageElement.style.transform = `scale(${zoom})`;
-        pageElement.style.width = orgWidth * zoom + "px";
-        pageElement.style.height = orgHeight * zoom + "px";
+        pageElement.style.transform = `scale(${zoom})`;
         pageElement.draggable = true;
         pageElement.dataset.index = index;
 
-        const img = document.createElement('img');
-        img.draggable = false;
-        img.src = page.url;
-        pageElement.appendChild(img);
+        const canvas = document.createElement('canvas');
+        pageElement.appendChild(canvas);
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '✕';
@@ -185,12 +218,26 @@
 
         pageElement.addEventListener('dragstart', handleDragStart);
         pageElement.addEventListener('dragover', handleDragOver);
-        pageElement.addEventListener('dragleave', handleDragLeave);
         pageElement.addEventListener('drop', handleDropPage);
         pageElement.addEventListener('dragend', handleDragEnd);
 
         container.appendChild(pageElement);
-      });
+
+        // Render the PDF page into the canvas
+        renderPDFPage(page.arrayBuffer, canvas);
+      }
+    }
+
+    async function renderPDFPage(arrayBuffer, canvas) {
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const page = await pdf.getPage(1);
+
+      const viewport = page.getViewport({ scale: 1 });
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      const context = canvas.getContext('2d');
+      await page.render({ canvasContext: context, viewport }).promise;
     }
 
     function handleDragStart(event) {

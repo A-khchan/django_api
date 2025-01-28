@@ -203,7 +203,9 @@
         const page = pages[index];
         const pageElement = document.createElement('div');
         pageElement.classList.add('page');
-        pageElement.style.transform = `scale(${zoom})`;
+        //pageElement.style.transform = `scale(${zoom})`;
+        pageElement.style.width = orgWidth * zoom + "px";
+        pageElement.style.height = orgHeight * zoom + "px";
         pageElement.draggable = true;
         pageElement.dataset.index = index;
 

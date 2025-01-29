@@ -62,7 +62,7 @@
       width: 25px;
       height: 20px;
       top: 5px;
-      right: 5px;
+      right: 15px;
       background: red;
       color: white;
       border: none;
@@ -328,12 +328,12 @@
     }
 
     function zoomIn() {
-      zoom += 0.1;
+      zoom += 0.3;
       renderPages();
     }
 
     function zoomOut() {
-      zoom = Math.max(0.1, zoom - 0.1);
+      zoom = Math.max(0.3, zoom - 0.3);
       renderPages();
     }
 

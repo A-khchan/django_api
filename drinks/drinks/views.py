@@ -631,6 +631,13 @@ def logout(request):
 
     return response    
 
+def logout(request):
+
+    response = render(request, 'clock.html')
+
+    return response    
+
+
 def ride(request):
 
     userName = request.session.get('userName')

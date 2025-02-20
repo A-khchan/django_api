@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Current date and time:</h1>
+    
+        <span id="datetime"></span><br>
+        <span id="line1"></span><br>
+        <div style="color: white; background-color: black; padding-top: 10px; padding-left: 10px;">
+            <div id="line2" style="font-size: 42px;"></div>
+            <div id="line3" style="font-size: 10px; color: rgb(247, 157, 101)"></div>
+            <div id="line4" style="font-size: 16px; color: greenyellow"></div>
+            <div id="line5" style="font-size: 12px; color: rgb(166, 166, 247)"></div>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+
+    <script>
+      // create a function to update the date and time
+      function updateDateTime() {
+        // create a new `Date` object
+        const now = new Date();
+
+        // get the current date and time as a string
+        const currentDateTime = now.toLocaleString();
+
+        // update the `textContent` property of the `span` element with the `id` of `datetime`
+        document.querySelector('#datetime').textContent = currentDateTime;
+
+        const today = now.toLocaleDateString();
+        document.querySelector('#line1').textContent = today;
+
+        time = now.toLocaleTimeString([], {hour12: true, hour: '2-digit', minute:'2-digit', second:"2-digit"});
+        const pos = time.search(":");
+        console.log("pos is: ", pos);
+        if (pos == 1) {
+            time = "0" + time;
+        }
+        document.querySelector('#line2').textContent = time;
+
+        const len = time.length;
+        const ampm = time.substring(9, 11).toUpperCase();
+        document.querySelector('#line3').textContent = ampm;
+
+        document.querySelector('#line4').textContent = now.toLocaleDateString();
+
+        dayOfWeek = []
+
+
+        dayOfWeek.push("Sunday")
+        dayOfWeek.push("Monday")
+        dayOfWeek.push("Tuesday")
+        dayOfWeek.push("Wednesday")
+        dayOfWeek.push("Thursday")
+        dayOfWeek.push("Friday")
+        dayOfWeek.push("Saturday")
+
+        if(now.getDay() == 0) {
+          document.querySelector('#line5').style.color = "red"
+        } else {
+          document.querySelector('#line5').style.color = "rgb(166, 166, 247)"
+        }
+
+        document.querySelector('#line5').textContent = dayOfWeek[now.getDay()];
+
+      }
+
+      // call the `updateDateTime` function every second
+      setInterval(updateDateTime, 1000);
+    </script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+

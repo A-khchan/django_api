@@ -631,7 +631,7 @@ def logout(request):
 
     return response    
 
-def logout(request):
+def clock(request):
 
     response = render(request, 'clock.html')
 

@@ -221,6 +221,9 @@
         //         -- .itemDiv
         //
         async function fill() {
+            console.log("fromDate: ", "{{ fromDate }}")
+            console.log("toDate: ", "{{ toDate }}")
+
             sessionStorage.setItem("deliveryDate", "{{ fromDate }}")
             sessionStorage.setItem("deliveryDateTo", "{{ toDate }}")            
 

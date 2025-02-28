@@ -727,6 +727,11 @@
                             deliveryDateTo = document.getElementById("deliveryDateTo")
                             deliveryDateTo.value = formatedDate
                             // sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
+                            console.log("sessionStorage.getItem('deliveryDate'): ", sessionStorage.getItem('deliveryDate'))
+                            console.log("sessionStorage.getItem('deliveryDateTo'): ", sessionStorage.getItem('deliveryDateTo'))
+                            console.log("deliveryDate.value:", deliveryDate.value)
+                            console.log("deliveryDateTo.value:", deliveryDateTo.value)
+
                             if(getYMD(deliveryDate.value) < getYMD(sessionStorage.getItem('deliveryDate')) || 
                                getYMD(deliveryDateTo.value) > getYMD(sessionStorage.getItem('deliveryDateTo'))) {
                                 reDirectPage(deliveryDate.value, deliveryDateTo.value)

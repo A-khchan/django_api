@@ -734,7 +734,8 @@
 
                             if(getYMD(deliveryDate.value) < getYMD(sessionStorage.getItem('deliveryDate')) || 
                                getYMD(deliveryDateTo.value) > getYMD(sessionStorage.getItem('deliveryDateTo'))) {
-                                reDirectPage(deliveryDate.value, deliveryDateTo.value)
+                                // reDirectPage(deliveryDate.value, deliveryDateTo.value)
+                                console.log("redirected")
                             }
                         } else {
                             aDate = self.selectedDates[0]

@@ -1571,6 +1571,8 @@ def deliveryList(request):
         context = {
             'errMsg': 'None',
             'delivery_json': delivery_json,
+            'fromDate': fromDate,
+            'toDate': toDate
         }
         response = HttpResponse(template.render(context, request))      
     else:

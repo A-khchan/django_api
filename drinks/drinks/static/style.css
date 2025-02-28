@@ -354,6 +354,7 @@ body {
     border-color: darkcyan;
     border-radius: 5px;
     visibility: hidden;
+    z-index: 10;
 }
 
 .summaryBox {

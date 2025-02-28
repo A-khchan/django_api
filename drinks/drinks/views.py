@@ -1511,49 +1511,59 @@ def deliveryList(request):
     print("deliveryList")
 
     if userName:
-        if request.method == "GET":
-            # today = 
-            fromDate = request.GET.get('fromDate', '')
+        
+        fromDate = request.session.get('fromDate')
+        if not fromDate:
+            fromDate = dt.today().strftime('%m/%d/%Y')
+            request.session['fromDate'] = fromDate
+        fromDate = request.GET.get('fromDate', fromDate)
+
+        toDate = request.session.get('toDate')
+        if not toDate:
+            toDate = dt.today().strftime('%m/%d/%Y')
+            request.session['toDate'] = toDate
+        toDate = request.GET.get('toDate', toDate)
 
         deliveryAll = Delivery.objects.all()
         deliveryArray = []
         for i in range(0, len(deliveryAll), 1):
-            if deliveryAll[i].seq == 0.0: 
-                seq = deliveryAll[i].id + 0.0
-            else:
-                seq = deliveryAll[i].seq
+            if dateCompare(deliveryAll[i].deliveryDate, "GE", fromDate) and dateCompare(deliveryAll[i].deliveryDate, "LE", toDate):
+                if deliveryAll[i].seq == 0.0: 
+                    seq = deliveryAll[i].id + 0.0
+                else:
+                    seq = deliveryAll[i].seq
 
-            itemAll = DeliveryItems.objects.filter(deliveryID=deliveryAll[i].id)
-            itemArray = []
-            for j in range(0, len(itemAll), 1):
-                itemArray.append({
-                    "itemCode": itemAll[j].item,
-                    "box": itemAll[j].quantity1,
-                    "bag": itemAll[j].quantity2
+                itemAll = DeliveryItems.objects.filter(deliveryID=deliveryAll[i].id)
+                itemArray = []
+                for j in range(0, len(itemAll), 1):
+                    itemArray.append({
+                        "itemCode": itemAll[j].item,
+                        "box": itemAll[j].quantity1,
+                        "bag": itemAll[j].quantity2
+                    })
+
+                print("itemArray: ", itemArray)
+
+                deliveryArray.append({
+                    "id": deliveryAll[i].id,
+                    "deliveryDate": deliveryAll[i].deliveryDate,
+                    "lastName": deliveryAll[i].lastName,
+                    "firstName": deliveryAll[i].firstName,
+                    "dateOfBirth": deliveryAll[i].dateOfBirth,
+                    "address": deliveryAll[i].address,
+                    "selfPickup": deliveryAll[i].selfPickup,
+                    "parentID": deliveryAll[i].parentID,
+                    "repeatFreq": deliveryAll[i].repeatFreq,
+                    "eligible": deliveryAll[i].eligible,
+                    "ticketNo": deliveryAll[i].ticketNo,
+                    "leaveAtDoor": deliveryAll[i].leaveAtDoor,
+                    "phoneForPic": deliveryAll[i].phoneForPic,
+                    "status": deliveryAll[i].status,
+                    "log": deliveryAll[i].log,
+                    "comments": deliveryAll[i].comments,
+                    "seq": seq,
+                    "itemList": itemArray,
                 })
-
-            print("itemArray: ", itemArray)
-
-            deliveryArray.append({
-                "id": deliveryAll[i].id,
-                "deliveryDate": deliveryAll[i].deliveryDate,
-                "lastName": deliveryAll[i].lastName,
-                "firstName": deliveryAll[i].firstName,
-                "dateOfBirth": deliveryAll[i].dateOfBirth,
-                "address": deliveryAll[i].address,
-                "selfPickup": deliveryAll[i].selfPickup,
-                "parentID": deliveryAll[i].parentID,
-                "repeatFreq": deliveryAll[i].repeatFreq,
-                "eligible": deliveryAll[i].eligible,
-                "ticketNo": deliveryAll[i].ticketNo,
-                "leaveAtDoor": deliveryAll[i].leaveAtDoor,
-                "phoneForPic": deliveryAll[i].phoneForPic,
-                "status": deliveryAll[i].status,
-                "log": deliveryAll[i].log,
-                "comments": deliveryAll[i].comments,
-                "seq": seq,
-                "itemList": itemArray,
-            })
 
         delivery_json = json.dumps(deliveryArray)
 
@@ -1571,6 +1581,24 @@ def deliveryList(request):
         response = HttpResponse(template.render(context, request))        
 
     return response
+
+def dateCompare(date1, code, date2):
+    date1mm = date1[0:2]
+    date1dd = date1[3:5]
+    date1yyyy = date1[6:10]
+    date1ymd = date1yyyy + date1mm + date1dd
+
+    date2mm = date2[0:2]
+    date2dd = date2[3:5]
+    date2yyyy = date2[6:10]
+    date2ymd = date2yyyy + date2mm + date2dd
+
+    if code == "GE":
+        return date1ymd >= date2ymd
+    if code == "LE":
+        return date1ymd <= date2ymd
+
+    return False
 
 
 def deliverySeqUpdate(request):

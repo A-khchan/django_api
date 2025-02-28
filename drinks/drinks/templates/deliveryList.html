@@ -221,6 +221,9 @@
         //         -- .itemDiv
         //
         async function fill() {
+            sessionStorage.setItem("deliveryDate", "{{ fromDate }}")
+            sessionStorage.setItem("deliveryDateTo", "{{ toDate }}")            
+
             itemSummary = {}
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             delivery_sorted = delivery_json.sort((a, b) => {
@@ -721,6 +724,10 @@
                             deliveryDateTo = document.getElementById("deliveryDateTo")
                             deliveryDateTo.value = formatedDate
                             // sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
+                            if(getYMD(deliveryDate.value) < getYMD(sessionStorage.getItem('deliveryDate')) || 
+                               getYMD(deliveryDateTo.value) > getYMD(sessionStorage.getItem('deliveryDateTo'))) {
+                                reDirectPage(deliveryDate.value, deliveryDateTo.value)
+                            }
                         } else {
                             aDate = self.selectedDates[0]
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`
@@ -739,6 +746,12 @@
                 },
             },
         };        
+
+        function reDirectPage(from, to) {
+            sessionStorage.setItem("deliveryDate", from)
+            sessionStorage.setItem("deliveryDateTo", to)
+            window.location.href = "https://www.roboosoft.com/account/deliveryList/?fromDate=" + from + "&toDate=" + to
+        }
 
         function formatToDate(event) {
             let input = event.target.value;
@@ -777,6 +790,14 @@
             if(event.target.value.length === 2 || event.target.value.length === 5) {
                 event.target.value = event.target.value + '/'
             } 
+        }
+
+        function getYMD(mdyyyy) {
+            yyyy = mdyyyy.substring(6,10)
+            mm = mdyyyy.substring(3,5)
+            dd = mdyyyy.substring(0,2)
+
+            return yyyy + mm + dd
         }
 
     </script>     

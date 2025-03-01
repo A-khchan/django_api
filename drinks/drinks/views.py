@@ -1525,10 +1525,15 @@ def deliveryList(request):
         # toDate = request.GET.get('toDate', toDate)
 
         # Default is today, if URL with input, then use it.
-        fromDate = dt.today().strftime('%m/%d/%Y')
-        fromDate = request.GET.get('fromDate', fromDate)
-        toDate = dt.today().strftime('%m/%d/%Y')
-        toDate = request.GET.get('toDate', toDate)
+        today = dt.today().strftime('%m/%d/%Y')
+        fromDate = request.GET.get('fromDate', today)
+        toDate = request.GET.get('toDate', today)
+
+        if fromDate == "": 
+            fromDate = today - relativedelta(years=1)
+        
+        if toDate == "":
+            toDate = today + relativedelta(years=1)
 
         deliveryAll = Delivery.objects.all()
         deliveryArray = []

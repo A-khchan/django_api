@@ -821,6 +821,9 @@
         document.getElementById('deliveryDate').addEventListener('focus', show_cal);
         document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
 
+        console.log("Context fromDate: ", "{{ fromDate }}")
+        console.log("Context toDate: ", "{{ toDate }}")
+
         //Before fill(), just to ensure if the sessionStorage's date is within the session's date
         if(getYMD(sessionStorage.getItem('deliveryDate')) < getYMD("{{ fromDate }}") || 
             getYMD(sessionStorage.getItem('deliveryDateTo')) > getYMD("{{ toDate }}")) {

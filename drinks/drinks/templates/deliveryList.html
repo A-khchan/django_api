@@ -24,7 +24,11 @@
                         oninput="set_cal(event)">
                     <input class="deliveryDate" id="deliveryDateTo" name="deliveryDateTo" type="text" 
                         oninput="set_cal(event)">
-                    <button onclick="clearDates()">Clear</button>
+                    <div class="flex_row_middle_up">
+                        <button onclick="retrieve()">Go</button>
+                        <button onclick="clearDates()">Clear</button>
+                    </div>
+
                 </div>
                 <div class="flex_column">
                     <span class="label_long">Last/First Name:</span> 
@@ -94,6 +98,21 @@
             // }
 
             reDisplay()
+        }
+
+        function retrieve() {
+            deliveryDate = document.getElementById("deliveryDate")
+            deliveryDateTo = document.getElementById("deliveryDateTo")
+
+            if(getYMD(deliveryDate.value) < getYMD("{{ fromDate }}") || 
+               getYMD(deliveryDateTo.value) > getYMD("{{ toDate }}")) {
+                reDirectPage(deliveryDate.value, deliveryDateTo.value)
+                console.log("redirected")
+            } else {
+                sessionStorage.setItem("deliveryDate", deliveryDate.value)
+                sessionStorage.setItem("deliveryDateTo", deliveryDateTo.value)            
+                reDisplay()
+            }
         }
 
         function updateSeq(fromSeq, toSeq) {
@@ -635,7 +654,7 @@
                 event.target.style.backgroundColor = "red"
             }
 
-            checkDate()
+            // checkDate()
         }
 
         function checkDate() {
@@ -727,16 +746,16 @@
                             deliveryDateTo = document.getElementById("deliveryDateTo")
                             deliveryDateTo.value = formatedDate
                             // sessionStorage.setItem(deliveryDateTo.id, deliveryDateTo.value)
-                            console.log("sessionStorage.getItem('deliveryDate'): ", sessionStorage.getItem('deliveryDate'))
-                            console.log("sessionStorage.getItem('deliveryDateTo'): ", sessionStorage.getItem('deliveryDateTo'))
-                            console.log("deliveryDate.value:", deliveryDate.value)
-                            console.log("deliveryDateTo.value:", deliveryDateTo.value)
+                            // console.log("sessionStorage.getItem('deliveryDate'): ", sessionStorage.getItem('deliveryDate'))
+                            // console.log("sessionStorage.getItem('deliveryDateTo'): ", sessionStorage.getItem('deliveryDateTo'))
+                            // console.log("deliveryDate.value:", deliveryDate.value)
+                            // console.log("deliveryDateTo.value:", deliveryDateTo.value)
 
-                            if(getYMD(deliveryDate.value) < getYMD(sessionStorage.getItem('deliveryDate')) || 
-                               getYMD(deliveryDateTo.value) > getYMD(sessionStorage.getItem('deliveryDateTo'))) {
-                                reDirectPage(deliveryDate.value, deliveryDateTo.value)
-                                console.log("redirected")
-                            }
+                            // if(getYMD(deliveryDate.value) < getYMD(sessionStorage.getItem('deliveryDate')) || 
+                            //    getYMD(deliveryDateTo.value) > getYMD(sessionStorage.getItem('deliveryDateTo'))) {
+                            //     reDirectPage(deliveryDate.value, deliveryDateTo.value)
+                            //     console.log("redirected")
+                            // }
                         } else {
                             aDate = self.selectedDates[0]
                             formatedDate = `${aDate.substring(5, 7)}/${aDate.substring(8, 10)}/${aDate.substring(0, 4)}`

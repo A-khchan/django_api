@@ -824,6 +824,13 @@
         console.log("Context fromDate: ", "{{ fromDate }}")
         console.log("Context toDate: ", "{{ toDate }}")
 
+        if(sessionStorage.getItem('deliveryDate') == null) {
+            sessionStorage.setItem("deliveryDate", "{{ fromDate }}")
+        }
+        if(sessionStorage.getItem('deliveryDateTo') == null) {
+            sessionStorage.setItem("deliveryDateTo", "{{ toDate }}")
+        }
+
         //Before fill(), just to ensure if the sessionStorage's date is within the session's date
         if(getYMD(sessionStorage.getItem('deliveryDate')) < getYMD("{{ fromDate }}") || 
             getYMD(sessionStorage.getItem('deliveryDateTo')) > getYMD("{{ toDate }}")) {

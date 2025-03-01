@@ -243,9 +243,6 @@
             console.log("fromDate: ", "{{ fromDate }}")
             console.log("toDate: ", "{{ toDate }}")
 
-            sessionStorage.setItem("deliveryDate", "{{ fromDate }}")
-            sessionStorage.setItem("deliveryDateTo", "{{ toDate }}")            
-
             itemSummary = {}
             const delivery_json = JSON.parse('{{ delivery_json|escapejs }}')            
             delivery_sorted = delivery_json.sort((a, b) => {
@@ -587,11 +584,6 @@
             return itemDict
         }
 
-        fill()
-
-        document.getElementById('deliveryDate').addEventListener('focus', show_cal);
-        document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
-
         function show_cal(event) {
             set_cal(event)
 
@@ -776,8 +768,6 @@
         };        
 
         function reDirectPage(from, to) {
-            sessionStorage.setItem("deliveryDate", from)
-            sessionStorage.setItem("deliveryDateTo", to)
             window.location.href = "https://www.roboosoft.com/account/deliveryList/?fromDate=" + from + "&toDate=" + to
         }
 
@@ -827,6 +817,21 @@
 
             return yyyy + mm + dd
         }
+
+        //Before fill(), just to ensure if the sessionStorage's date is within the session's date
+        if(getYMD(sessionStorage.getItem('deliveryDate')) < getYMD("{{ fromDate }}") || 
+            getYMD(sessionStorage.getItem('deliveryDateTo')) > getYMD("{{ toDate }}")) {
+            reDirectPage(deliveryDate.value, deliveryDateTo.value)
+            console.log("redirected")
+        } else {
+            document.getElementById("deliveryDate").value = sessionStorage.getItem('deliveryDate')
+            document.getElementById("deliveryDateTo").value = sessionStorage.getItem('deliveryDateTo')          
+        }
+
+        fill()
+
+        document.getElementById('deliveryDate').addEventListener('focus', show_cal);
+        document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
 
     </script>     
 

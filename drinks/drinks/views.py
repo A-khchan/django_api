@@ -1512,16 +1512,22 @@ def deliveryList(request):
 
     if userName:
         
-        fromDate = request.session.get('fromDate')
-        if not fromDate:
-            fromDate = dt.today().strftime('%m/%d/%Y')
-            request.session['fromDate'] = fromDate
-        fromDate = request.GET.get('fromDate', fromDate)
+        # fromDate = request.session.get('fromDate')
+        # if not fromDate:
+        #     fromDate = dt.today().strftime('%m/%d/%Y')
+        #     request.session['fromDate'] = fromDate
+        # fromDate = request.GET.get('fromDate', fromDate)
 
-        toDate = request.session.get('toDate')
-        if not toDate:
-            toDate = dt.today().strftime('%m/%d/%Y')
-            request.session['toDate'] = toDate
+        # toDate = request.session.get('toDate')
+        # if not toDate:
+        #     toDate = dt.today().strftime('%m/%d/%Y')
+        #     request.session['toDate'] = toDate
+        # toDate = request.GET.get('toDate', toDate)
+
+        # Default is today, if URL with input, then use it.
+        fromDate = dt.today().strftime('%m/%d/%Y')
+        fromDate = request.GET.get('fromDate', fromDate)
+        toDate = dt.today().strftime('%m/%d/%Y')
         toDate = request.GET.get('toDate', toDate)
 
         deliveryAll = Delivery.objects.all()

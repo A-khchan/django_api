@@ -103,14 +103,14 @@
         function retrieve() {
             deliveryDate = document.getElementById("deliveryDate")
             deliveryDateTo = document.getElementById("deliveryDateTo")
+            sessionStorage.setItem("deliveryDate", deliveryDate.value)
+            sessionStorage.setItem("deliveryDateTo", deliveryDateTo.value)            
 
             if(getYMD(deliveryDate.value) < getYMD("{{ fromDate }}") || 
                getYMD(deliveryDateTo.value) > getYMD("{{ toDate }}")) {
                 reDirectPage(deliveryDate.value, deliveryDateTo.value)
                 console.log("redirected")
             } else {
-                sessionStorage.setItem("deliveryDate", deliveryDate.value)
-                sessionStorage.setItem("deliveryDateTo", deliveryDateTo.value)            
                 reDisplay()
             }
         }

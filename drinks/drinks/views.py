@@ -1530,10 +1530,12 @@ def deliveryList(request):
         toDate = request.GET.get('toDate', today)
 
         if fromDate == "": 
-            fromDate = today - relativedelta(years=1)
+            oneYearAgo = dt.today() - relativedelta(years=1)
+            fromDate = oneYearAgo.strftime('%m/%d/%Y')
         
         if toDate == "":
-            toDate = today + relativedelta(years=1)
+            oneYearLater = dt.today() + relativedelta(years=1)
+            toDate = oneYearLater.strftime('%m/%d/%Y')
 
         deliveryAll = Delivery.objects.all()
         deliveryArray = []

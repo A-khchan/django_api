@@ -834,7 +834,7 @@
         //Before fill(), just to ensure if the sessionStorage's date is within the session's date
         if(getYMD(sessionStorage.getItem('deliveryDate')) < getYMD("{{ fromDate }}") || 
             getYMD(sessionStorage.getItem('deliveryDateTo')) > getYMD("{{ toDate }}")) {
-            reDirectPage(deliveryDate.value, deliveryDateTo.value)
+            reDirectPage(sessionStorage.getItem('deliveryDate'), sessionStorage.getItem('deliveryDateTo'))
             console.log("redirected")
         } else {
             document.getElementById("deliveryDate").value = sessionStorage.getItem('deliveryDate')

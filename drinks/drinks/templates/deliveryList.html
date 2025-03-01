@@ -818,6 +818,9 @@
             return yyyy + mm + dd
         }
 
+        document.getElementById('deliveryDate').addEventListener('focus', show_cal);
+        document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
+
         //Before fill(), just to ensure if the sessionStorage's date is within the session's date
         if(getYMD(sessionStorage.getItem('deliveryDate')) < getYMD("{{ fromDate }}") || 
             getYMD(sessionStorage.getItem('deliveryDateTo')) > getYMD("{{ toDate }}")) {
@@ -830,8 +833,6 @@
 
         fill()
 
-        document.getElementById('deliveryDate').addEventListener('focus', show_cal);
-        document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
 
     </script>     
 

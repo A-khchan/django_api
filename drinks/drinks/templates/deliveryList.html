@@ -103,11 +103,35 @@
             reDisplay()
         }
 
+        function todayPlusYear(year) {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            newYear = parseInt(yyyy) + year
+
+            return mm + '/' + dd + '/' + newYear;
+        }
+
         function retrieve() {
             deliveryDate = document.getElementById("deliveryDate")
             deliveryDateTo = document.getElementById("deliveryDateTo")
-            sessionStorage.setItem("deliveryDate", deliveryDate.value)
-            sessionStorage.setItem("deliveryDateTo", deliveryDateTo.value)            
+
+            if(deliveryDate.value == "") {
+                strDeliveryDate = todayPlusYear(-1)
+            } else {
+                strDeliveryDate = deliveryDate.value
+            }
+
+            if(deliveryDateTo.value == "") {
+                strDeliveryDateTo = todayPlusYear(1)
+            } else {
+                strDeliveryDateTo = deliveryDateTo.value
+            }
+
+            sessionStorage.setItem("deliveryDate", strDeliveryDate)
+            sessionStorage.setItem("deliveryDateTo", strDeliveryDateTo)            
 
             if(getYMD(deliveryDate.value) < getYMD("{{ fromDate }}") || 
                getYMD(deliveryDateTo.value) > getYMD("{{ toDate }}")) {

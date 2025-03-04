@@ -1145,6 +1145,7 @@ def deliveryForm(request):
                     "firstName": delivery.firstName,
                     "dateOfBirth": delivery.dateOfBirth,
                     "address": delivery.address,
+                    "category": delivery.category,
                     "selfPickup": delivery.selfPickup,
                     "parentID": delivery.parentID,
                     "repeatFreq": delivery.repeatFreq,
@@ -1207,6 +1208,7 @@ def deliveryAdd(request):
                         dateOfBirth = request.POST['dateOfBirth'],
                         deliveryDate = request.POST['deliveryDate'],
                         address = request.POST['address'],
+                        category = request.POST['category'],
                         selfPickup = request.POST['selfPickup'],
                         parentID = parentID,
                         repeatFreq = request.POST['repeatFreq'],
@@ -1258,6 +1260,7 @@ def deliveryAdd(request):
                                 dateOfBirth = request.POST['dateOfBirth'],
                                 deliveryDate = nextDeliveryDate.strftime("%m/%d/%Y"),
                                 address = request.POST['address'],
+                                category = request.POST['category'],
                                 selfPickup = request.POST['selfPickup'],
                                 parentID = parentID,
                                 repeatFreq = request.POST['repeatFreq'],
@@ -1336,6 +1339,7 @@ def deliveryUpdate(request):
             deliveryObj.dateOfBirth = request.POST['dateOfBirth']
             deliveryObj.deliveryDate = request.POST['deliveryDate']
             deliveryObj.address = request.POST['address']
+            deliveryObj.category = request.POST['category']
             deliveryObj.selfPickup = request.POST['selfPickup']
             deliveryObj.parentID = parentID
             deliveryObj.repeatFreq = request.POST['repeatFreq']
@@ -1394,6 +1398,7 @@ def deliveryUpdate(request):
                                 dateOfBirth = request.POST['dateOfBirth'],
                                 deliveryDate = nextDeliveryDate.strftime("%m/%d/%Y"),
                                 address = request.POST['address'],
+                                category = request.POST['category'],
                                 selfPickup = request.POST['selfPickup'],
                                 parentID = parentID,
                                 repeatFreq = request.POST['repeatFreq'],
@@ -1564,6 +1569,7 @@ def deliveryList(request):
                     "firstName": deliveryAll[i].firstName,
                     "dateOfBirth": deliveryAll[i].dateOfBirth,
                     "address": deliveryAll[i].address,
+                    "category": deliveryAll[i].category,
                     "selfPickup": deliveryAll[i].selfPickup,
                     "parentID": deliveryAll[i].parentID,
                     "repeatFreq": deliveryAll[i].repeatFreq,

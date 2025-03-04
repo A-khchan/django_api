@@ -38,6 +38,20 @@
                             oninput="set_cal(event)"><br>
                     </div>
                     <div class="contentVerticallyCenter">
+                        <span class="label_long">Category:</span> 
+                        <div class="radio_group">
+                            <div>
+                                <input type="radio" name="category" id="category_HNet" value="HNet" checked />
+                                <label for="HNet">HNet</label>
+                            </div>                        
+                            <div>
+                                <input type="radio" name="category" id="category_Calopt" value="Calopt" />
+                                <label for="Calopt">Calopt</label>
+                            </div>                        
+                        </div>
+                    </div>
+
+                    <div class="contentVerticallyCenter">
                         <span class="label_long">Self pickup:</span> 
                         <div class="radio_group">
                             <div>
@@ -232,6 +246,8 @@
 
         document.getElementById('lastName').addEventListener('focus', hide_cal );
         document.getElementById('firstName').addEventListener('focus', hide_cal );
+        document.getElementsByName('category')[0].addEventListener('click', hide_cal );
+        document.getElementsByName('category')[1].addEventListener('click', hide_cal );
         document.getElementsByName('selfPickup')[0].addEventListener('click', hide_cal );
         document.getElementsByName('selfPickup')[1].addEventListener('click', hide_cal );
         document.getElementById('address').addEventListener('focus', hide_cal );
@@ -492,6 +508,7 @@
                 document.getElementById("firstName").value = '{{ firstName }}'
                 document.getElementById("dateOfBirth").value = '{{ dateOfBirth }}'
                 document.getElementById("address").value = '{{ address }}'
+                document.getElementById("category_" + '{{ category }}').checked = true
                 document.getElementById("selfPickup_" + '{{ selfPickup }}').checked = true
                 // document.getElementById("").value = '{{ parentID }}'
                 document.getElementById("repeatFreq_" + '{{ repeatFreq }}').checked = true

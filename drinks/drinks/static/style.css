@@ -286,7 +286,7 @@ body {
     display: flex;
     flex-direction: column;
     align-content: left;
-    justify-items: start;
+    justify-content: start;
 }
 
 .item_column {

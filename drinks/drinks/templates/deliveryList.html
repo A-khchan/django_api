@@ -36,6 +36,23 @@
                     <input class="filterNameDiv" id="firstName" name="firstName" type="text" oninput="reDisplay()">
                     <button onclick="clearName()">Clear</button>
                 </div>
+                <div class="flex_column">
+                    <span class="label_long">Category:</span> 
+                    <div class="radio_group">
+                        <div class="radio_button">
+                            <input type="radio" name="category" id="category_All" value="all" checked />
+                            <label for="all">All</label>
+                        </div>                        
+                        <div class="radio_button">
+                            <input type="radio" name="category" id="category_HNet" value="HNet" />
+                            <label for="HNet">HNet</label>
+                        </div>                        
+                        <div class="radio_button">
+                            <input type="radio" name="category" id="category_Calopt" value="Calopt" />
+                            <label for="Calopt">Calopt</label>
+                        </div>                        
+                    </div>
+                </div>
             </div>
         </div>
         <div class="delivery_list" id="deliveryList">
@@ -179,6 +196,8 @@
             event.target.style.backgroundColor = "white"
         }
 
+        var categoryFilter = "All"
+
         function reDisplay() {
             deliveryDate = document.getElementById("deliveryDate")
             deliveryDateTo = document.getElementById("deliveryDateTo")
@@ -189,6 +208,14 @@
             firstName = document.getElementById("firstName")
             sessionStorage.setItem(lastName.id, lastName.value)
             sessionStorage.setItem(firstName.id, firstName.value)
+
+            categoryFilter
+            categoryRadio = document.getElementsByName("category")
+            categoryRadio.forEach(radioButton => {
+                if (radioButton.checked) {
+                    categoryFilter = radioButton.value;
+                }
+            })
 
             // deliveryList = document.getElementById("deliveryList")
             // const items = Array.from(deliveryList.querySelectorAll(".delivery_box"))
@@ -327,6 +354,9 @@
                 addressDiv.className = "textDiv"
                 addressDiv.innerText = element.address
 
+                categoryDiv = document.createElement("div")
+                categoryDiv.innerText = element.category
+
                 eligibleDiv = document.createElement("div")
                 eligibleDiv.className = "textDiv"
                 if(element.eligible == "P")
@@ -356,6 +386,8 @@
                 basic.appendChild(nameDiv)
                 basic.appendChild(dot.cloneNode(true))
                 basic.appendChild(addressDiv)
+                basic.appendChild(dot.cloneNode(true))
+                basic.appendChild(categoryDiv)
                 basic.appendChild(dot.cloneNode(true))
                 basic.appendChild(eligibleDiv)
 
@@ -539,6 +571,7 @@
             const deliveryDateDiv = basic.querySelector("#deliveryDate")
             deliveryDate = deliveryDateDiv.innerText.substring(deliveryDateDiv.innerText.length - 10, deliveryDateDiv.innerText.length)
             name = basic.querySelector(".nameDiv").innerText
+            category = basic.querySelector(".categoryDiv").innerText
 
             // console.log("shouldShow, deliveryDate: ", deliveryDate)
             var result = false
@@ -562,6 +595,14 @@
                         result = false
                     else
                         result = true
+                }
+            }
+
+            if(result) {
+                if(categoryFilter != "All") {
+                    if(categoryFilter != category) {
+                        result = false
+                    }
                 }
             }
 
@@ -847,6 +888,10 @@
 
         document.getElementById('deliveryDate').addEventListener('focus', show_cal);
         document.getElementById('deliveryDateTo').addEventListener('focus', show_cal);
+
+        document.getElementById('category_All').addEventListener('change', reDisplay);
+        document.getElementById('category_HNet').addEventListener('change', reDisplay);
+        document.getElementById('category_Calopt').addEventListener('change', reDisplay);
 
         console.log("Context fromDate: ", "{{ fromDate }}")
         console.log("Context toDate: ", "{{ toDate }}")

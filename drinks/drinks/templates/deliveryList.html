@@ -207,11 +207,11 @@
             sessionStorage.setItem(lastName.id, lastName.value)
             sessionStorage.setItem(firstName.id, firstName.value)
 
-            categoryFilter
             categoryRadio = document.getElementsByName("category")
             categoryRadio.forEach(radioButton => {
                 if (radioButton.checked) {
                     categoryFilter = radioButton.value;
+                    sessionStorage.setItem("category", categoryFilter)
                 }
             })
 
@@ -479,7 +479,12 @@
             if(sessionStorage.getItem('firstName')) {
                 document.getElementById('firstName').value = sessionStorage.getItem('firstName')
                 needRedisplay = true
-            }            
+            }
+            if(sessionStorage.getItem('category')) {
+                document.getElementById('category_' + sessionStorage.getItem('category')).checked = true
+                if(sessionStorage.getItem('category') != "All")
+                    needRedisplay = true
+            }
             if(needRedisplay)
                 reDisplay()
 

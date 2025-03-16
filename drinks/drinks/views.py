@@ -1156,7 +1156,7 @@ def deliveryForm(request):
                     "status": delivery.status,
                     "log": delivery.log,
                     "comments": """testing
-line 2""",
+line""",
                     # delivery.comments.replace('\n','\\n'),
                     "seq": delivery.seq,
                     "itemList": json.dumps(itemArray),
@@ -1582,7 +1582,7 @@ def deliveryList(request):
                     "status": deliveryAll[i].status,
                     "log": deliveryAll[i].log,
                     "comments": """testing
-line 2""",
+line""",
                     # deliveryAll[i].comments.replace('\n','\\n'),
                     "seq": seq,
                     "itemList": itemArray,

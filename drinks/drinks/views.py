@@ -1218,7 +1218,7 @@ def deliveryAdd(request):
                         phoneForPic = request.POST['phoneForPic'],
                         status = 'Planned',
                         log = '',
-                        comments = None)
+                        comments = request.POST['comments'])
             deliveryObj.save()
             addItem(request, deliveryObj)
 
@@ -1270,7 +1270,7 @@ def deliveryAdd(request):
                                 phoneForPic = request.POST['phoneForPic'],
                                 status = 'Planned',
                                 log = '',
-                                comments = None)
+                                comments = request.POST['comments'])
                     deliveryObj.save()
                     lastDeliveryDate = nextDeliveryDate
                     addItem(request, deliveryObj)
@@ -1350,7 +1350,7 @@ def deliveryUpdate(request):
             deliveryObj.phoneForPic = request.POST['phoneForPic']
             deliveryObj.status = 'Planned'
             deliveryObj.log = ''
-            deliveryObj.comments = None
+            deliveryObj.comments = request.POST['comments']
             deliveryObj.save()
 
             removeItem(int(request.POST['deliveryID']))
@@ -1408,7 +1408,7 @@ def deliveryUpdate(request):
                                 phoneForPic = request.POST['phoneForPic'],
                                 status = 'Planned',
                                 log = '',
-                                comments = None)
+                                comments = request.POST['comments'])
                     deliveryObj.save()
                     lastDeliveryDate = nextDeliveryDate
                     addItem(request, deliveryObj)

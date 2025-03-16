@@ -138,6 +138,10 @@
                             <div id="cost"></div>
                         </div>
                     </div>
+                    <div class="contentVerticallyCenter">
+                        <span class="label_long">Comment:</span> <textarea class="textField" id="comments" name="comments" oninput="clearMessage()"><br>
+                    </div>
+
 
                     <br>
                     <div class="flex_row_middle_up">
@@ -253,6 +257,7 @@
         document.getElementById('address').addEventListener('focus', hide_cal );
         document.getElementById('leaveAtDoor_Y').addEventListener('click', hide_cal );
         document.getElementById('leaveAtDoor_N').addEventListener('click', hide_cal );
+        document.getElementById('comments').addEventListener('focus', hide_cal );
 
         function clearMessage() {
             document.getElementById('message').innerText = ''; // Clear the message
@@ -527,9 +532,9 @@
                 document.getElementById("leaveAtDoor_" + '{{ leaveAtDoor }}').checked = true
                 document.getElementById("phoneForPic").value = '{{ phoneForPic }}'
                 document.getElementById("ticketNo").value = '{{ ticketNo }}'
+                document.getElementById("comments").value = '{{ comments }}'
                 // document.getElementById("").value = '{{ status }}'
                 // document.getElementById("").value = '{{ log }}'
-                // document.getElementById("").value = '{{ comments }}'
                 // document.getElementById("").value = '{{ seq }}'
 
                 first = true

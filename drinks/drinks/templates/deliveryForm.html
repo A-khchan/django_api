@@ -532,7 +532,7 @@
                 document.getElementById("leaveAtDoor_" + '{{ leaveAtDoor }}').checked = true
                 document.getElementById("phoneForPic").value = '{{ phoneForPic }}'
                 document.getElementById("ticketNo").value = '{{ ticketNo }}'
-                document.getElementById("comments").value =  'default'
+                document.getElementById("comments").value =  JSON.parse('{{ comments|escapejs }}')
                 //'{{ comments }}'    
                 // document.getElementById("").value = '{{ status }}'
                 // document.getElementById("").value = '{{ log }}'

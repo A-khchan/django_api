@@ -1156,7 +1156,6 @@ def deliveryForm(request):
                     "status": delivery.status,
                     "log": delivery.log,
                     "comments": json.dumps(delivery.comments),
-                    # delivery.comments.replace('\n','\\n'),
                     "seq": delivery.seq,
                     "itemList": json.dumps(itemArray),
                     "errMsg": Msg,
@@ -1580,9 +1579,7 @@ def deliveryList(request):
                     "phoneForPic": deliveryAll[i].phoneForPic,
                     "status": deliveryAll[i].status,
                     "log": deliveryAll[i].log,
-                    "comments": """testing
-line""",
-                    # deliveryAll[i].comments.replace('\n','\\n'),
+                    "comments": json.dumps(deliveryAll[i].comments),
                     "seq": seq,
                     "itemList": itemArray,
                 })

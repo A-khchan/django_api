@@ -395,9 +395,9 @@
                 return response.json()
             })
             .then((data) => {
-                data.sort(
-                    (a, b) => a.itemCode > b.itemCode
-                )
+                // data.sort(
+                //     (a, b) => a.itemCode > b.itemCode
+                // )
 
                 itemCodeArray = [...data]
                 selectDiv = document.getElementById("itemCode")

@@ -1753,7 +1753,7 @@ def itemList(request):
     userName = request.session.get('userName')
 
     if userName:
-        itemSetupAll = ItemSetup.objects.all()
+        itemSetupAll = ItemSetup.objects.all().order_by('itemCode')
         itemArray = []
         for i in range(0, len(itemSetupAll), 1):
             itemArray.append({

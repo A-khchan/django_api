@@ -925,6 +925,8 @@ def post(request):
             else:
                 blob_name = None
 
+            print("url from POST is: ", request.POST['url'])
+
             postObj = Post.objects.create(
                             date = dt.now(pytz.utc).isoformat(),
                             author = request.session.get('userName'), 

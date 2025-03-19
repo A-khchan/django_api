@@ -931,7 +931,8 @@ def post(request):
                             title = request.POST['title'],
                             content = request.POST['content'],
                             image = blob_name,
-                            replyID = None)
+                            replyID = None,
+                            url = request.POST['url'])
             postObj.save()
 
             allowDel = "N"

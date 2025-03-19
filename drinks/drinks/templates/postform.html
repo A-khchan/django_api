@@ -49,6 +49,14 @@
                 <input type="file" id="file" name="image" accept="image/*" onchange="loadFile(event)" style="display: none;">
                 <img id="output" width="200" />
                 <br>
+
+                <div class="contentVerticallyCenter">
+                    <span class="label">URL</span>
+                    <div class="textFieldDiv">
+                        <input class="textField" name="url" type="text"><br>
+                    </div>                            
+                </div>
+
                 <input class="button" type="submit" value="Post">   
             </form>
             <span>{{ postMsg }}</span>
@@ -151,6 +159,13 @@
                 content.innerText = element.content
 
                 child.appendChild(content)
+
+                if(element.url) {
+                    url = document.createElement("a")
+                    url.href = element.url
+                    url.textContent = element.url
+                    child.appendChild(url)
+                }
 
                 if(element.image && element.image != "none" && element.image != "null") {
                     console.log("image name: " + element.image)

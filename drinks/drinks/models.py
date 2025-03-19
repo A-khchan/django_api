@@ -38,6 +38,7 @@ class Post(models.Model):
     content = models.TextField()
     image = models.CharField(max_length=200, blank=True, null=True)
     replyID = models.TextField(blank=True, null=True)
+    url = models.CharField(max_length=1000, blank=True, null=True)
 
 class Delivery(models.Model):
     lastName = models.CharField(max_length=100)

@@ -8,7 +8,7 @@ Steps to start django server on GCP VM
 > cd ~
 > source python-venv/bin/activate
 > cd django_api/drinks
-> nohup python3 manage.py runserver 0.0.0.0:8000 &
+> nohup python3 manage.py runserver 0.0.0.0:8000 &> django.log &
 
 
 After update models.py, goto the directory containing manage.py (ensure u're in v-env)

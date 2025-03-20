@@ -1131,7 +1131,7 @@ def deliveryForm(request):
             Msg = request.GET.get('msg', '')
             if not deliveryID == '0':
                 delivery = Delivery.objects.filter(id=int(deliveryID)).first()
-                itemAll = DeliveryItems.objects.filter(deliveryID=int(deliveryID)).order_by('itemCode')
+                itemAll = DeliveryItems.objects.filter(deliveryID=int(deliveryID)).order_by('item')
                 itemArray = []
                 for j in range(0, len(itemAll), 1):
                     itemArray.append({
@@ -1554,7 +1554,7 @@ def deliveryList(request):
                 else:
                     seq = deliveryAll[i].seq
 
-                itemAll = DeliveryItems.objects.filter(deliveryID=deliveryAll[i].id).order_by('itemCode')
+                itemAll = DeliveryItems.objects.filter(deliveryID=deliveryAll[i].id).order_by('item')
                 itemArray = []
                 for j in range(0, len(itemAll), 1):
                     itemArray.append({
